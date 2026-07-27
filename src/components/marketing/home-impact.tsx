@@ -1,0 +1,73 @@
+"use client";
+
+import Link from "next/link";
+import { motion, useReducedMotion } from "framer-motion";
+import { Award, IndianRupee, TrendingUp, Users } from "lucide-react";
+
+import { buttonVariants } from "@/components/ui/button-variants";
+import { homeContent } from "@/data/home";
+import { cn } from "@/lib/utils";
+
+const iconMap = {
+  rupee: IndianRupee,
+  trend: TrendingUp,
+  people: Users,
+  support: Award,
+} as const;
+
+export function HomeImpact() {
+  const reduceMotion = useReducedMotion();
+  const { impact } = homeContent;
+
+  return (
+    <section className="border-border/70 border-b">
+      <div className="bg-primary text-primary-foreground relative overflow-hidden">
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_0%,color-mix(in_oklch,var(--accent)_28%,transparent),transparent_45%),radial-gradient(circle_at_90%_100%,color-mix(in_oklch,white_10%,transparent),transparent_40%)]"
+        />
+        <div className="relative mx-auto grid w-full max-w-6xl gap-10 px-4 py-14 sm:grid-cols-2 sm:px-6 sm:py-16 lg:grid-cols-4 lg:gap-6">
+          {impact.items.map((item, index) => {
+            const Icon = iconMap[item.icon];
+            return (
+              <motion.div
+                key={item.label}
+                className="flex flex-col items-center text-center"
+                initial={reduceMotion ? false : { opacity: 0, y: 14 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.4 }}
+                transition={{
+                  duration: 0.45,
+                  delay: index * 0.05,
+                  ease: [0.22, 1, 0.36, 1],
+                }}
+              >
+                <span className="bg-accent text-accent-foreground grid size-12 place-items-center rounded-2xl shadow-[0_10px_30px_color-mix(in_oklch,var(--accent)_45%,transparent)]">
+                  <Icon className="size-5" aria-hidden />
+                </span>
+                <p className="font-heading mt-5 text-3xl font-semibold tracking-tight sm:text-4xl">
+                  {item.value}
+                </p>
+                <p className="text-primary-foreground/75 mt-2 text-xs font-medium tracking-[0.18em] uppercase">
+                  {item.label}
+                </p>
+              </motion.div>
+            );
+          })}
+        </div>
+      </div>
+
+      <div className="flex justify-center px-4 py-8 sm:px-6">
+        <Link
+          href={impact.cta.href}
+          className={cn(
+            buttonVariants({ variant: "outline", size: "lg" }),
+            "border-accent text-accent-foreground hover:bg-accent/10",
+          )}
+        >
+          {impact.cta.label} →
+        </Link>
+      </div>
+    </section>
+  );
+}
