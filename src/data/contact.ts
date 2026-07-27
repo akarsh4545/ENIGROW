@@ -6,6 +6,15 @@ export const contactContent = {
   hours: "Monday–Saturday, 9:30 AM – 6:00 PM IST · Sunday closed",
   coverage:
     "Serving businesses pan-India through remote advisory and structured documentation workflows.",
+  office: {
+    label: "Registered office",
+    lines: [
+      "Enigrow Startup Advisory Pvt Ltd",
+      "B-128, 1st Floor, Sector-2, Noida",
+      "Gautam Buddha Nagar, U.P. - 201301",
+      "CIN: U82990UW2026PTC255445",
+    ],
+  },
   whyContact: [
     "Free initial consultation to understand your stage",
     "Scheme and registration pathway guidance",

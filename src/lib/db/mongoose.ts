@@ -17,12 +17,28 @@ const cached: MongooseCache = global.mongooseCache ?? {
 global.mongooseCache = cached;
 
 export function assertMongoUri(): string {
-  const uri = process.env.MONGODB_URI;
+  let uri = process.env.MONGODB_URI?.trim() ?? "";
+
+  // Common Vercel paste issue: value saved with surrounding quotes
+  if (
+    (uri.startsWith('"') && uri.endsWith('"')) ||
+    (uri.startsWith("'") && uri.endsWith("'"))
+  ) {
+    uri = uri.slice(1, -1).trim();
+  }
+
   if (!uri) {
     throw new Error(
       "Missing MONGODB_URI. Add it in Vercel Project Settings → Environment Variables (and locally in .env.local).",
     );
   }
+
+  if (!uri.startsWith("mongodb://") && !uri.startsWith("mongodb+srv://")) {
+    throw new Error(
+      'Invalid MONGODB_URI. It must start with "mongodb://" or "mongodb+srv://". In Vercel, paste the full Atlas string with no quotes around it.',
+    );
+  }
+
   return uri;
 }
 

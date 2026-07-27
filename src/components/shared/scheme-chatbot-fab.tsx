@@ -35,7 +35,10 @@ function uid() {
 }
 
 export function SchemeChatbotFab() {
-  const hasWhatsApp = Boolean(siteConfig.whatsappNumber?.replace(/\D/g, ""));
+  const hasContactFabs = Boolean(
+    siteConfig.whatsappNumber?.replace(/\D/g, "") ||
+    siteConfig.supportPhone?.replace(/\D/g, ""),
+  );
   const [open, setOpen] = useState(false);
   const [step, setStep] = useState<ChatStep>("need");
   const [need, setNeed] = useState("");
@@ -118,7 +121,9 @@ export function SchemeChatbotFab() {
         <div
           className={cn(
             "border-border/80 bg-background fixed right-4 z-50 flex h-[min(34rem,calc(100dvh-7.5rem))] w-[min(22.5rem,calc(100vw-2rem))] flex-col overflow-hidden rounded-2xl border shadow-2xl sm:right-6",
-            hasWhatsApp ? "bottom-24 sm:bottom-28" : "bottom-20 sm:bottom-24",
+            hasContactFabs
+              ? "bottom-52 sm:bottom-56"
+              : "bottom-20 sm:bottom-24",
           )}
           role="dialog"
           aria-label="Scheme recommendation chatbot"
@@ -265,7 +270,9 @@ export function SchemeChatbotFab() {
         aria-expanded={open}
         className={cn(
           "bg-primary text-primary-foreground hover:bg-primary/90 focus-visible:ring-primary/40 fixed right-4 z-50 inline-flex size-14 items-center justify-center rounded-full shadow-lg transition hover:scale-105 focus-visible:ring-2 focus-visible:outline-none sm:right-6",
-          hasWhatsApp ? "bottom-20 sm:bottom-24" : "bottom-4 sm:bottom-6",
+          hasContactFabs
+            ? "bottom-[9.5rem] sm:bottom-40"
+            : "bottom-4 sm:bottom-6",
         )}
       >
         {open ? <X className="size-6" /> : <Bot className="size-6" />}

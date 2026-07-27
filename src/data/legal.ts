@@ -13,7 +13,7 @@ export const privacyContent: LegalPage = {
     {
       heading: "Who we are",
       paragraphs: [
-        "This policy applies to Enigrow Startup Advisory Pvt Ltd (“Enigrow”, “we”, “us”) and the websites, forms, and tools we operate.",
+        "This policy applies to Enigrow Startup Advisory Pvt Ltd (“Enigrow”, “we”, “us”), CIN: U82990UW2026PTC255445, registered office at B-128, 1st Floor, Sector-2, Noida, Gautam Buddha Nagar, U.P. - 201301, and the websites, forms, and tools we operate.",
         "It explains what we collect, why we use it, and the choices available to you.",
       ],
     },
@@ -62,8 +62,9 @@ export const privacyContent: LegalPage = {
     {
       heading: "Jurisdiction & updates",
       paragraphs: [
-        "This policy is governed by the laws of India. We may update it from time to time; the “updated” date above reflects the latest revision.",
-        "For privacy questions, contact Enigrow Startup Advisory Pvt Ltd through the Contact page.",
+        "This policy is governed by the laws of India. Subject to applicable law, courts at Gautam Buddha Nagar / Noida, Uttar Pradesh may have jurisdiction.",
+        "We may update this policy from time to time; the “updated” date above reflects the latest revision.",
+        "For privacy questions, contact Enigrow Startup Advisory Pvt Ltd through the Contact page or at the registered office stated above.",
       ],
     },
   ],
@@ -77,7 +78,7 @@ export const termsContent: LegalPage = {
     {
       heading: "About these terms",
       paragraphs: [
-        "These terms apply when you use the Enigrow website or engage Enigrow Startup Advisory Pvt Ltd for advisory and facilitation services.",
+        "These terms apply when you use the Enigrow website or engage Enigrow Startup Advisory Pvt Ltd (CIN: U82990UW2026PTC255445; Reg. Office: B-128, 1st Floor, Sector-2, Noida, Gautam Buddha Nagar, U.P. - 201301) for advisory and facilitation services.",
         "By using the site or starting an engagement, you agree to these terms and any engagement-specific proposal or agreement issued by Enigrow.",
       ],
     },
@@ -114,7 +115,7 @@ export const termsContent: LegalPage = {
     {
       heading: "Governing law",
       paragraphs: [
-        "These terms are governed by the laws of India. Disputes shall first be attempted to be resolved amicably; failing that, they may be referred to arbitration under the Arbitration and Conciliation Act, 1996, or pursued in competent courts as applicable.",
+        "These terms are governed by the laws of India. Disputes shall first be attempted to be resolved amicably; failing that, they may be referred to arbitration under the Arbitration and Conciliation Act, 1996, or pursued in competent courts at Gautam Buddha Nagar / Noida, Uttar Pradesh, as applicable.",
         "For grievances, contact Enigrow through the Contact page with your name, service, and query details.",
       ],
     },

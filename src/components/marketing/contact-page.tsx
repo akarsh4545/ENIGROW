@@ -81,6 +81,17 @@ export function ContactPageContent() {
               </p>
             </div>
 
+            <div>
+              <p className="text-muted-foreground text-xs font-medium tracking-[0.16em] uppercase">
+                {contactContent.office.label}
+              </p>
+              <div className="mt-2 space-y-0.5 text-sm leading-relaxed">
+                {contactContent.office.lines.map((line) => (
+                  <p key={line}>{line}</p>
+                ))}
+              </div>
+            </div>
+
             <ul className="space-y-5">
               {contactContent.details.map((detail) => {
                 const value = detailValue(detail.valueKey);

@@ -30,6 +30,12 @@ export function SiteFooter() {
             {siteConfig.legalName}. {siteConfig.description}
           </p>
           <div className="text-muted-foreground space-y-1 text-sm">
+            <p className="text-foreground/90 text-xs leading-relaxed">
+              CIN: {siteConfig.cin}
+            </p>
+            <p className="text-xs leading-relaxed">
+              Reg. Office: {siteConfig.registeredOffice}
+            </p>
             {siteConfig.supportEmail ? (
               <p>
                 <a
@@ -91,11 +97,13 @@ export function SiteFooter() {
       <div className="border-border/60 border-t">
         <div className="text-muted-foreground mx-auto flex w-full max-w-6xl flex-col gap-3 px-4 py-5 text-xs sm:px-6">
           <p className="max-w-4xl leading-relaxed">
-            {siteConfig.legalName} is the only official entity under the Enigrow
-            brand. We have no association with similarly named companies. Always
-            verify authenticity and pay only through official Enigrow channels.
-            Scheme and loan outcomes depend on banks and government authorities
-            — Enigrow provides advisory and facilitation, not guarantees.
+            {siteConfig.legalName} (CIN: {siteConfig.cin}) is the only official
+            entity under the Enigrow brand. Registered office:{" "}
+            {siteConfig.registeredOffice}. We have no association with similarly
+            named companies. Always verify authenticity and pay only through
+            official Enigrow channels. Scheme and loan outcomes depend on banks
+            and government authorities — Enigrow provides advisory and
+            facilitation, not guarantees.
           </p>
           <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
             <p>
