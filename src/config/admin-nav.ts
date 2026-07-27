@@ -39,6 +39,12 @@ export const adminNav: readonly AdminNavItem[] = [
     roles: LEADS_ACCESS_ROLES,
   },
   {
+    title: "Funding Assessments",
+    href: "/admin/funding-assessments",
+    icon: ChartColumn,
+    roles: LEADS_ACCESS_ROLES,
+  },
+  {
     title: "Users",
     href: "/admin/users",
     icon: Users,
