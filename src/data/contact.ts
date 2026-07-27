@@ -12,7 +12,6 @@ export const contactContent = {
       "Enigrow Startup Advisory Pvt Ltd",
       "B-128, 1st Floor, Sector-2, Noida",
       "Gautam Buddha Nagar, U.P. - 201301",
-      "CIN: U82990UW2026PTC255445",
     ],
   },
   whyContact: [
