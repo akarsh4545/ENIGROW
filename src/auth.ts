@@ -15,9 +15,15 @@ const credentialsSchema = z.object({
 });
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
-  adapter: MongoDBAdapter(clientPromise, {
-    databaseName: process.env.MONGODB_DB_NAME ?? "consultvault",
-  }),
+  // Adapter only when Mongo is configured (OAuth account linking).
+  // Credentials + JWT work without it; avoids Vercel build crashes when env is unset at collect time.
+  ...(process.env.MONGODB_URI
+    ? {
+        adapter: MongoDBAdapter(clientPromise, {
+          databaseName: process.env.MONGODB_DB_NAME ?? "consultvault",
+        }),
+      }
+    : {}),
   session: {
     strategy: "jwt",
   },

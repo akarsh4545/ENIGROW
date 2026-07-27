@@ -1,8 +1,5 @@
 import mongoose from "mongoose";
 
-const MONGODB_URI = process.env.MONGODB_URI;
-const MONGODB_DB_NAME = process.env.MONGODB_DB_NAME ?? "consultvault";
-
 type MongooseCache = {
   conn: typeof mongoose | null;
   promise: Promise<typeof mongoose> | null;
@@ -20,12 +17,13 @@ const cached: MongooseCache = global.mongooseCache ?? {
 global.mongooseCache = cached;
 
 export function assertMongoUri(): string {
-  if (!MONGODB_URI) {
+  const uri = process.env.MONGODB_URI;
+  if (!uri) {
     throw new Error(
-      "Missing MONGODB_URI. Add it to .env.local (see .env.example).",
+      "Missing MONGODB_URI. Add it in Vercel Project Settings → Environment Variables (and locally in .env.local).",
     );
   }
-  return MONGODB_URI;
+  return uri;
 }
 
 /**
@@ -37,10 +35,11 @@ export async function connectToDatabase(): Promise<typeof mongoose> {
   }
 
   const uri = assertMongoUri();
+  const dbName = process.env.MONGODB_DB_NAME ?? "consultvault";
 
   if (!cached.promise) {
     cached.promise = mongoose.connect(uri, {
-      dbName: MONGODB_DB_NAME,
+      dbName,
       bufferCommands: false,
       maxPoolSize: 10,
       serverSelectionTimeoutMS: 8_000,
