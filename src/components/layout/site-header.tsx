@@ -33,21 +33,24 @@ export function SiteHeader() {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="border-border/70 bg-background/85 sticky top-0 z-50 border-b backdrop-blur-md">
-      <div className="mx-auto flex h-[4.25rem] w-full max-w-6xl items-center justify-between gap-4 px-4 sm:h-[4.5rem] sm:px-6">
+    <header className="border-border/70 bg-background/90 sticky top-0 z-50 border-b backdrop-blur-md">
+      <div className="mx-auto flex h-[5.5rem] w-full max-w-6xl items-center justify-between gap-4 px-4 sm:h-[6.25rem] sm:px-6 lg:h-[6.75rem]">
         <Link
           href={ROUTES.home}
-          className="group inline-flex items-center transition group-hover:opacity-95"
+          className="group inline-flex shrink-0 items-center transition group-hover:opacity-95"
           aria-label={`${siteConfig.name} home`}
         >
-          <BrandLogo priority className="h-11 w-auto sm:h-12" />
+          <BrandLogo
+            priority
+            className="h-[4.25rem] w-auto sm:h-[5rem] lg:h-[5.5rem]"
+          />
         </Link>
 
         <nav className="hidden items-center gap-1 lg:flex" aria-label="Primary">
           <NavigationMenu viewport={false}>
             <NavigationMenuList className="gap-1">
               <NavigationMenuItem>
-                <NavigationMenuTrigger className="bg-transparent">
+                <NavigationMenuTrigger className="bg-transparent text-[0.95rem]">
                   Services
                 </NavigationMenuTrigger>
                 <NavigationMenuContent className="p-3">
@@ -95,7 +98,7 @@ export function SiteHeader() {
                         <Link
                           href={item.href}
                           className={cn(
-                            "rounded-lg px-3 py-2 text-sm font-medium transition-colors",
+                            "rounded-lg px-3 py-2.5 text-[0.95rem] font-medium transition-colors",
                             active
                               ? "bg-muted text-foreground"
                               : "text-muted-foreground hover:bg-muted/70 hover:text-foreground",
@@ -147,7 +150,7 @@ export function SiteHeader() {
             <SheetContent side="right" className="w-[min(100%,22rem)]">
               <SheetHeader>
                 <SheetTitle className="text-left">
-                  <BrandLogo className="h-12 w-auto" />
+                  <BrandLogo className="h-16 w-auto" />
                 </SheetTitle>
               </SheetHeader>
               <div className="mt-6 flex flex-col gap-1">
