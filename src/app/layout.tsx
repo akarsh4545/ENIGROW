@@ -51,9 +51,9 @@ export const metadata: Metadata = {
     description: siteConfig.description,
     images: [
       {
-        url: "/brand/enigrow-logo.jpg",
-        width: 1024,
-        height: 682,
+        url: "/brand/enigrow-logo.png",
+        width: 748,
+        height: 496,
         alt: siteConfig.name,
       },
     ],
