@@ -3,12 +3,12 @@
 import Link from "next/link";
 import {
   motion,
+  useMotionTemplate,
   useMotionValue,
   useReducedMotion,
   useSpring,
-  useTransform,
 } from "framer-motion";
-import { useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Check } from "lucide-react";
 
 import { buttonVariants } from "@/components/ui/button-variants";
@@ -23,51 +23,221 @@ const trust = [
   "Instant Results",
 ] as const;
 
-const previewTiles = [
-  { label: "Overall eligibility", value: "0–100 score" },
-  { label: "Estimated funding range", value: "₹10K–₹5 Cr" },
-  { label: "Eligible programs", value: "Matched list" },
-  { label: "Time required", value: "Instant" },
+const floatingChips = [
+  {
+    label: "PMEGP",
+    className: "left-[1.5%] top-[10%]",
+    duration: 22,
+    delay: 0,
+  },
+  {
+    label: "CGTMSE",
+    className: "right-[2%] top-[12%]",
+    duration: 26,
+    delay: 1.2,
+  },
+  {
+    label: "MUDRA",
+    className: "left-[2%] bottom-[14%]",
+    duration: 24,
+    delay: 0.6,
+  },
+  {
+    label: "MSME",
+    className: "right-[3%] bottom-[18%]",
+    duration: 28,
+    delay: 1.8,
+  },
+  {
+    label: "₹10L–₹5Cr",
+    className: "right-[38%] top-[6%]",
+    duration: 25,
+    delay: 0.4,
+  },
+  {
+    label: "Government Schemes",
+    className: "right-[8%] bottom-[8%]",
+    duration: 27,
+    delay: 2.1,
+  },
+  {
+    label: "Business Registration",
+    className: "left-[3%] top-[48%]",
+    duration: 23,
+    delay: 1.4,
+  },
+  {
+    label: "Subsidy",
+    className: "right-[4%] top-[46%]",
+    duration: 21,
+    delay: 0.9,
+  },
 ] as const;
 
 type Props = {
   onStart: () => void;
 };
 
+function useHeroCount(end: number, delayMs = 400) {
+  const reduceMotion = useReducedMotion();
+  const [value, setValue] = useState(0);
+
+  useEffect(() => {
+    if (reduceMotion) {
+      setValue(end);
+      return;
+    }
+
+    let frame = 0;
+    const timeout = window.setTimeout(() => {
+      const start = performance.now();
+      const duration = 1400;
+      const tick = (now: number) => {
+        const progress = Math.min(1, (now - start) / duration);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        setValue(Math.round(eased * end));
+        if (progress < 1) frame = requestAnimationFrame(tick);
+      };
+      frame = requestAnimationFrame(tick);
+    }, delayMs);
+
+    return () => {
+      window.clearTimeout(timeout);
+      cancelAnimationFrame(frame);
+    };
+  }, [delayMs, end, reduceMotion]);
+
+  return value;
+}
+
 export function HomeFundingHero({ onStart }: Props) {
   const reduceMotion = useReducedMotion();
-  const glowY = useMotionValue(0);
-  const smoothGlow = useSpring(glowY, { stiffness: 40, damping: 20 });
-  const glowTransform = useTransform(
-    smoothGlow,
-    (v) => `translate3d(0, ${v}px, 0)`,
-  );
+  const sectionRef = useRef<HTMLElement | null>(null);
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+  const springX = useSpring(mouseX, { stiffness: 35, damping: 22, mass: 0.6 });
+  const springY = useSpring(mouseY, { stiffness: 35, damping: 22, mass: 0.6 });
+  const meshTransform = useMotionTemplate`translate3d(${springX}px, ${springY}px, 0)`;
+
+  const scoreMax = useHeroCount(100, 550);
+  const sampleScore = useHeroCount(86, 900);
+  const rangeHigh = useHeroCount(5, 1100);
 
   useEffect(() => {
     if (reduceMotion) return;
-    const onScroll = () => {
-      glowY.set(Math.min(28, window.scrollY * 0.06));
+    const node = sectionRef.current;
+    if (!node) return;
+
+    const onMove = (event: PointerEvent) => {
+      const rect = node.getBoundingClientRect();
+      const x = ((event.clientX - rect.left) / rect.width - 0.5) * 18;
+      const y = ((event.clientY - rect.top) / rect.height - 0.5) * 12;
+      mouseX.set(x);
+      mouseY.set(y);
     };
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, [glowY, reduceMotion]);
+    const onLeave = () => {
+      mouseX.set(0);
+      mouseY.set(0);
+    };
+
+    node.addEventListener("pointermove", onMove);
+    node.addEventListener("pointerleave", onLeave);
+    return () => {
+      node.removeEventListener("pointermove", onMove);
+      node.removeEventListener("pointerleave", onLeave);
+    };
+  }, [mouseX, mouseY, reduceMotion]);
 
   return (
-    <section className="border-border/70 relative isolate overflow-hidden border-b bg-[linear-gradient(180deg,color-mix(in_oklch,var(--secondary)_55%,white),transparent)]">
+    <section
+      ref={sectionRef}
+      className="border-border/70 relative isolate overflow-hidden border-b"
+    >
+      {/* Base wash */}
+      <div
+        aria-hidden
+        className="absolute inset-0 bg-[linear-gradient(180deg,color-mix(in_oklch,var(--secondary)_70%,white)_0%,color-mix(in_oklch,var(--background)_88%,white)_55%,var(--background)_100%)]"
+      />
+
+      {/* Animated mesh */}
       <motion.div
         aria-hidden
-        style={{ transform: glowTransform }}
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_8%_0%,color-mix(in_oklch,var(--accent)_18%,transparent),transparent_38%),radial-gradient(circle_at_92%_12%,color-mix(in_oklch,var(--primary)_12%,transparent),transparent_36%)] will-change-transform"
+        style={{ transform: reduceMotion ? undefined : meshTransform }}
+        className="hero-mesh pointer-events-none absolute -inset-[12%] will-change-transform"
+      >
+        <div className="hero-mesh-blob hero-mesh-blob-a" />
+        <div className="hero-mesh-blob hero-mesh-blob-b" />
+        <div className="hero-mesh-blob hero-mesh-blob-c" />
+        <div className="hero-mesh-blob hero-mesh-blob-d" />
+      </motion.div>
+
+      {/* Soft radial glow */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,color-mix(in_oklch,var(--accent)_14%,transparent),transparent_42%),radial-gradient(circle_at_88%_30%,color-mix(in_oklch,var(--primary)_10%,transparent),transparent_40%)]"
       />
+
+      {/* Faint grid / topographic drift */}
+      <div
+        aria-hidden
+        className="hero-topo pointer-events-none absolute inset-0 opacity-[0.07] dark:opacity-[0.09]"
+      />
+
+      {/* Floating scheme chips — desktop only */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 hidden lg:block"
+      >
+        {floatingChips.map((chip) => (
+          <motion.span
+            key={chip.label}
+            className={cn(
+              "border-primary/15 bg-primary/[0.04] text-primary/80 absolute rounded-full border px-3 py-1 text-[11px] font-medium tracking-wide blur-[0.2px] select-none",
+              chip.className,
+            )}
+            style={{ opacity: 0.1 }}
+            initial={reduceMotion ? false : { opacity: 0 }}
+            animate={
+              reduceMotion
+                ? { opacity: 0.1 }
+                : {
+                    opacity: 0.1,
+                    y: [0, -10, 4, 0],
+                    x: [0, 6, -4, 0],
+                  }
+            }
+            transition={
+              reduceMotion
+                ? { duration: 0.4 }
+                : {
+                    opacity: { duration: 0.8, delay: chip.delay * 0.15 },
+                    y: {
+                      duration: chip.duration,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                      delay: chip.delay,
+                    },
+                    x: {
+                      duration: chip.duration * 1.1,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                      delay: chip.delay + 0.4,
+                    },
+                  }
+            }
+          >
+            {chip.label}
+          </motion.span>
+        ))}
+      </div>
 
       <div className="relative mx-auto grid w-full max-w-6xl gap-12 px-4 py-16 sm:px-6 sm:py-24 lg:grid-cols-[1.1fr_0.9fr] lg:items-center lg:gap-16 lg:py-28">
         <div className="max-w-xl">
           <motion.div
-            initial={reduceMotion ? false : { opacity: 0, y: 12 }}
+            initial={reduceMotion ? false : { opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.45, ease: homeEase }}
-            className="border-border/70 bg-background/80 inline-flex items-center gap-2 rounded-full border px-3.5 py-1.5 text-sm shadow-sm"
+            className="border-border/70 bg-background/85 inline-flex items-center gap-2 rounded-full border px-3.5 py-1.5 text-sm shadow-sm"
           >
             <span
               aria-hidden
@@ -80,9 +250,9 @@ export function HomeFundingHero({ onStart }: Props) {
 
           <motion.h1
             className="font-heading mt-6 text-4xl font-semibold tracking-tight text-balance sm:text-5xl md:text-[3.35rem] md:leading-[1.08]"
-            initial={reduceMotion ? false : { opacity: 0, y: 18 }}
+            initial={reduceMotion ? false : { opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.55, delay: 0.05, ease: homeEase }}
+            transition={{ duration: 0.55, delay: 0.06, ease: homeEase }}
           >
             Check Your Funding Eligibility Instantly
           </motion.h1>
@@ -91,7 +261,7 @@ export function HomeFundingHero({ onStart }: Props) {
             className="text-muted-foreground mt-5 text-base leading-relaxed sm:text-lg"
             initial={reduceMotion ? false : { opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.1, ease: homeEase }}
+            transition={{ duration: 0.5, delay: 0.12, ease: homeEase }}
           >
             Answer a few quick questions to instantly discover which government
             grants, MSME loans, startup schemes, and business funding options
@@ -103,9 +273,9 @@ export function HomeFundingHero({ onStart }: Props) {
             className="mt-8 flex flex-wrap gap-3"
             initial={reduceMotion ? false : { opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.14, ease: homeEase }}
+            transition={{ duration: 0.5, delay: 0.18, ease: homeEase }}
           >
-            <motion.button
+            <button
               type="button"
               onClick={onStart}
               className={cn(
@@ -113,27 +283,15 @@ export function HomeFundingHero({ onStart }: Props) {
                 homeCtaClass,
                 "min-w-[13.5rem] shadow-[0_12px_30px_color-mix(in_oklch,var(--primary)_22%,transparent)]",
               )}
-              animate={
-                reduceMotion
-                  ? undefined
-                  : {
-                      boxShadow: [
-                        "0 12px 30px color-mix(in oklch, var(--primary) 22%, transparent)",
-                        "0 14px 36px color-mix(in oklch, var(--primary) 34%, transparent)",
-                        "0 12px 30px color-mix(in oklch, var(--primary) 22%, transparent)",
-                      ],
-                    }
-              }
-              transition={{ duration: 1.8, times: [0, 0.5, 1] }}
             >
               Check Eligibility Free
-            </motion.button>
+            </button>
             <Link
               href={ROUTES.contact}
               className={cn(
                 buttonVariants({ size: "lg", variant: "outline" }),
                 homeCtaClass,
-                "bg-background/70 min-w-[11rem]",
+                "bg-background/80 min-w-[11rem]",
               )}
             >
               Talk to an Expert
@@ -148,7 +306,7 @@ export function HomeFundingHero({ onStart }: Props) {
                 initial={reduceMotion ? false : { opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{
-                  delay: 0.2 + index * 0.07,
+                  delay: 0.24 + index * 0.07,
                   duration: 0.4,
                   ease: homeEase,
                 }}
@@ -158,7 +316,7 @@ export function HomeFundingHero({ onStart }: Props) {
                   initial={reduceMotion ? false : { scale: 0.6, opacity: 0 }}
                   animate={{ scale: 1, opacity: 1 }}
                   transition={{
-                    delay: 0.24 + index * 0.07,
+                    delay: 0.28 + index * 0.07,
                     duration: 0.35,
                     ease: homeEase,
                   }}
@@ -172,8 +330,8 @@ export function HomeFundingHero({ onStart }: Props) {
         </div>
 
         <motion.aside
-          className="border-border/60 bg-card relative overflow-hidden rounded-[1.5rem] border p-6 shadow-[0_24px_60px_color-mix(in_oklch,var(--primary)_8%,transparent)] sm:p-7"
-          initial={reduceMotion ? false : { opacity: 0, y: 20 }}
+          className="border-border/60 bg-card/95 group relative overflow-hidden rounded-[1.5rem] border p-6 sm:p-7"
+          initial={reduceMotion ? false : { opacity: 0, y: 22 }}
           animate={
             reduceMotion
               ? { opacity: 1, y: 0 }
@@ -181,47 +339,49 @@ export function HomeFundingHero({ onStart }: Props) {
                   opacity: 1,
                   y: 0,
                   boxShadow: [
-                    "0 24px 60px color-mix(in oklch, var(--primary) 8%, transparent)",
-                    "0 28px 70px color-mix(in oklch, var(--primary) 16%, transparent)",
-                    "0 24px 60px color-mix(in oklch, var(--primary) 8%, transparent)",
+                    "0 22px 50px color-mix(in oklch, var(--primary) 10%, transparent)",
+                    "0 28px 64px color-mix(in oklch, var(--primary) 18%, transparent)",
+                    "0 22px 50px color-mix(in oklch, var(--primary) 10%, transparent)",
                   ],
+                }
+          }
+          whileHover={
+            reduceMotion
+              ? undefined
+              : {
+                  y: -6,
+                  borderColor:
+                    "color-mix(in oklch, var(--primary) 35%, transparent)",
                 }
           }
           transition={
             reduceMotion
-              ? { duration: 0.55, delay: 0.12, ease: homeEase }
+              ? { duration: 0.55, delay: 0.14, ease: homeEase }
               : {
-                  opacity: { duration: 0.55, delay: 0.12, ease: homeEase },
-                  y: { duration: 0.55, delay: 0.12, ease: homeEase },
+                  opacity: { duration: 0.55, delay: 0.14, ease: homeEase },
+                  y: { duration: 0.35, ease: homeEase },
+                  borderColor: { duration: 0.35 },
                   boxShadow: {
-                    duration: 4.5,
+                    duration: 5.5,
                     repeat: Infinity,
                     ease: "easeInOut",
-                    delay: 0.8,
+                    delay: 1,
                   },
                 }
           }
           aria-label="Funding eligibility preview"
         >
-          {/* Soft decorative illustration — keep card structure */}
-          <motion.div
+          <div
             aria-hidden
-            className="pointer-events-none absolute -right-6 -bottom-8 size-44 rounded-[2rem] bg-[radial-gradient(circle_at_30%_30%,color-mix(in_oklch,var(--accent)_35%,transparent),transparent_70%)] opacity-80"
-            animate={
-              reduceMotion
-                ? undefined
-                : { scale: [1, 1.03, 1], opacity: [0.7, 0.9, 0.7] }
-            }
-            transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-          />
-          <motion.div
-            aria-hidden
-            className="border-border/50 pointer-events-none absolute top-16 -right-2 h-28 w-36 rounded-2xl border bg-[linear-gradient(160deg,color-mix(in_oklch,var(--secondary)_80%,white),color-mix(in_oklch,var(--primary)_8%,transparent))] opacity-60"
-            animate={reduceMotion ? undefined : { scale: [1, 1.025, 1] }}
-            transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
+            className="pointer-events-none absolute inset-x-0 top-0 h-px bg-[linear-gradient(90deg,transparent,color-mix(in_oklch,var(--accent)_55%,transparent),transparent)] opacity-70 transition group-hover:opacity-100"
           />
 
-          <div className="relative flex items-start justify-between gap-3">
+          <motion.div
+            className="relative flex items-start justify-between gap-3"
+            initial={reduceMotion ? false : { opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.22, duration: 0.4, ease: homeEase }}
+          >
             <div>
               <p className="text-muted-foreground text-xs font-medium tracking-[0.16em] uppercase">
                 Funding eligibility preview
@@ -230,55 +390,78 @@ export function HomeFundingHero({ onStart }: Props) {
                 What you’ll see instantly
               </p>
             </div>
-            <motion.span
-              className="rounded-full bg-emerald-500/12 px-2.5 py-1 text-xs font-semibold text-emerald-700 dark:text-emerald-400"
-              animate={reduceMotion ? undefined : { y: [0, -4, 0] }}
-              transition={{
-                duration: 3.8,
-                repeat: Infinity,
-                ease: "easeInOut",
-              }}
-            >
+            <span className="rounded-full bg-emerald-500/12 px-2.5 py-1 text-xs font-semibold text-emerald-700 dark:text-emerald-400">
               Free
-            </motion.span>
-          </div>
+            </span>
+          </motion.div>
 
           <div className="relative mt-6 grid grid-cols-2 gap-3">
-            {previewTiles.map((item, index) => (
-              <motion.div
-                key={item.label}
-                className="border-border/70 bg-background/90 rounded-2xl border p-4"
-                initial={reduceMotion ? false : { opacity: 0, y: 10 }}
-                animate={
-                  reduceMotion
-                    ? { opacity: 1, y: 0 }
-                    : { opacity: 1, y: [0, index % 2 === 0 ? -3 : 3, 0] }
-                }
-                transition={
-                  reduceMotion
-                    ? { delay: 0.2 + index * 0.05, duration: 0.4 }
-                    : {
-                        opacity: { delay: 0.22 + index * 0.06, duration: 0.4 },
-                        y: {
-                          delay: 1 + index * 0.15,
-                          duration: 4.2 + index * 0.3,
-                          repeat: Infinity,
-                          ease: "easeInOut",
-                        },
-                      }
-                }
-              >
-                <p className="text-muted-foreground text-[11px] leading-snug tracking-[0.12em] uppercase">
-                  {item.label}
-                </p>
-                <p className="font-heading mt-2 text-lg font-semibold tracking-tight sm:text-xl">
-                  {item.value}
-                </p>
-              </motion.div>
-            ))}
+            <motion.div
+              className="border-border/70 bg-background/95 group-hover:border-primary/25 rounded-2xl border p-4 transition"
+              initial={reduceMotion ? false : { opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3, duration: 0.4, ease: homeEase }}
+            >
+              <p className="text-muted-foreground text-[11px] leading-snug tracking-[0.12em] uppercase">
+                Overall eligibility
+              </p>
+              <p className="font-heading mt-2 text-lg font-semibold tracking-tight sm:text-xl">
+                0–{scoreMax} score
+              </p>
+              <p className="text-primary mt-1 text-xs font-medium">
+                Sample: {sampleScore}/100
+              </p>
+            </motion.div>
+
+            <motion.div
+              className="border-border/70 bg-background/95 group-hover:border-primary/25 rounded-2xl border p-4 transition"
+              initial={reduceMotion ? false : { opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.38, duration: 0.4, ease: homeEase }}
+            >
+              <p className="text-muted-foreground text-[11px] leading-snug tracking-[0.12em] uppercase">
+                Estimated funding range
+              </p>
+              <p className="font-heading mt-2 text-lg font-semibold tracking-tight sm:text-xl">
+                ₹10K–₹{rangeHigh} Cr
+              </p>
+            </motion.div>
+
+            <motion.div
+              className="border-border/70 bg-background/95 group-hover:border-primary/25 rounded-2xl border p-4 transition"
+              initial={reduceMotion ? false : { opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.46, duration: 0.4, ease: homeEase }}
+            >
+              <p className="text-muted-foreground text-[11px] leading-snug tracking-[0.12em] uppercase">
+                Eligible programs
+              </p>
+              <p className="font-heading mt-2 text-lg font-semibold tracking-tight sm:text-xl">
+                Matched list
+              </p>
+            </motion.div>
+
+            <motion.div
+              className="border-border/70 bg-background/95 group-hover:border-primary/25 rounded-2xl border p-4 transition"
+              initial={reduceMotion ? false : { opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.54, duration: 0.4, ease: homeEase }}
+            >
+              <p className="text-muted-foreground text-[11px] leading-snug tracking-[0.12em] uppercase">
+                Time required
+              </p>
+              <p className="font-heading mt-2 text-lg font-semibold tracking-tight sm:text-xl">
+                Instant
+              </p>
+            </motion.div>
           </div>
 
-          <div className="border-border/70 bg-background/90 relative mt-3 flex items-center justify-between rounded-2xl border px-4 py-3.5">
+          <motion.div
+            className="border-border/70 bg-background/95 group-hover:border-primary/25 relative mt-3 flex items-center justify-between rounded-2xl border px-4 py-3.5 transition"
+            initial={reduceMotion ? false : { opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.62, duration: 0.4, ease: homeEase }}
+          >
             <div>
               <p className="text-muted-foreground text-[11px] tracking-[0.12em] uppercase">
                 Cost
@@ -290,22 +473,28 @@ export function HomeFundingHero({ onStart }: Props) {
             <p className="text-sm font-semibold text-emerald-700 dark:text-emerald-400">
               ₹0
             </p>
-          </div>
+          </motion.div>
 
-          <button
-            type="button"
-            onClick={onStart}
-            className={cn(
-              buttonVariants({ size: "lg" }),
-              homeCtaClass,
-              "relative mt-6 w-full",
-            )}
+          <motion.div
+            initial={reduceMotion ? false : { opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.7, duration: 0.4, ease: homeEase }}
           >
-            Check Eligibility Free
-          </button>
-          <p className="text-muted-foreground mt-3 text-center text-xs">
-            No paperwork. No commitment. Results on the spot.
-          </p>
+            <button
+              type="button"
+              onClick={onStart}
+              className={cn(
+                buttonVariants({ size: "lg" }),
+                homeCtaClass,
+                "relative mt-6 w-full",
+              )}
+            >
+              Check Eligibility Free
+            </button>
+            <p className="text-muted-foreground mt-3 text-center text-xs">
+              No paperwork. No commitment. Results on the spot.
+            </p>
+          </motion.div>
         </motion.aside>
       </div>
     </section>
