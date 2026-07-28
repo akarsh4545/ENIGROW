@@ -5,6 +5,7 @@ import { toast } from "sonner";
 import { motion, useReducedMotion } from "framer-motion";
 
 import { Button } from "@/components/ui/button";
+import { HomeBackdrop } from "@/components/marketing/home-backdrop";
 import { homeCtaClass, homeEase } from "@/components/marketing/home-motion";
 import { homeContent } from "@/data/home";
 import { siteConfig } from "@/config/site";
@@ -104,8 +105,9 @@ export function HomeCallback() {
   };
 
   return (
-    <section className="border-border/70 border-b">
-      <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6 sm:py-24">
+    <section className="border-border/70 relative overflow-hidden border-b">
+      <HomeBackdrop variant="callback" />
+      <div className="relative mx-auto max-w-6xl px-4 py-20 sm:px-6 sm:py-24">
         <div className="border-border/70 bg-secondary/40 grid overflow-hidden rounded-[1.75rem] border lg:grid-cols-[1.05fr_0.95fr]">
           <motion.div
             className="p-6 sm:p-10"

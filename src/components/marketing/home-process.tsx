@@ -4,6 +4,7 @@ import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
 
 import { buttonVariants } from "@/components/ui/button-variants";
+import { HomeBackdrop } from "@/components/marketing/home-backdrop";
 import { homeCtaClass, homeEase } from "@/components/marketing/home-motion";
 import { homeContent } from "@/data/home";
 import { cn } from "@/lib/utils";
@@ -13,8 +14,9 @@ export function HomeProcess() {
   const { process } = homeContent;
 
   return (
-    <section className="border-border/70 border-b">
-      <div className="mx-auto grid w-full max-w-6xl gap-12 px-4 py-20 sm:px-6 sm:py-24 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.2fr)] lg:gap-16">
+    <section className="border-border/70 relative overflow-hidden border-b">
+      <HomeBackdrop variant="process" />
+      <div className="relative mx-auto grid w-full max-w-6xl gap-12 px-4 py-20 sm:px-6 sm:py-24 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.2fr)] lg:gap-16">
         <motion.div
           className="lg:sticky lg:top-32 lg:self-start"
           initial={reduceMotion ? false : { opacity: 0, y: 16 }}

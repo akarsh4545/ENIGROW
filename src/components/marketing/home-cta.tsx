@@ -4,6 +4,7 @@ import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
 
 import { buttonVariants } from "@/components/ui/button";
+import { HomeBackdrop } from "@/components/marketing/home-backdrop";
 import { homeContent } from "@/data/home";
 import { cn } from "@/lib/utils";
 
@@ -12,11 +13,8 @@ export function HomeCta() {
   const { cta } = homeContent;
 
   return (
-    <section className="relative overflow-hidden">
-      <div
-        aria-hidden
-        className="absolute inset-0 bg-[radial-gradient(circle_at_80%_20%,color-mix(in_oklch,var(--accent)_30%,transparent),transparent_40%),linear-gradient(135deg,color-mix(in_oklch,var(--primary)_92%,black),color-mix(in_oklch,var(--primary)_70%,oklch(0.35_0.04_210)))]"
-      />
+    <section className="bg-primary relative overflow-hidden">
+      <HomeBackdrop variant="cta" />
       <div className="relative mx-auto flex w-full max-w-6xl flex-col gap-8 px-4 py-20 sm:px-6 sm:py-24 md:flex-row md:items-end md:justify-between">
         <motion.div
           className="text-primary-foreground max-w-xl"

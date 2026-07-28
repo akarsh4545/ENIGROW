@@ -5,6 +5,7 @@ import { motion, useReducedMotion } from "framer-motion";
 import { Award, IndianRupee, TrendingUp, Users } from "lucide-react";
 
 import { buttonVariants } from "@/components/ui/button-variants";
+import { HomeBackdrop } from "@/components/marketing/home-backdrop";
 import {
   homeCtaClass,
   homeEase,
@@ -74,10 +75,7 @@ export function HomeImpact() {
   return (
     <section className="border-border/70 border-b">
       <div className="bg-primary text-primary-foreground relative overflow-hidden">
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_0%,color-mix(in_oklch,var(--accent)_28%,transparent),transparent_45%),radial-gradient(circle_at_90%_100%,color-mix(in_oklch,white_10%,transparent),transparent_40%)]"
-        />
+        <HomeBackdrop variant="impact" />
         <div className="relative mx-auto grid w-full max-w-6xl gap-10 px-4 py-14 sm:grid-cols-2 sm:px-6 sm:py-16 lg:grid-cols-4 lg:gap-6">
           {impact.items.map((item, index) => {
             const Icon = iconMap[item.icon];

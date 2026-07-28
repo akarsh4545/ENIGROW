@@ -16,6 +16,7 @@ import {
 } from "lucide-react";
 
 import { buttonVariants } from "@/components/ui/button-variants";
+import { HomeBackdrop } from "@/components/marketing/home-backdrop";
 import { homeCtaClass, homeEase } from "@/components/marketing/home-motion";
 import { homeContent } from "@/data/home";
 import { ROUTES } from "@/constants/routes";
@@ -34,10 +35,7 @@ export function HomeSchemes() {
 
   return (
     <section className="border-border/70 relative overflow-hidden border-b">
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_85%_10%,color-mix(in_oklch,var(--accent)_18%,transparent),transparent_36%),linear-gradient(180deg,transparent,color-mix(in_oklch,var(--secondary)_45%,transparent)_100%)]"
-      />
+      <HomeBackdrop variant="schemes" />
 
       <div className="relative mx-auto w-full max-w-6xl px-4 py-20 sm:px-6 sm:py-28">
         <motion.div

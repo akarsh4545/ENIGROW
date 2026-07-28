@@ -5,6 +5,7 @@ import { motion, useReducedMotion } from "framer-motion";
 import { Quote } from "lucide-react";
 
 import { buttonVariants } from "@/components/ui/button-variants";
+import { HomeBackdrop } from "@/components/marketing/home-backdrop";
 import { homeCtaClass, homeEase } from "@/components/marketing/home-motion";
 import { homeContent } from "@/data/home";
 import { cn } from "@/lib/utils";
@@ -15,10 +16,7 @@ export function HomeSuccessStories() {
 
   return (
     <section className="border-border/70 relative overflow-hidden border-b">
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_10%_0%,color-mix(in_oklch,var(--accent)_16%,transparent),transparent_42%),linear-gradient(180deg,color-mix(in_oklch,var(--secondary)_55%,transparent),transparent)]"
-      />
+      <HomeBackdrop variant="stories" />
       <div className="relative mx-auto w-full max-w-6xl px-4 py-20 sm:px-6 sm:py-24">
         <motion.div
           className="mx-auto max-w-2xl text-center"

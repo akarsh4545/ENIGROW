@@ -5,6 +5,7 @@ import { motion, useReducedMotion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 
 import { homeEase } from "@/components/marketing/home-motion";
+import { HomeBackdrop } from "@/components/marketing/home-backdrop";
 import { homeContent } from "@/data/home";
 import { ROUTES } from "@/constants/routes";
 
@@ -14,11 +15,7 @@ export function HomeSchemeSupport() {
 
   return (
     <section className="border-border/70 bg-primary text-primary-foreground relative overflow-hidden border-b">
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_12%_20%,color-mix(in_oklch,var(--accent)_28%,transparent),transparent_42%),radial-gradient(circle_at_88%_80%,color-mix(in_oklch,var(--primary)_35%,black),transparent_45%)]"
-      />
-
+      <HomeBackdrop variant="teal" />
       <div className="relative mx-auto w-full max-w-6xl px-4 py-20 sm:px-6 sm:py-24">
         <div className="grid gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-end lg:gap-14">
           <motion.div

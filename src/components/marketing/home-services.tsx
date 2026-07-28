@@ -12,6 +12,7 @@ import {
 } from "lucide-react";
 
 import { buttonVariants } from "@/components/ui/button-variants";
+import { HomeBackdrop } from "@/components/marketing/home-backdrop";
 import { homeCtaClass, homeEase } from "@/components/marketing/home-motion";
 import { homeContent } from "@/data/home";
 import { ROUTES } from "@/constants/routes";
@@ -32,8 +33,9 @@ export function HomeServices() {
   const { services } = homeContent;
 
   return (
-    <section className="border-border/70 bg-secondary/35 border-b">
-      <div className="mx-auto w-full max-w-6xl px-4 py-20 sm:px-6 sm:py-28">
+    <section className="border-border/70 relative overflow-hidden border-b bg-[color-mix(in_oklch,var(--secondary)_35%,var(--background))]">
+      <HomeBackdrop variant="services" />
+      <div className="relative mx-auto w-full max-w-6xl px-4 py-20 sm:px-6 sm:py-28">
         <motion.div
           initial={reduceMotion ? false : { opacity: 0, y: 18 }}
           whileInView={{ opacity: 1, y: 0 }}

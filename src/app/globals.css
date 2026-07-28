@@ -314,4 +314,435 @@
       animation: none;
     }
   }
+
+  /* Homepage section layered backgrounds (depth only — no layout changes) */
+  .home-bg-layer {
+    position: absolute;
+    inset: 0;
+    will-change: transform, opacity;
+  }
+
+  .home-bg-mesh--light,
+  .home-bg-mesh--services,
+  .home-bg-mesh--schemes,
+  .home-bg-mesh--process,
+  .home-bg-mesh--stories,
+  .home-bg-mesh--callback {
+    background:
+      radial-gradient(
+        42% 38% at 88% 8%,
+        color-mix(in oklch, var(--accent) 7%, transparent),
+        transparent 70%
+      ),
+      radial-gradient(
+        48% 42% at 8% 92%,
+        color-mix(in oklch, var(--primary) 6%, transparent),
+        transparent 72%
+      ),
+      radial-gradient(
+        55% 50% at 50% 40%,
+        color-mix(in oklch, var(--secondary) 55%, transparent),
+        transparent 75%
+      );
+    animation: home-bg-drift 32s ease-in-out infinite;
+  }
+
+  .home-bg-mesh--services {
+    background:
+      radial-gradient(
+        40% 36% at 92% 6%,
+        color-mix(in oklch, var(--accent) 8%, transparent),
+        transparent 68%
+      ),
+      radial-gradient(
+        46% 40% at 6% 94%,
+        color-mix(in oklch, var(--primary) 7%, transparent),
+        transparent 70%
+      ),
+      radial-gradient(
+        50% 45% at 48% 18%,
+        color-mix(in oklch, var(--primary) 4%, transparent),
+        transparent 72%
+      );
+  }
+
+  .home-bg-mesh--schemes {
+    background:
+      radial-gradient(
+        52% 40% at 18% 0%,
+        color-mix(in oklch, var(--primary) 6%, transparent),
+        transparent 70%
+      ),
+      radial-gradient(
+        40% 34% at 96% 18%,
+        color-mix(in oklch, var(--accent) 6%, transparent),
+        transparent 68%
+      ),
+      linear-gradient(
+        180deg,
+        transparent,
+        color-mix(in oklch, var(--secondary) 40%, transparent)
+      );
+  }
+
+  .home-bg-mesh--process {
+    background:
+      radial-gradient(
+        44% 40% at 12% 20%,
+        color-mix(in oklch, var(--primary) 5%, transparent),
+        transparent 70%
+      ),
+      radial-gradient(
+        38% 34% at 90% 80%,
+        color-mix(in oklch, var(--accent) 5%, transparent),
+        transparent 68%
+      );
+  }
+
+  .home-bg-mesh--stories {
+    background:
+      radial-gradient(
+        46% 38% at 10% 0%,
+        color-mix(in oklch, var(--accent) 7%, transparent),
+        transparent 70%
+      ),
+      radial-gradient(
+        42% 36% at 90% 100%,
+        color-mix(in oklch, var(--primary) 5%, transparent),
+        transparent 72%
+      );
+  }
+
+  .home-bg-mesh--callback {
+    background:
+      radial-gradient(
+        50% 45% at 20% 40%,
+        color-mix(in oklch, var(--accent) 8%, transparent),
+        transparent 72%
+      ),
+      radial-gradient(
+        48% 42% at 82% 55%,
+        color-mix(in oklch, var(--primary) 7%, transparent),
+        transparent 70%
+      );
+    animation: home-bg-breathe 28s ease-in-out infinite;
+  }
+
+  .home-bg-mesh--teal,
+  .home-bg-mesh--cta,
+  .home-bg-mesh--impact {
+    background:
+      linear-gradient(
+        135deg,
+        color-mix(in oklch, var(--primary) 0%, transparent) 0%,
+        color-mix(in oklch, black 12%, transparent) 52%,
+        color-mix(in oklch, var(--accent) 8%, transparent) 100%
+      ),
+      radial-gradient(
+        60% 50% at 18% 20%,
+        color-mix(in oklch, white 10%, transparent),
+        transparent 70%
+      ),
+      radial-gradient(
+        55% 48% at 88% 88%,
+        color-mix(in oklch, black 18%, transparent),
+        transparent 72%
+      );
+    opacity: 0.85;
+    animation: home-bg-drift 34s ease-in-out infinite;
+  }
+
+  .home-bg-mesh--cta {
+    background:
+      linear-gradient(
+        125deg,
+        color-mix(in oklch, black 8%, transparent),
+        transparent 45%,
+        color-mix(in oklch, var(--accent) 10%, transparent)
+      ),
+      radial-gradient(
+        55% 48% at 22% 40%,
+        color-mix(in oklch, white 12%, transparent),
+        transparent 68%
+      ),
+      radial-gradient(
+        50% 45% at 90% 80%,
+        color-mix(in oklch, black 22%, transparent),
+        transparent 70%
+      );
+  }
+
+  .home-bg-glow--light,
+  .home-bg-glow--services,
+  .home-bg-glow--schemes,
+  .home-bg-glow--process,
+  .home-bg-glow--stories,
+  .home-bg-glow--callback {
+    background: radial-gradient(
+      36% 32% at 40% 30%,
+      color-mix(in oklch, var(--primary) 5%, transparent),
+      transparent 70%
+    );
+    animation: home-bg-glow-drift 30s ease-in-out infinite;
+    opacity: 0.9;
+  }
+
+  .home-bg-glow--services {
+    background: radial-gradient(
+      42% 34% at 50% 8%,
+      color-mix(in oklch, var(--primary) 6%, transparent),
+      transparent 72%
+    );
+  }
+
+  .home-bg-glow--schemes {
+    background: radial-gradient(
+      48% 36% at 20% 8%,
+      color-mix(in oklch, var(--primary) 7%, transparent),
+      transparent 70%
+    );
+  }
+
+  .home-bg-glow--process {
+    background:
+      radial-gradient(
+        18% 18% at 8% 22%,
+        color-mix(in oklch, var(--primary) 5%, transparent),
+        transparent 70%
+      ),
+      radial-gradient(
+        16% 16% at 8% 42%,
+        color-mix(in oklch, var(--accent) 4%, transparent),
+        transparent 70%
+      ),
+      radial-gradient(
+        16% 16% at 8% 62%,
+        color-mix(in oklch, var(--primary) 4%, transparent),
+        transparent 70%
+      ),
+      radial-gradient(
+        16% 16% at 8% 82%,
+        color-mix(in oklch, var(--accent) 4%, transparent),
+        transparent 70%
+      );
+  }
+
+  .home-bg-glow--callback {
+    background: radial-gradient(
+      46% 42% at 78% 55%,
+      color-mix(in oklch, var(--primary) 8%, transparent),
+      transparent 72%
+    );
+    animation: home-bg-breathe 26s ease-in-out infinite;
+  }
+
+  .home-bg-glow--teal,
+  .home-bg-glow--cta,
+  .home-bg-glow--impact {
+    background: radial-gradient(
+      50% 42% at 24% 28%,
+      color-mix(in oklch, white 11%, transparent),
+      transparent 70%
+    );
+    animation: home-bg-glow-drift 28s ease-in-out infinite;
+  }
+
+  .home-bg-glow--cta {
+    background: radial-gradient(
+      48% 40% at 18% 45%,
+      color-mix(in oklch, white 14%, transparent),
+      transparent 68%
+    );
+  }
+
+  .home-bg-texture--light,
+  .home-bg-texture--services,
+  .home-bg-texture--schemes,
+  .home-bg-texture--process,
+  .home-bg-texture--stories,
+  .home-bg-texture--callback {
+    opacity: 0.028;
+    background-image:
+      linear-gradient(
+        color-mix(in oklch, var(--primary) 55%, transparent) 1px,
+        transparent 1px
+      ),
+      linear-gradient(
+        90deg,
+        color-mix(in oklch, var(--primary) 55%, transparent) 1px,
+        transparent 1px
+      );
+    background-size: 42px 42px;
+    animation: home-bg-texture-drift 36s linear infinite;
+    mask-image: radial-gradient(ellipse at center, black 30%, transparent 88%);
+  }
+
+  .home-bg-texture--schemes {
+    opacity: 0.025;
+    background-image:
+      radial-gradient(
+        circle at 1px 1px,
+        color-mix(in oklch, var(--primary) 60%, transparent) 1px,
+        transparent 0
+      ),
+      linear-gradient(
+        color-mix(in oklch, var(--primary) 35%, transparent) 1px,
+        transparent 1px
+      );
+    background-size:
+      28px 28px,
+      64px 64px;
+  }
+
+  .home-bg-texture--teal,
+  .home-bg-texture--cta,
+  .home-bg-texture--impact {
+    opacity: 0.06;
+    background-image:
+      linear-gradient(
+        115deg,
+        transparent 0%,
+        color-mix(in oklch, white 18%, transparent) 48%,
+        transparent 52%
+      ),
+      linear-gradient(
+        color-mix(in oklch, white 22%, transparent) 1px,
+        transparent 1px
+      );
+    background-size:
+      100% 100%,
+      56px 56px;
+    mask-image: radial-gradient(ellipse at center, black 40%, transparent 90%);
+  }
+
+  .home-bg-process-beam {
+    left: 1.05rem;
+    width: 2px;
+    background: linear-gradient(
+      180deg,
+      transparent,
+      color-mix(in oklch, var(--primary) 12%, transparent),
+      color-mix(in oklch, var(--accent) 10%, transparent),
+      transparent
+    );
+    opacity: 0.55;
+    filter: blur(6px);
+    animation: home-bg-breathe 30s ease-in-out infinite;
+  }
+
+  @media (min-width: 640px) {
+    .home-bg-process-beam {
+      left: 1.25rem;
+    }
+  }
+
+  .home-bg-sweep--teal,
+  .home-bg-sweep--cta {
+    background: linear-gradient(
+      105deg,
+      transparent 30%,
+      color-mix(in oklch, white 10%, transparent) 48%,
+      transparent 62%
+    );
+    opacity: 0;
+    animation: home-bg-sweep 26s ease-in-out infinite;
+  }
+
+  .home-bg-sweep--cta {
+    animation-duration: 30s;
+  }
+
+  @keyframes home-bg-drift {
+    0%,
+    100% {
+      transform: translate3d(0, 0, 0) scale(1);
+    }
+    50% {
+      transform: translate3d(1.2%, -0.8%, 0) scale(1.03);
+    }
+  }
+
+  @keyframes home-bg-glow-drift {
+    0%,
+    100% {
+      transform: translate3d(0, 0, 0);
+      opacity: 0.75;
+    }
+    50% {
+      transform: translate3d(3%, 2%, 0);
+      opacity: 1;
+    }
+  }
+
+  @keyframes home-bg-breathe {
+    0%,
+    100% {
+      opacity: 0.7;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 1;
+      transform: scale(1.04);
+    }
+  }
+
+  @keyframes home-bg-texture-drift {
+    0% {
+      transform: translate3d(0, 0, 0);
+    }
+    100% {
+      transform: translate3d(-42px, -28px, 0);
+    }
+  }
+
+  @keyframes home-bg-sweep {
+    0%,
+    72%,
+    100% {
+      opacity: 0;
+      transform: translate3d(-8%, 0, 0);
+    }
+    80% {
+      opacity: 0.35;
+    }
+    88% {
+      opacity: 0.15;
+      transform: translate3d(8%, 0, 0);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .home-bg-mesh--light,
+    .home-bg-mesh--services,
+    .home-bg-mesh--schemes,
+    .home-bg-mesh--process,
+    .home-bg-mesh--stories,
+    .home-bg-mesh--callback,
+    .home-bg-mesh--teal,
+    .home-bg-mesh--cta,
+    .home-bg-mesh--impact,
+    .home-bg-glow--light,
+    .home-bg-glow--services,
+    .home-bg-glow--schemes,
+    .home-bg-glow--process,
+    .home-bg-glow--stories,
+    .home-bg-glow--callback,
+    .home-bg-glow--teal,
+    .home-bg-glow--cta,
+    .home-bg-glow--impact,
+    .home-bg-texture--light,
+    .home-bg-texture--services,
+    .home-bg-texture--schemes,
+    .home-bg-texture--process,
+    .home-bg-texture--stories,
+    .home-bg-texture--callback,
+    .home-bg-texture--teal,
+    .home-bg-texture--cta,
+    .home-bg-texture--impact,
+    .home-bg-process-beam,
+    .home-bg-sweep--teal,
+    .home-bg-sweep--cta {
+      animation: none;
+    }
+  }
 }
