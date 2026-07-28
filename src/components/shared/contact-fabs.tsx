@@ -28,7 +28,7 @@ export function ContactFabs() {
           rel="noopener noreferrer"
           aria-label="Chat on WhatsApp"
           title="WhatsApp"
-          className="inline-flex size-14 items-center justify-center rounded-full bg-[#1FAF38] text-white shadow-lg transition hover:scale-105 hover:bg-[#189a30] focus-visible:ring-2 focus-visible:ring-[#1FAF38]/50 focus-visible:outline-none"
+          className="inline-flex size-14 items-center justify-center rounded-full bg-[#1FAF38] text-white shadow-lg transition duration-300 hover:scale-110 hover:bg-[#189a30] focus-visible:ring-2 focus-visible:ring-[#1FAF38]/50 focus-visible:outline-none active:scale-95"
         >
           <MessageCircle className="size-6" />
         </a>
@@ -38,7 +38,7 @@ export function ContactFabs() {
           href={callHref}
           aria-label="Call Enigrow"
           title="Call"
-          className="bg-foreground text-background hover:bg-foreground/90 focus-visible:ring-foreground/40 inline-flex size-14 items-center justify-center rounded-full shadow-lg transition hover:scale-105 focus-visible:ring-2 focus-visible:outline-none"
+          className="bg-foreground text-background hover:bg-foreground/90 focus-visible:ring-foreground/40 inline-flex size-14 items-center justify-center rounded-full shadow-lg transition duration-300 hover:scale-110 focus-visible:ring-2 focus-visible:outline-none active:scale-95"
         >
           <Phone className="size-6" />
         </a>

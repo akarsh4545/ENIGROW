@@ -98,9 +98,10 @@ export function SiteHeader() {
                         <Link
                           href={item.href}
                           className={cn(
-                            "rounded-lg px-3 py-2.5 text-[0.95rem] font-medium transition-colors",
+                            "relative rounded-lg px-3 py-2.5 text-[0.95rem] font-medium transition-colors",
+                            "after:bg-primary after:absolute after:inset-x-3 after:bottom-1 after:h-0.5 after:origin-left after:scale-x-0 after:rounded-full after:transition after:duration-300 hover:after:scale-x-100",
                             active
-                              ? "bg-muted text-foreground"
+                              ? "bg-muted text-foreground after:scale-x-100"
                               : "text-muted-foreground hover:bg-muted/70 hover:text-foreground",
                           )}
                         >

@@ -5,11 +5,54 @@ import { toast } from "sonner";
 import { motion, useReducedMotion } from "framer-motion";
 
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+import { homeCtaClass, homeEase } from "@/components/marketing/home-motion";
 import { homeContent } from "@/data/home";
 import { siteConfig } from "@/config/site";
 import { apiFetch } from "@/lib/api";
+import { cn } from "@/lib/utils";
+
+function FloatingField({
+  id,
+  label,
+  value,
+  onChange,
+  type = "text",
+  required,
+}: {
+  id: string;
+  label: string;
+  value: string;
+  onChange: (v: string) => void;
+  type?: string;
+  required?: boolean;
+}) {
+  const active = value.length > 0;
+
+  return (
+    <div className="relative">
+      <input
+        id={id}
+        type={type}
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        placeholder=" "
+        required={required}
+        className="peer border-border/80 bg-background focus:border-primary focus:ring-primary/20 h-12 w-full rounded-xl border px-3.5 pt-4 pb-1.5 text-sm transition duration-300 outline-none focus:ring-3"
+      />
+      <label
+        htmlFor={id}
+        className={cn(
+          "text-muted-foreground pointer-events-none absolute left-3.5 transition-all duration-300",
+          active
+            ? "text-primary top-1.5 text-[11px] tracking-wide"
+            : "peer-focus:text-primary top-1.5 text-[11px] tracking-wide peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-sm peer-focus:top-1.5 peer-focus:text-[11px] peer-focus:tracking-wide",
+        )}
+      >
+        {label}
+      </label>
+    </div>
+  );
+}
 
 export function HomeCallback() {
   const reduceMotion = useReducedMotion();
@@ -69,7 +112,7 @@ export function HomeCallback() {
             initial={reduceMotion ? false : { opacity: 0, y: 14 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.35 }}
-            transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: 0.5, ease: homeEase }}
           >
             <p className="text-primary text-sm font-medium tracking-[0.18em] uppercase">
               {callback.eyebrow}
@@ -92,11 +135,7 @@ export function HomeCallback() {
             initial={reduceMotion ? false : { opacity: 0, y: 14 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.35 }}
-            transition={{
-              duration: 0.55,
-              delay: 0.06,
-              ease: [0.22, 1, 0.36, 1],
-            }}
+            transition={{ duration: 0.5, delay: 0.06, ease: homeEase }}
           >
             {done ? (
               <div>
@@ -109,7 +148,7 @@ export function HomeCallback() {
                 <Button
                   type="button"
                   variant="outline"
-                  className="mt-6"
+                  className={cn("mt-6", homeCtaClass)}
                   onClick={() => setDone(false)}
                 >
                   Request another callback
@@ -117,33 +156,26 @@ export function HomeCallback() {
               </div>
             ) : (
               <form onSubmit={onSubmit} className="space-y-4">
-                <div className="space-y-2">
-                  <Label htmlFor="callback-name">Full name</Label>
-                  <Input
-                    id="callback-name"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    placeholder="Your name"
-                    required
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="callback-phone">Mobile number</Label>
-                  <Input
-                    id="callback-phone"
-                    value={phone}
-                    onChange={(e) => setPhone(e.target.value)}
-                    placeholder="+91…"
-                    required
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="callback-interest">Interest</Label>
+                <FloatingField
+                  id="callback-name"
+                  label="Full name"
+                  value={name}
+                  onChange={setName}
+                  required
+                />
+                <FloatingField
+                  id="callback-phone"
+                  label="Mobile number"
+                  value={phone}
+                  onChange={setPhone}
+                  required
+                />
+                <div className="relative">
                   <select
                     id="callback-interest"
                     value={interest}
                     onChange={(e) => setInterest(e.target.value)}
-                    className="border-input bg-background focus-visible:border-ring focus-visible:ring-ring/50 h-9 w-full rounded-lg border px-3 text-sm outline-none focus-visible:ring-3"
+                    className="border-border/80 bg-background focus:border-primary focus:ring-primary/20 h-12 w-full appearance-none rounded-xl border px-3.5 pt-4 pb-1.5 text-sm transition duration-300 outline-none focus:ring-3"
                   >
                     {callback.interests.map((option) => (
                       <option key={option} value={option}>
@@ -151,11 +183,14 @@ export function HomeCallback() {
                       </option>
                     ))}
                   </select>
+                  <span className="text-primary pointer-events-none absolute top-1.5 left-3.5 text-[11px] tracking-wide">
+                    Interest
+                  </span>
                 </div>
                 <Button
                   type="submit"
                   size="lg"
-                  className="w-full"
+                  className={cn("w-full", homeCtaClass)}
                   disabled={loading}
                 >
                   {loading ? "Sending…" : "Confirm callback request"}

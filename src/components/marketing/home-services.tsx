@@ -12,6 +12,7 @@ import {
 } from "lucide-react";
 
 import { buttonVariants } from "@/components/ui/button-variants";
+import { homeCtaClass, homeEase } from "@/components/marketing/home-motion";
 import { homeContent } from "@/data/home";
 import { ROUTES } from "@/constants/routes";
 import { cn } from "@/lib/utils";
@@ -37,7 +38,7 @@ export function HomeServices() {
           initial={reduceMotion ? false : { opacity: 0, y: 18 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.4 }}
-          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ duration: 0.55, ease: homeEase }}
           className="mx-auto max-w-2xl text-center"
         >
           <p className="text-primary text-sm font-medium tracking-[0.18em] uppercase">
@@ -62,18 +63,20 @@ export function HomeServices() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.3 }}
                 transition={{
-                  duration: 0.55,
+                  duration: 0.5,
                   delay: index * 0.08,
-                  ease: [0.22, 1, 0.36, 1],
+                  ease: homeEase,
                 }}
+                whileHover={reduceMotion ? undefined : { y: -6 }}
               >
                 <Link
                   href={item.href}
                   className={cn(
                     "bg-card group border-border/80 relative flex h-full flex-col overflow-hidden rounded-[1.15rem] border p-6 sm:p-7",
                     "shadow-[0_1px_2px_color-mix(in_oklch,var(--foreground)_4%,transparent),0_12px_32px_-20px_color-mix(in_oklch,var(--primary)_22%,transparent)]",
-                    "hover:border-primary/35 transition duration-300 hover:-translate-y-1",
-                    "hover:shadow-[0_14px_36px_-16px_color-mix(in_oklch,var(--primary)_40%,transparent)]",
+                    "hover:border-primary/40 transition duration-300",
+                    "hover:bg-[color-mix(in_oklch,var(--card)_92%,var(--primary)_8%)]",
+                    "hover:shadow-[0_18px_40px_-16px_color-mix(in_oklch,var(--primary)_42%,transparent)]",
                     "focus-visible:ring-ring/40 focus-visible:ring-2 focus-visible:outline-none",
                   )}
                 >
@@ -82,7 +85,7 @@ export function HomeServices() {
                     className="bg-accent absolute top-0 left-0 h-full w-1 origin-top scale-y-0 transition duration-300 group-hover:scale-y-100"
                   />
 
-                  <span className="bg-primary/10 text-primary group-hover:bg-primary group-hover:text-primary-foreground group-hover:shadow-primary/25 mb-5 inline-flex size-12 items-center justify-center rounded-2xl transition duration-300 group-hover:shadow-md">
+                  <span className="bg-primary/10 text-primary group-hover:bg-primary group-hover:text-primary-foreground group-hover:shadow-primary/25 mb-5 inline-flex size-12 items-center justify-center rounded-2xl transition duration-300 group-hover:rotate-6 group-hover:shadow-md">
                     <Icon className="size-5" strokeWidth={1.8} />
                   </span>
 
@@ -108,12 +111,13 @@ export function HomeServices() {
           initial={reduceMotion ? false : { opacity: 0, y: 12 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.5 }}
-          transition={{ duration: 0.5, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ duration: 0.45, delay: 0.12, ease: homeEase }}
         >
           <Link
             href={ROUTES.services}
             className={cn(
               buttonVariants({ size: "lg" }),
+              homeCtaClass,
               "shadow-primary/25 h-11 rounded-full px-6 shadow-md",
             )}
           >

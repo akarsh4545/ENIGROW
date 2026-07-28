@@ -81,6 +81,7 @@ export const homeContent = {
         copy: "Prime Minister Employment Generation Programme for new micro enterprises with category-based subsidy support.",
         forWhom: "New manufacturing & service units",
         highlight: "15–35% typical subsidy band",
+        benefits: ["Margin money support", "New unit focus", "Bank-linked"],
         meta: [
           { label: "Amount", value: "₹10L–₹50L" },
           { label: "Timeline", value: "45–60 days" },
@@ -93,6 +94,7 @@ export const homeContent = {
         copy: "Credit guarantee cover that helps MSEs access collateral-light institutional credit.",
         forWhom: "Micro & small enterprises",
         highlight: "Up to ₹5 Cr credit conversations",
+        benefits: ["Collateral-light", "MSE coverage", "Lender confidence"],
         meta: [
           { label: "Cover", value: "Guarantee-backed" },
           { label: "Timeline", value: "30–45 days" },
@@ -105,6 +107,11 @@ export const homeContent = {
         copy: "Collateral-light micro loans for shops, services, and small enterprises that need capital to operate or expand.",
         forWhom: "Micro enterprises & traders",
         highlight: "₹50K – ₹10L typical range",
+        benefits: [
+          "Quick working capital",
+          "Shishu–Tarun bands",
+          "Trade-friendly",
+        ],
         meta: [
           { label: "Amount", value: "Up to ₹10L" },
           { label: "Timeline", value: "7–21 days" },
@@ -117,6 +124,7 @@ export const homeContent = {
         copy: "Bank-led financing pathway focused on SC/ST and women entrepreneurs starting greenfield businesses.",
         forWhom: "SC/ST & women entrepreneurs",
         highlight: "₹10L – ₹1 Cr loan pathway",
+        benefits: ["Greenfield focus", "SC/ST & women", "Term finance"],
         meta: [
           { label: "Amount", value: "₹10L–₹1Cr" },
           { label: "Timeline", value: "30–60 days" },

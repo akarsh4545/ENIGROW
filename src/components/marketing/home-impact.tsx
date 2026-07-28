@@ -5,6 +5,11 @@ import { motion, useReducedMotion } from "framer-motion";
 import { Award, IndianRupee, TrendingUp, Users } from "lucide-react";
 
 import { buttonVariants } from "@/components/ui/button-variants";
+import {
+  homeCtaClass,
+  homeEase,
+  useCountUp,
+} from "@/components/marketing/home-motion";
 import { homeContent } from "@/data/home";
 import { cn } from "@/lib/utils";
 
@@ -14,6 +19,53 @@ const iconMap = {
   people: Users,
   support: Award,
 } as const;
+
+function CountCr() {
+  const { ref, value } = useCountUp({ end: 110, duration: 1.5 });
+  return (
+    <p
+      ref={ref}
+      className="font-heading mt-5 text-3xl font-semibold tracking-tight sm:text-4xl"
+    >
+      ₹{Math.round(value)}Cr+
+    </p>
+  );
+}
+
+function CountPercent() {
+  const { ref, value } = useCountUp({ end: 92, duration: 1.35 });
+  return (
+    <p
+      ref={ref}
+      className="font-heading mt-5 text-3xl font-semibold tracking-tight sm:text-4xl"
+    >
+      {Math.round(value)}%
+    </p>
+  );
+}
+
+function CountPlus() {
+  const { ref, value } = useCountUp({ end: 720, duration: 1.45 });
+  return (
+    <p
+      ref={ref}
+      className="font-heading mt-5 text-3xl font-semibold tracking-tight sm:text-4xl"
+    >
+      {Math.round(value)}+
+    </p>
+  );
+}
+
+function StatDisplay({ value }: { value: string }) {
+  if (value.includes("Cr")) return <CountCr />;
+  if (value.includes("%")) return <CountPercent />;
+  if (value.endsWith("+") && /\d/.test(value)) return <CountPlus />;
+  return (
+    <p className="font-heading mt-5 text-3xl font-semibold tracking-tight sm:text-4xl">
+      {value}
+    </p>
+  );
+}
 
 export function HomeImpact() {
   const reduceMotion = useReducedMotion();
@@ -33,21 +85,19 @@ export function HomeImpact() {
               <motion.div
                 key={item.label}
                 className="flex flex-col items-center text-center"
-                initial={reduceMotion ? false : { opacity: 0, y: 14 }}
+                initial={reduceMotion ? false : { opacity: 0, y: 16 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.4 }}
                 transition={{
                   duration: 0.45,
-                  delay: index * 0.05,
-                  ease: [0.22, 1, 0.36, 1],
+                  delay: index * 0.06,
+                  ease: homeEase,
                 }}
               >
-                <span className="bg-accent text-accent-foreground grid size-12 place-items-center rounded-2xl shadow-[0_10px_30px_color-mix(in_oklch,var(--accent)_45%,transparent)]">
+                <span className="bg-accent text-accent-foreground grid size-12 place-items-center rounded-2xl shadow-[0_10px_30px_color-mix(in_oklch,var(--accent)_45%,transparent)] transition hover:scale-105">
                   <Icon className="size-5" aria-hidden />
                 </span>
-                <p className="font-heading mt-5 text-3xl font-semibold tracking-tight sm:text-4xl">
-                  {item.value}
-                </p>
+                <StatDisplay value={item.value} />
                 <p className="text-primary-foreground/75 mt-2 text-xs font-medium tracking-[0.18em] uppercase">
                   {item.label}
                 </p>
@@ -62,6 +112,7 @@ export function HomeImpact() {
           href={impact.cta.href}
           className={cn(
             buttonVariants({ variant: "outline", size: "lg" }),
+            homeCtaClass,
             "border-accent text-accent-foreground hover:bg-accent/10",
           )}
         >

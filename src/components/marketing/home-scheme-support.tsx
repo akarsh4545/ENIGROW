@@ -4,6 +4,7 @@ import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 
+import { homeEase } from "@/components/marketing/home-motion";
 import { homeContent } from "@/data/home";
 import { ROUTES } from "@/constants/routes";
 
@@ -24,7 +25,7 @@ export function HomeSchemeSupport() {
             initial={reduceMotion ? false : { opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.4 }}
-            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: 0.55, ease: homeEase }}
           >
             <p className="text-accent text-sm font-medium tracking-[0.18em] uppercase">
               {schemeSupport.eyebrow}
@@ -66,9 +67,10 @@ export function HomeSchemeSupport() {
               transition={{
                 duration: 0.45,
                 delay: index * 0.06,
-                ease: [0.22, 1, 0.36, 1],
+                ease: homeEase,
               }}
-              className="border-primary-foreground/12 bg-primary-foreground/8 hover:border-accent/40 hover:bg-primary-foreground/12 rounded-2xl border p-5 backdrop-blur-sm transition"
+              whileHover={reduceMotion ? undefined : { y: -4 }}
+              className="border-primary-foreground/12 bg-primary-foreground/8 hover:border-accent/40 hover:bg-primary-foreground/12 rounded-2xl border p-5 transition duration-300"
             >
               <dt className="text-primary-foreground/65 text-[11px] font-medium tracking-[0.16em] uppercase">
                 {metric.label}

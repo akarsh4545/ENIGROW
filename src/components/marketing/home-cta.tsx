@@ -44,7 +44,7 @@ export function HomeCta() {
             href={cta.primaryCta.href}
             className={cn(
               buttonVariants({ size: "lg" }),
-              "bg-accent text-accent-foreground hover:bg-accent/90",
+              "bg-accent text-accent-foreground hover:bg-accent/90 transition duration-300 hover:-translate-y-0.5 hover:scale-[1.02] active:scale-[0.99]",
             )}
           >
             {cta.primaryCta.label}
@@ -53,7 +53,7 @@ export function HomeCta() {
             href={cta.secondaryCta.href}
             className={cn(
               buttonVariants({ size: "lg", variant: "outline" }),
-              "border-primary-foreground/35 text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground bg-transparent",
+              "border-primary-foreground/35 text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground bg-transparent transition duration-300 hover:-translate-y-0.5 hover:scale-[1.02] active:scale-[0.99]",
             )}
           >
             {cta.secondaryCta.label}

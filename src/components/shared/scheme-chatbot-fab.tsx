@@ -269,7 +269,7 @@ export function SchemeChatbotFab() {
         aria-label={open ? "Close scheme guide" : "Open scheme guide chatbot"}
         aria-expanded={open}
         className={cn(
-          "bg-primary text-primary-foreground hover:bg-primary/90 focus-visible:ring-primary/40 fixed right-4 z-50 inline-flex size-14 items-center justify-center rounded-full shadow-lg transition hover:scale-105 focus-visible:ring-2 focus-visible:outline-none sm:right-6",
+          "bg-primary text-primary-foreground hover:bg-primary/90 focus-visible:ring-primary/40 fixed right-4 z-50 inline-flex size-14 items-center justify-center rounded-full shadow-lg transition duration-300 hover:scale-110 focus-visible:ring-2 focus-visible:outline-none active:scale-95 sm:right-6",
           hasContactFabs
             ? "bottom-[9.5rem] sm:bottom-40"
             : "bottom-4 sm:bottom-6",
