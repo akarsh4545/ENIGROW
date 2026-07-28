@@ -7,6 +7,7 @@ import { Menu } from "lucide-react";
 import { useState } from "react";
 
 import { ThemeToggle } from "@/components/shared/theme-toggle";
+import { BrandLogo } from "@/components/shared/brand-logo";
 import { Button, buttonVariants } from "@/components/ui/button";
 import {
   Sheet,
@@ -104,12 +105,13 @@ export function AdminShell({
                 />
               </SheetContent>
             </Sheet>
-            <div>
+            <div className="flex items-center gap-2.5">
               <Link
                 href="/admin"
-                className="font-heading text-lg font-semibold tracking-tight"
+                className="inline-flex items-center"
+                aria-label={`${siteConfig.name} Admin`}
               >
-                {siteConfig.name} Admin
+                <BrandLogo className="h-10 w-auto" />
               </Link>
               {role ? (
                 <p className="text-muted-foreground text-[11px] tracking-wide uppercase">

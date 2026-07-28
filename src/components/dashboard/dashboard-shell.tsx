@@ -7,6 +7,7 @@ import { Menu } from "lucide-react";
 import { useState } from "react";
 
 import { ThemeToggle } from "@/components/shared/theme-toggle";
+import { BrandLogo } from "@/components/shared/brand-logo";
 import { Button, buttonVariants } from "@/components/ui/button";
 import {
   Sheet,
@@ -97,7 +98,9 @@ export function DashboardShell({
               </SheetTrigger>
               <SheetContent side="left" className="w-[min(100%,20rem)]">
                 <SheetHeader>
-                  <SheetTitle>{siteConfig.name}</SheetTitle>
+                  <SheetTitle>
+                    <BrandLogo className="h-11 w-auto" />
+                  </SheetTitle>
                 </SheetHeader>
                 <NavLinks className="mt-6" onNavigate={() => setOpen(false)} />
                 {canAccessAdmin ? (
@@ -127,9 +130,10 @@ export function DashboardShell({
             </Sheet>
             <Link
               href={ROUTES.dashboard}
-              className="font-heading text-lg font-semibold tracking-tight"
+              className="inline-flex items-center"
+              aria-label={`${siteConfig.name} dashboard`}
             >
-              {siteConfig.name}
+              <BrandLogo className="h-10 w-auto" />
             </Link>
           </div>
 

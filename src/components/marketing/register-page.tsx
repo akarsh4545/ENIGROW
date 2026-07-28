@@ -1,20 +1,17 @@
 import Link from "next/link";
 
 import { RegisterForm } from "@/components/forms/register-form";
-import { siteConfig } from "@/config/site";
+import { BrandLogo } from "@/components/shared/brand-logo";
 import { ROUTES } from "@/constants/routes";
 
 export function RegisterPageContent() {
   return (
     <div className="w-full">
       <div className="mb-8 text-center">
-        <Link
-          href={ROUTES.home}
-          className="font-heading text-primary text-2xl font-semibold tracking-tight"
-        >
-          {siteConfig.name}
+        <Link href={ROUTES.home} className="inline-flex justify-center">
+          <BrandLogo priority className="h-20 w-auto sm:h-24" />
         </Link>
-        <h1 className="mt-4 text-2xl font-semibold tracking-tight">
+        <h1 className="mt-6 text-2xl font-semibold tracking-tight">
           Create your account
         </h1>
         <p className="text-muted-foreground mt-2 text-sm">

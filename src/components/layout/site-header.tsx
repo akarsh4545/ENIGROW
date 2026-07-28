@@ -6,6 +6,7 @@ import { Menu } from "lucide-react";
 import { useState } from "react";
 
 import { ThemeToggle } from "@/components/shared/theme-toggle";
+import { BrandLogo } from "@/components/shared/brand-logo";
 import { Button, buttonVariants } from "@/components/ui/button";
 import {
   NavigationMenu,
@@ -33,18 +34,13 @@ export function SiteHeader() {
 
   return (
     <header className="border-border/70 bg-background/85 sticky top-0 z-50 border-b backdrop-blur-md">
-      <div className="mx-auto flex h-16 w-full max-w-6xl items-center justify-between gap-4 px-4 sm:px-6">
+      <div className="mx-auto flex h-[4.25rem] w-full max-w-6xl items-center justify-between gap-4 px-4 sm:h-[4.5rem] sm:px-6">
         <Link
           href={ROUTES.home}
-          className="group flex items-center gap-2.5"
+          className="group inline-flex items-center transition group-hover:opacity-95"
           aria-label={`${siteConfig.name} home`}
         >
-          <span className="bg-primary text-primary-foreground grid size-9 place-items-center rounded-xl text-sm font-semibold tracking-tight shadow-sm transition group-hover:scale-[1.03]">
-            EG
-          </span>
-          <span className="font-heading text-lg font-semibold tracking-tight">
-            {siteConfig.name}
-          </span>
+          <BrandLogo priority className="h-11 w-auto sm:h-12" />
         </Link>
 
         <nav className="hidden items-center gap-1 lg:flex" aria-label="Primary">
@@ -150,8 +146,8 @@ export function SiteHeader() {
             </SheetTrigger>
             <SheetContent side="right" className="w-[min(100%,22rem)]">
               <SheetHeader>
-                <SheetTitle className="font-heading text-left">
-                  {siteConfig.name}
+                <SheetTitle className="text-left">
+                  <BrandLogo className="h-12 w-auto" />
                 </SheetTitle>
               </SheetHeader>
               <div className="mt-6 flex flex-col gap-1">
