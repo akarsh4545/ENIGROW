@@ -40,7 +40,7 @@ export function HomePageClient() {
 
   return (
     <>
-      <HomeFundingHero onStart={() => setWizardOpen(true)} />
+      <HomeFundingHero />
       <HomeServices />
       <HomeSchemeSupport />
       <HomeSchemes />

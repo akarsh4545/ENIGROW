@@ -1,199 +1,275 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
-import { ArrowRight, CheckCircle2 } from "lucide-react";
+import {
+  ArrowDown,
+  ArrowRight,
+  BadgeCheck,
+  Building2,
+  FileCheck2,
+  Landmark,
+  Rocket,
+  ShieldCheck,
+  TrendingUp,
+} from "lucide-react";
 
 import { buttonVariants } from "@/components/ui/button-variants";
 import { homeCtaClass, homeEase } from "@/components/marketing/home-motion";
-import { siteConfig } from "@/config/site";
 import { ROUTES } from "@/constants/routes";
 import { cn } from "@/lib/utils";
 
-const highlights = [
-  "Government schemes & MSME funding",
-  "Company registration & compliance",
-  "Advisor-led support across India",
+const chips = [
+  { label: "Company Registration", icon: Building2 },
+  { label: "GST & Compliance", icon: FileCheck2 },
+  { label: "MSME", icon: BadgeCheck },
+  { label: "Startup India", icon: Rocket },
+  { label: "Government Schemes", icon: Landmark },
 ] as const;
 
-type Props = {
-  onStart: () => void;
-};
+const journey = [
+  { label: "Business Idea", icon: Rocket },
+  { label: "Company Registration", icon: Building2 },
+  { label: "GST Registration", icon: FileCheck2 },
+  { label: "MSME Certification", icon: BadgeCheck },
+  { label: "Government Schemes", icon: Landmark },
+  { label: "Funding Readiness", icon: ShieldCheck },
+  { label: "Business Growth", icon: TrendingUp },
+] as const;
 
-export function HomeFundingHero({ onStart }: Props) {
+const trusts = [
+  { label: "Trusted by 5,000+ Entrepreneurs" },
+  { label: "98% Successful Registrations" },
+  { label: "₹120Cr+ Funding Assistance" },
+] as const;
+
+function Highlight({ children }: { children: React.ReactNode }) {
+  return <span className="text-primary">{children}</span>;
+}
+
+function JourneyIllustration({
+  reduceMotion,
+}: {
+  reduceMotion: boolean | null;
+}) {
+  return (
+    <div className="relative mx-auto w-full max-w-lg">
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 rounded-[2rem] bg-[radial-gradient(circle_at_50%_30%,color-mix(in_oklch,var(--primary)_10%,transparent),transparent_65%)]"
+      />
+
+      <motion.div
+        className="relative space-y-3"
+        animate={reduceMotion ? undefined : { y: [0, -8, 0] }}
+        transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
+      >
+        {journey.map((step, index) => {
+          const Icon = step.icon;
+          const offset =
+            index % 2 === 0 ? "sm:translate-x-0" : "sm:translate-x-8";
+
+          return (
+            <div key={step.label} className="relative">
+              <motion.div
+                className={cn(
+                  "border-border/60 bg-card/90 relative flex items-center gap-3 rounded-[1.35rem] border px-4 py-3.5 shadow-[0_14px_36px_-22px_color-mix(in_oklch,var(--primary)_35%,transparent)] backdrop-blur-sm",
+                  offset,
+                )}
+                initial={reduceMotion ? false : { opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{
+                  delay: 0.2 + index * 0.07,
+                  duration: 0.45,
+                  ease: homeEase,
+                }}
+                whileHover={reduceMotion ? undefined : { y: -3, scale: 1.01 }}
+              >
+                <span className="bg-primary/10 text-primary grid size-10 shrink-0 place-items-center rounded-2xl">
+                  <Icon className="size-4" />
+                </span>
+                <div className="min-w-0">
+                  <p className="text-muted-foreground text-[10px] font-medium tracking-[0.14em] uppercase">
+                    Step {String(index + 1).padStart(2, "0")}
+                  </p>
+                  <p className="font-heading text-sm font-semibold tracking-tight sm:text-base">
+                    {step.label}
+                  </p>
+                </div>
+                {index === journey.length - 1 ? (
+                  <span className="bg-accent/25 text-accent-foreground ml-auto rounded-full px-2.5 py-1 text-[10px] font-semibold tracking-wide uppercase">
+                    Goal
+                  </span>
+                ) : null}
+              </motion.div>
+
+              {index < journey.length - 1 ? (
+                <div className="text-primary/50 flex justify-center py-1 sm:justify-start sm:pl-8">
+                  <ArrowDown className="size-4" />
+                </div>
+              ) : null}
+            </div>
+          );
+        })}
+      </motion.div>
+
+      <motion.div
+        aria-hidden
+        className="border-border/50 bg-background/80 absolute -top-3 -right-2 hidden rounded-2xl border px-3 py-2 text-xs font-medium shadow-md sm:block"
+        animate={reduceMotion ? undefined : { y: [0, -6, 0] }}
+        transition={{ duration: 5.5, repeat: Infinity, ease: "easeInOut" }}
+      >
+        Approval-ready
+      </motion.div>
+      <motion.div
+        aria-hidden
+        className="border-border/50 bg-background/80 absolute -bottom-2 -left-2 hidden rounded-2xl border px-3 py-2 text-xs font-medium shadow-md sm:block"
+        animate={reduceMotion ? undefined : { y: [0, 6, 0] }}
+        transition={{
+          duration: 6.2,
+          repeat: Infinity,
+          ease: "easeInOut",
+          delay: 0.4,
+        }}
+      >
+        Growth path
+      </motion.div>
+    </div>
+  );
+}
+
+export function HomeFundingHero() {
   const reduceMotion = useReducedMotion();
 
   return (
-    <section className="border-border/70 relative isolate overflow-hidden border-b">
+    <section className="relative isolate min-h-[calc(100dvh-5.5rem)] overflow-hidden sm:min-h-[calc(100dvh-6.25rem)] lg:min-h-[calc(100dvh-6.75rem)]">
+      {/* Soft off-white + mint/cream mesh */}
       <div
         aria-hidden
-        className="absolute inset-0 bg-[linear-gradient(120deg,color-mix(in_oklch,var(--secondary)_75%,white)_0%,var(--background)_48%,color-mix(in_oklch,var(--accent)_8%,var(--background))_100%)]"
+        className="dark:bg-background absolute inset-0 bg-[#FAFAF7]"
+      />
+      <motion.div
+        aria-hidden
+        className="pointer-events-none absolute -top-24 left-[-10%] size-[34rem] rounded-full bg-[radial-gradient(circle,color-mix(in_oklch,var(--primary)_14%,transparent),transparent_70%)] blur-2xl"
+        animate={reduceMotion ? undefined : { x: [0, 24, 0], y: [0, 12, 0] }}
+        transition={{ duration: 28, repeat: Infinity, ease: "easeInOut" }}
+      />
+      <motion.div
+        aria-hidden
+        className="pointer-events-none absolute right-[-8%] bottom-[-10%] size-[32rem] rounded-full bg-[radial-gradient(circle,color-mix(in_oklch,var(--accent)_18%,transparent),transparent_72%)] blur-2xl"
+        animate={reduceMotion ? undefined : { x: [0, -18, 0], y: [0, -14, 0] }}
+        transition={{ duration: 32, repeat: Infinity, ease: "easeInOut" }}
       />
       <div
         aria-hidden
-        className="pointer-events-none absolute -top-24 -left-16 size-[28rem] rounded-full bg-[radial-gradient(circle,color-mix(in_oklch,var(--primary)_16%,transparent),transparent_68%)] blur-2xl"
-      />
-      <div
-        aria-hidden
-        className="pointer-events-none absolute -right-20 bottom-0 size-[26rem] rounded-full bg-[radial-gradient(circle,color-mix(in_oklch,var(--accent)_22%,transparent),transparent_70%)] blur-2xl"
+        className="pointer-events-none absolute inset-0 opacity-[0.035] dark:opacity-[0.05]"
+        style={{
+          backgroundImage:
+            "radial-gradient(circle at 1px 1px, color-mix(in oklch, var(--primary) 70%, transparent) 1px, transparent 0)",
+          backgroundSize: "22px 22px",
+        }}
       />
 
-      <div className="relative mx-auto grid w-full max-w-6xl items-center gap-10 px-4 py-16 sm:px-6 sm:py-20 lg:grid-cols-[1.05fr_0.95fr] lg:gap-14 lg:py-24">
+      <div className="relative mx-auto grid w-full max-w-6xl items-center gap-12 px-4 py-14 sm:px-6 sm:py-16 lg:grid-cols-[1.08fr_0.92fr] lg:gap-16 lg:py-20">
         <div className="max-w-xl">
-          <motion.p
-            className="text-primary text-sm font-semibold tracking-[0.2em] uppercase"
+          <motion.div
             initial={reduceMotion ? false : { opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.45, ease: homeEase }}
+            transition={{ duration: 0.4, ease: homeEase }}
+            className="border-border/60 bg-background/80 text-foreground inline-flex items-center gap-2 rounded-full border px-3.5 py-1.5 text-sm shadow-sm"
           >
-            {siteConfig.name}
-          </motion.p>
+            <span aria-hidden>🇮🇳</span>
+            <span className="font-medium">
+              Trusted by Growing Indian Businesses
+            </span>
+          </motion.div>
 
           <motion.h1
-            className="font-heading text-foreground mt-4 text-4xl font-semibold tracking-tight text-balance sm:text-5xl md:text-[3.4rem] md:leading-[1.12]"
+            className="font-heading text-foreground mt-6 text-4xl font-semibold tracking-tight text-balance sm:text-5xl md:text-[3.25rem] md:leading-[1.12]"
             initial={reduceMotion ? false : { opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.55, delay: 0.05, ease: homeEase }}
+            transition={{ duration: 0.5, delay: 0.06, ease: homeEase }}
           >
-            <span className="block">सफलता की सही शुरुआत</span>
-            <span className="text-primary mt-2 block text-[0.58em] font-semibold tracking-tight sm:mt-3">
-              The right start to success
-            </span>
+            Start Your <Highlight>Business</Highlight>. Access{" "}
+            <Highlight>Government Benefits</Highlight>.{" "}
+            <Highlight>Grow</Highlight> With Confidence.
           </motion.h1>
 
           <motion.p
-            className="text-muted-foreground mt-5 text-base leading-relaxed sm:text-lg"
+            className="text-muted-foreground mt-5 max-w-lg text-base leading-relaxed sm:text-lg"
             initial={reduceMotion ? false : { opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.12, ease: homeEase }}
+            transition={{ duration: 0.45, delay: 0.12, ease: homeEase }}
           >
-            Registrations, government schemes, MSME funding, and compliance —
-            guided by Enigrow advisors so your business moves forward with
-            clarity.
+            Register your business, unlock government schemes, stay compliant,
+            and become funding-ready with expert guidance from Enigrow—all in
+            one place.
           </motion.p>
 
           <motion.div
-            className="mt-8 flex flex-wrap gap-3"
+            className="mt-8"
             initial={reduceMotion ? false : { opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.18, ease: homeEase }}
+            transition={{ duration: 0.45, delay: 0.18, ease: homeEase }}
           >
-            <button
-              type="button"
-              onClick={onStart}
-              className={cn(
-                buttonVariants({ size: "lg" }),
-                homeCtaClass,
-                "min-w-[12.5rem] shadow-[0_14px_34px_-16px_color-mix(in_oklch,var(--primary)_40%,transparent)]",
-              )}
-            >
-              Check eligibility
-              <ArrowRight className="size-4" />
-            </button>
             <Link
               href={ROUTES.contact}
               className={cn(
-                buttonVariants({ size: "lg", variant: "outline" }),
+                buttonVariants({ size: "lg" }),
                 homeCtaClass,
-                "bg-background/80 min-w-[11rem]",
+                "h-12 rounded-[1.1rem] px-6 text-base shadow-[0_16px_36px_-16px_color-mix(in_oklch,var(--primary)_45%,transparent)]",
               )}
             >
-              Talk to an advisor
+              Book Free Consultation
+              <ArrowRight className="size-4" />
             </Link>
           </motion.div>
 
-          <ul className="mt-9 space-y-2.5">
-            {highlights.map((item, index) => (
-              <motion.li
-                key={item}
-                className="text-foreground/85 flex items-center gap-2.5 text-sm"
-                initial={reduceMotion ? false : { opacity: 0, x: -8 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{
-                  delay: 0.24 + index * 0.07,
-                  duration: 0.4,
-                  ease: homeEase,
-                }}
-              >
-                <CheckCircle2 className="text-primary size-4 shrink-0" />
-                {item}
-              </motion.li>
+          <motion.div
+            className="text-foreground/85 mt-8 flex flex-col gap-2 text-sm sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-5 sm:gap-y-2"
+            initial={reduceMotion ? false : { opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4, delay: 0.24, ease: homeEase }}
+          >
+            <p className="text-accent-foreground/90 font-medium tracking-wide">
+              ★★★★★
+            </p>
+            {trusts.map((item) => (
+              <p key={item.label} className="text-muted-foreground">
+                {item.label}
+              </p>
             ))}
-          </ul>
+          </motion.div>
+
+          <motion.ul
+            className="mt-8 flex flex-wrap gap-2"
+            initial={reduceMotion ? false : { opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4, delay: 0.3, ease: homeEase }}
+          >
+            {chips.map((chip) => {
+              const Icon = chip.icon;
+              return (
+                <li key={chip.label}>
+                  <span className="border-border/70 bg-background/80 text-foreground/90 hover:border-primary/30 hover:shadow-primary/10 inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-xs font-medium transition duration-300 hover:-translate-y-0.5 hover:shadow-md">
+                    <Icon className="text-primary size-3.5" />
+                    {chip.label}
+                  </span>
+                </li>
+              );
+            })}
+          </motion.ul>
         </div>
 
         <motion.div
           className="relative"
-          initial={reduceMotion ? false : { opacity: 0, y: 24 }}
+          initial={reduceMotion ? false : { opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.65, delay: 0.12, ease: homeEase }}
+          transition={{ duration: 0.55, delay: 0.16, ease: homeEase }}
         >
-          <div className="border-border/50 relative overflow-hidden rounded-[1.75rem] border shadow-[0_30px_70px_-34px_color-mix(in_oklch,var(--primary)_45%,transparent)]">
-            <motion.div
-              className="relative aspect-[4/5] sm:aspect-[5/6]"
-              animate={reduceMotion ? undefined : { scale: [1, 1.03, 1] }}
-              transition={{
-                duration: 14,
-                repeat: Infinity,
-                ease: "easeInOut",
-              }}
-            >
-              <Image
-                src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&w=1400&q=80"
-                alt="Business advisors reviewing growth plans with an entrepreneur"
-                fill
-                priority
-                sizes="(max-width: 1024px) 100vw, 44vw"
-                className="object-cover object-[center_18%]"
-              />
-              <div
-                aria-hidden
-                className="absolute inset-0 bg-[linear-gradient(180deg,transparent_35%,color-mix(in_oklch,var(--primary)_78%,black)_100%)]"
-              />
-            </motion.div>
-
-            <div className="absolute inset-x-0 bottom-0 p-5 sm:p-6">
-              <p className="font-heading text-primary-foreground text-xl font-semibold tracking-tight sm:text-2xl">
-                Build with confidence.
-              </p>
-              <p className="text-primary-foreground/80 mt-1.5 text-sm leading-relaxed">
-                From paperwork to funding readiness — one clear path with
-                Enigrow.
-              </p>
-            </div>
+          <div className="border-border/50 from-background/40 to-secondary/30 rounded-[2rem] border bg-gradient-to-b p-4 sm:p-6">
+            <JourneyIllustration reduceMotion={reduceMotion} />
           </div>
-
-          <motion.div
-            className="border-border/60 bg-card absolute top-[18%] -left-2 hidden rounded-2xl border px-3.5 py-2.5 shadow-lg sm:block lg:-left-5"
-            animate={reduceMotion ? undefined : { y: [0, -8, 0] }}
-            transition={{
-              duration: 5.5,
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
-          >
-            <p className="text-muted-foreground text-[10px] tracking-[0.14em] uppercase">
-              Funding range
-            </p>
-            <p className="text-sm font-semibold">₹10L – ₹5 Cr</p>
-          </motion.div>
-
-          <motion.div
-            className="border-border/60 bg-card absolute -right-1 bottom-[22%] hidden rounded-2xl border px-3.5 py-2.5 shadow-lg sm:block lg:-right-4"
-            animate={reduceMotion ? undefined : { y: [0, 8, 0] }}
-            transition={{
-              duration: 6.2,
-              repeat: Infinity,
-              ease: "easeInOut",
-              delay: 0.4,
-            }}
-          >
-            <p className="text-muted-foreground text-[10px] tracking-[0.14em] uppercase">
-              Support
-            </p>
-            <p className="text-sm font-semibold">Mon – Sat</p>
-          </motion.div>
         </motion.div>
       </div>
     </section>
