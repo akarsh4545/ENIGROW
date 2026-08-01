@@ -12,7 +12,7 @@ const STEPS = [
   "Checking Bank Loan Eligibility",
   "Checking NBFC Funding",
   "Evaluating Financial Strength",
-  "AI Risk Analysis",
+  "Risk Assessment",
   "Calculating Funding Potential",
   "Generating Personalized Report",
 ] as const;
@@ -50,10 +50,10 @@ export function FundingAnalysisLoader({ onDone }: Props) {
           </span>
           <div>
             <p className="font-heading text-xl font-semibold tracking-tight">
-              AI analysis in progress
+              Building your report
             </p>
             <p className="text-muted-foreground text-sm">
-              Building your personalized funding report…
+              Matching schemes and funding pathways for your profile…
             </p>
           </div>
         </div>

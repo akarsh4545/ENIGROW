@@ -266,397 +266,437 @@ export function FundingAssessmentWizard({ open, onClose }: Props) {
 
   if (!open) return null;
 
+  const panelMaxWidth =
+    phase === "report" ? "max-w-5xl" : "max-w-2xl sm:max-w-3xl";
+
   return (
-    <div className="bg-background/95 fixed inset-0 z-[70] overflow-y-auto backdrop-blur-xl">
-      <div className="border-border/70 bg-background/80 sticky top-0 z-10 border-b backdrop-blur-xl">
-        <div className="mx-auto flex w-full max-w-6xl items-center justify-between gap-3 px-4 py-3 sm:px-6">
-          <div>
-            <p className="font-heading text-lg font-semibold tracking-tight">
-              Funding Eligibility Checker
-            </p>
-          </div>
-          <button
-            type="button"
-            onClick={onClose}
-            className="hover:bg-muted rounded-full p-2 transition"
-            aria-label="Close assessment"
-          >
-            <X className="size-5" />
-          </button>
-        </div>
-        {phase === "form" ? (
-          <div className="bg-muted h-1.5 w-full">
-            <div
-              className="bg-primary h-full transition-all duration-500"
-              style={{ width: `${progress}%` }}
-            />
-          </div>
-        ) : null}
-      </div>
+    <div className="fixed inset-0 z-[70] flex items-end justify-center p-0 sm:items-center sm:p-5 md:p-8">
+      <button
+        type="button"
+        aria-label="Close eligibility checker"
+        className="absolute inset-0 bg-black/45 backdrop-blur-[2px]"
+        onClick={onClose}
+      />
 
-      <AnimatePresence mode="wait">
-        {phase === "form" ? (
-          <motion.div
-            key={`step-${step}`}
-            initial={{ opacity: 0, x: 24 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -24 }}
-            transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-            className="mx-auto w-full max-w-3xl px-4 py-8 sm:px-6 sm:py-10"
-          >
-            <div className="mb-8 flex items-center gap-2">
-              {[0, 1, 2].map((index) => (
-                <div key={index} className="flex items-center gap-2">
-                  <span
-                    className={cn(
-                      "grid size-8 place-items-center rounded-full text-xs font-semibold",
-                      index <= step
-                        ? "bg-primary text-primary-foreground"
-                        : "bg-muted text-muted-foreground",
-                    )}
-                  >
-                    {index + 1}
-                  </span>
-                  <span className="text-muted-foreground hidden text-xs sm:inline">
-                    {index === 0
-                      ? "Business info"
-                      : index === 1
-                        ? "Profile"
-                        : "Eligibility"}
-                  </span>
-                  {index < 2 ? (
-                    <span className="bg-border hidden h-px w-8 sm:block" />
-                  ) : null}
-                </div>
-              ))}
+      <motion.div
+        role="dialog"
+        aria-modal="true"
+        aria-label="Funding Eligibility Checker"
+        className={cn(
+          "border-border/70 bg-background relative z-10 flex w-full flex-col overflow-hidden rounded-t-2xl border shadow-[0_32px_90px_-28px_rgba(0,0,0,0.5)] sm:rounded-2xl",
+          "max-h-[min(90dvh,52rem)]",
+          panelMaxWidth,
+        )}
+        initial={{ opacity: 0, scale: 0.97, y: 18 }}
+        animate={{ opacity: 1, scale: 1, y: 0 }}
+        exit={{ opacity: 0, scale: 0.98, y: 10 }}
+        transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
+      >
+        <div className="border-border/70 bg-background/95 sticky top-0 z-10 shrink-0 border-b backdrop-blur-xl">
+          <div className="flex items-center justify-between gap-3 px-4 py-3 sm:px-5">
+            <div>
+              <p className="text-primary text-[11px] font-semibold tracking-[0.16em] uppercase">
+                Check eligibility
+              </p>
+              <p className="font-heading text-base font-semibold tracking-tight sm:text-lg">
+                Funding Eligibility Checker
+              </p>
             </div>
-
-            <form
-              className="space-y-6"
-              onSubmit={(e) => {
-                e.preventDefault();
-                void next();
-              }}
+            <button
+              type="button"
+              onClick={onClose}
+              className="hover:bg-muted rounded-full p-2 transition"
+              aria-label="Close assessment"
             >
-              {step === 0 ? (
-                <>
-                  <h2 className="font-heading text-3xl font-semibold tracking-tight">
-                    Business information
-                  </h2>
-                  <div className="grid gap-4 sm:grid-cols-2">
-                    <Field
-                      label="Business name"
-                      error={form.formState.errors.businessName?.message}
-                    >
-                      <Input
-                        {...form.register("businessName")}
-                        placeholder="Acme Traders"
-                      />
-                    </Field>
-                    <Field
-                      label="Founder name"
-                      error={form.formState.errors.founderName?.message}
-                    >
-                      <Input
-                        {...form.register("founderName")}
-                        placeholder="Your full name"
-                      />
-                    </Field>
-                    <Field
-                      label="Business email"
-                      error={form.formState.errors.email?.message}
-                    >
-                      <Input
-                        type="email"
-                        {...form.register("email")}
-                        placeholder="you@business.com"
-                      />
-                    </Field>
-                    <Field
-                      label="Phone number"
-                      error={form.formState.errors.phone?.message}
-                    >
-                      <Input {...form.register("phone")} placeholder="+91…" />
-                    </Field>
-                    <Field label="State">
-                      <select
-                        className="border-input bg-background h-9 w-full rounded-lg border px-3 text-sm"
-                        {...form.register("state")}
-                      >
-                        {INDIAN_STATES.map((state) => (
-                          <option key={state} value={state}>
-                            {state}
-                          </option>
-                        ))}
-                      </select>
-                    </Field>
-                    <Field
-                      label="City"
-                      error={form.formState.errors.city?.message}
-                    >
-                      <Input {...form.register("city")} placeholder="City" />
-                    </Field>
-                    <Field label="Industry">
-                      <select
-                        className="border-input bg-background h-9 w-full rounded-lg border px-3 text-sm"
-                        {...form.register("industry")}
-                      >
-                        {INDUSTRIES.map((item) => (
-                          <option key={item} value={item}>
-                            {industryLabels[item]}
-                          </option>
-                        ))}
-                      </select>
-                    </Field>
-                    <Field
-                      label="Business category"
-                      error={form.formState.errors.businessCategory?.message}
-                    >
-                      <Input
-                        {...form.register("businessCategory")}
-                        placeholder="e.g. Packaged foods, SaaS, Apparel"
-                      />
-                    </Field>
-                  </div>
-                  <div>
-                    <Label className="mb-2 block">Business type</Label>
-                    <ChoiceGrid
-                      value={values.businessType}
-                      onChange={(v) =>
-                        form.setValue("businessType", v, {
-                          shouldValidate: true,
-                        })
-                      }
-                      options={BUSINESS_ENTITY_TYPES.map((v) => ({
-                        value: v,
-                        label: entityLabels[v],
-                      }))}
-                    />
-                  </div>
-                </>
-              ) : null}
+              <X className="size-5" />
+            </button>
+          </div>
+          {phase === "form" ? (
+            <div className="bg-muted h-1.5 w-full">
+              <div
+                className="bg-primary h-full transition-all duration-500"
+                style={{ width: `${progress}%` }}
+              />
+            </div>
+          ) : null}
+        </div>
 
-              {step === 1 ? (
-                <>
-                  <h2 className="font-heading text-3xl font-semibold tracking-tight">
-                    Business profile
-                  </h2>
-                  <div>
-                    <Label className="mb-2 block">Business stage</Label>
-                    <ChoiceGrid
-                      value={values.businessStage}
-                      onChange={(v) =>
-                        form.setValue("businessStage", v, {
-                          shouldValidate: true,
-                        })
-                      }
-                      options={BUSINESS_STAGES_FUNDING.map((v) => ({
-                        value: v,
-                        label: stageLabels[v],
-                      }))}
-                    />
-                  </div>
-                  <div>
-                    <Label className="mb-2 block">Years in business</Label>
-                    <ChoiceGrid
-                      value={values.yearsInBusiness}
-                      onChange={(v) =>
-                        form.setValue("yearsInBusiness", v, {
-                          shouldValidate: true,
-                        })
-                      }
-                      options={YEARS_BANDS.map((v) => ({
-                        value: v,
-                        label: yearsLabels[v],
-                      }))}
-                    />
-                  </div>
-                  <div>
-                    <Label className="mb-2 block">Annual turnover</Label>
-                    <ChoiceGrid
-                      value={values.annualTurnover}
-                      onChange={(v) =>
-                        form.setValue("annualTurnover", v, {
-                          shouldValidate: true,
-                        })
-                      }
-                      options={TURNOVER_BANDS.map((v) => ({
-                        value: v,
-                        label: turnoverLabels[v],
-                      }))}
-                    />
-                  </div>
-                  <div>
-                    <Label className="mb-2 block">Monthly revenue</Label>
-                    <ChoiceGrid
-                      value={values.monthlyRevenue}
-                      onChange={(v) =>
-                        form.setValue("monthlyRevenue", v, {
-                          shouldValidate: true,
-                        })
-                      }
-                      options={TURNOVER_BANDS.map((v) => ({
-                        value: v,
-                        label: turnoverLabels[v],
-                      }))}
-                    />
-                  </div>
-                  <div>
-                    <Label className="mb-2 block">Employees</Label>
-                    <ChoiceGrid
-                      value={values.employees}
-                      onChange={(v) =>
-                        form.setValue("employees", v, { shouldValidate: true })
-                      }
-                      options={EMPLOYEE_BANDS.map((v) => ({
-                        value: v,
-                        label: employeeLabels[v],
-                      }))}
-                    />
-                  </div>
-                  <div>
-                    <Label className="mb-2 block">Funding required</Label>
-                    <ChoiceGrid
-                      value={values.fundingRequired}
-                      onChange={(v) =>
-                        form.setValue("fundingRequired", v, {
-                          shouldValidate: true,
-                        })
-                      }
-                      options={FUNDING_BANDS.map((v) => ({
-                        value: v,
-                        label: fundingLabels[v],
-                      }))}
-                    />
-                  </div>
-                  <div>
-                    <Label className="mb-2 block">Funding purpose</Label>
-                    <ChoiceGrid
-                      value={values.fundingPurpose}
-                      onChange={(v) =>
-                        form.setValue("fundingPurpose", v, {
-                          shouldValidate: true,
-                        })
-                      }
-                      options={FUNDING_PURPOSES.map((v) => ({
-                        value: v,
-                        label: purposeLabels[v],
-                      }))}
-                    />
-                  </div>
-                  <div>
-                    <Label className="mb-2 block">Existing loan?</Label>
-                    <ChoiceGrid
-                      value={values.existingLoan}
-                      onChange={(v) =>
-                        form.setValue("existingLoan", v, {
-                          shouldValidate: true,
-                        })
-                      }
-                      options={[
-                        { value: "yes", label: "Yes" },
-                        { value: "no", label: "No" },
-                      ]}
-                    />
-                  </div>
-                </>
-              ) : null}
-
-              {step === 2 ? (
-                <>
-                  <h2 className="font-heading text-3xl font-semibold tracking-tight">
-                    Eligibility details
-                  </h2>
-                  {(
-                    [
-                      ["gstRegistered", "GST registered"],
-                      ["udyamRegistered", "Udyam registered"],
-                      ["dpiitStartup", "DPIIT startup"],
-                      ["womanFounder", "Woman founder"],
-                      ["scStFounder", "SC/ST founder"],
-                      ["exportBusiness", "Export business"],
-                      ["manufacturingUnit", "Manufacturing unit"],
-                    ] as const
-                  ).map(([key, label]) => (
-                    <div key={key}>
-                      <Label className="mb-2 block">{label}</Label>
-                      <ChoiceGrid
-                        value={values[key]}
-                        onChange={(v) =>
-                          form.setValue(key, v, { shouldValidate: true })
-                        }
-                        options={[
-                          { value: "yes", label: "Yes" },
-                          { value: "no", label: "No" },
-                        ]}
-                      />
+        <div className="min-h-0 flex-1 overflow-y-auto">
+          <AnimatePresence mode="wait">
+            {phase === "form" ? (
+              <motion.div
+                key={`step-${step}`}
+                initial={{ opacity: 0, x: 24 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -24 }}
+                transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+                className="w-full px-4 py-6 sm:px-6 sm:py-7"
+              >
+                <div className="mb-6 flex items-center gap-2">
+                  {[0, 1, 2].map((index) => (
+                    <div key={index} className="flex items-center gap-2">
+                      <span
+                        className={cn(
+                          "grid size-8 place-items-center rounded-full text-xs font-semibold",
+                          index <= step
+                            ? "bg-primary text-primary-foreground"
+                            : "bg-muted text-muted-foreground",
+                        )}
+                      >
+                        {index + 1}
+                      </span>
+                      <span className="text-muted-foreground hidden text-xs sm:inline">
+                        {index === 0
+                          ? "Business info"
+                          : index === 1
+                            ? "Profile"
+                            : "Eligibility"}
+                      </span>
+                      {index < 2 ? (
+                        <span className="bg-border hidden h-px w-8 sm:block" />
+                      ) : null}
                     </div>
                   ))}
-                  <Field label="Credit score (optional)">
-                    <Input
-                      type="number"
-                      min={300}
-                      max={900}
-                      placeholder="e.g. 720"
-                      value={values.creditScore ?? ""}
-                      onChange={(e) => {
-                        const raw = e.target.value;
-                        form.setValue(
-                          "creditScore",
-                          raw === "" ? undefined : Number(raw),
-                          { shouldValidate: true },
-                        );
-                      }}
-                    />
-                  </Field>
-                </>
-              ) : null}
+                </div>
 
-              <div className="flex flex-wrap justify-between gap-3 pt-2">
-                <Button
-                  type="button"
-                  variant="outline"
-                  disabled={step === 0}
-                  onClick={() => setStep((s) => Math.max(0, s - 1))}
+                <form
+                  className="space-y-6"
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    void next();
+                  }}
                 >
-                  Back
-                </Button>
-                <Button type="submit">
-                  {step === 2 ? "Generate AI report" : "Continue"}
-                </Button>
-              </div>
-            </form>
-          </motion.div>
-        ) : null}
+                  {step === 0 ? (
+                    <>
+                      <h2 className="font-heading text-2xl font-semibold tracking-tight sm:text-3xl">
+                        Business information
+                      </h2>
+                      <div className="grid gap-4 sm:grid-cols-2">
+                        <Field
+                          label="Business name"
+                          error={form.formState.errors.businessName?.message}
+                        >
+                          <Input
+                            {...form.register("businessName")}
+                            placeholder="Acme Traders"
+                          />
+                        </Field>
+                        <Field
+                          label="Founder name"
+                          error={form.formState.errors.founderName?.message}
+                        >
+                          <Input
+                            {...form.register("founderName")}
+                            placeholder="Your full name"
+                          />
+                        </Field>
+                        <Field
+                          label="Business email"
+                          error={form.formState.errors.email?.message}
+                        >
+                          <Input
+                            type="email"
+                            {...form.register("email")}
+                            placeholder="you@business.com"
+                          />
+                        </Field>
+                        <Field
+                          label="Phone number"
+                          error={form.formState.errors.phone?.message}
+                        >
+                          <Input
+                            {...form.register("phone")}
+                            placeholder="+91…"
+                          />
+                        </Field>
+                        <Field label="State">
+                          <select
+                            className="border-input bg-background h-9 w-full rounded-lg border px-3 text-sm"
+                            {...form.register("state")}
+                          >
+                            {INDIAN_STATES.map((state) => (
+                              <option key={state} value={state}>
+                                {state}
+                              </option>
+                            ))}
+                          </select>
+                        </Field>
+                        <Field
+                          label="City"
+                          error={form.formState.errors.city?.message}
+                        >
+                          <Input
+                            {...form.register("city")}
+                            placeholder="City"
+                          />
+                        </Field>
+                        <Field label="Industry">
+                          <select
+                            className="border-input bg-background h-9 w-full rounded-lg border px-3 text-sm"
+                            {...form.register("industry")}
+                          >
+                            {INDUSTRIES.map((item) => (
+                              <option key={item} value={item}>
+                                {industryLabels[item]}
+                              </option>
+                            ))}
+                          </select>
+                        </Field>
+                        <Field
+                          label="Business category"
+                          error={
+                            form.formState.errors.businessCategory?.message
+                          }
+                        >
+                          <Input
+                            {...form.register("businessCategory")}
+                            placeholder="e.g. Packaged foods, SaaS, Apparel"
+                          />
+                        </Field>
+                      </div>
+                      <div>
+                        <Label className="mb-2 block">Business type</Label>
+                        <ChoiceGrid
+                          value={values.businessType}
+                          onChange={(v) =>
+                            form.setValue("businessType", v, {
+                              shouldValidate: true,
+                            })
+                          }
+                          options={BUSINESS_ENTITY_TYPES.map((v) => ({
+                            value: v,
+                            label: entityLabels[v],
+                          }))}
+                        />
+                      </div>
+                    </>
+                  ) : null}
 
-        {phase === "analyzing" ? (
-          <motion.div
-            key="analyzing"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="min-h-[calc(100dvh-4rem)]"
-          >
-            <FundingAnalysisLoader onDone={() => setPhase("report")} />
-          </motion.div>
-        ) : null}
+                  {step === 1 ? (
+                    <>
+                      <h2 className="font-heading text-2xl font-semibold tracking-tight sm:text-3xl">
+                        Business profile
+                      </h2>
+                      <div>
+                        <Label className="mb-2 block">Business stage</Label>
+                        <ChoiceGrid
+                          value={values.businessStage}
+                          onChange={(v) =>
+                            form.setValue("businessStage", v, {
+                              shouldValidate: true,
+                            })
+                          }
+                          options={BUSINESS_STAGES_FUNDING.map((v) => ({
+                            value: v,
+                            label: stageLabels[v],
+                          }))}
+                        />
+                      </div>
+                      <div>
+                        <Label className="mb-2 block">Years in business</Label>
+                        <ChoiceGrid
+                          value={values.yearsInBusiness}
+                          onChange={(v) =>
+                            form.setValue("yearsInBusiness", v, {
+                              shouldValidate: true,
+                            })
+                          }
+                          options={YEARS_BANDS.map((v) => ({
+                            value: v,
+                            label: yearsLabels[v],
+                          }))}
+                        />
+                      </div>
+                      <div>
+                        <Label className="mb-2 block">Annual turnover</Label>
+                        <ChoiceGrid
+                          value={values.annualTurnover}
+                          onChange={(v) =>
+                            form.setValue("annualTurnover", v, {
+                              shouldValidate: true,
+                            })
+                          }
+                          options={TURNOVER_BANDS.map((v) => ({
+                            value: v,
+                            label: turnoverLabels[v],
+                          }))}
+                        />
+                      </div>
+                      <div>
+                        <Label className="mb-2 block">Monthly revenue</Label>
+                        <ChoiceGrid
+                          value={values.monthlyRevenue}
+                          onChange={(v) =>
+                            form.setValue("monthlyRevenue", v, {
+                              shouldValidate: true,
+                            })
+                          }
+                          options={TURNOVER_BANDS.map((v) => ({
+                            value: v,
+                            label: turnoverLabels[v],
+                          }))}
+                        />
+                      </div>
+                      <div>
+                        <Label className="mb-2 block">Employees</Label>
+                        <ChoiceGrid
+                          value={values.employees}
+                          onChange={(v) =>
+                            form.setValue("employees", v, {
+                              shouldValidate: true,
+                            })
+                          }
+                          options={EMPLOYEE_BANDS.map((v) => ({
+                            value: v,
+                            label: employeeLabels[v],
+                          }))}
+                        />
+                      </div>
+                      <div>
+                        <Label className="mb-2 block">Funding required</Label>
+                        <ChoiceGrid
+                          value={values.fundingRequired}
+                          onChange={(v) =>
+                            form.setValue("fundingRequired", v, {
+                              shouldValidate: true,
+                            })
+                          }
+                          options={FUNDING_BANDS.map((v) => ({
+                            value: v,
+                            label: fundingLabels[v],
+                          }))}
+                        />
+                      </div>
+                      <div>
+                        <Label className="mb-2 block">Funding purpose</Label>
+                        <ChoiceGrid
+                          value={values.fundingPurpose}
+                          onChange={(v) =>
+                            form.setValue("fundingPurpose", v, {
+                              shouldValidate: true,
+                            })
+                          }
+                          options={FUNDING_PURPOSES.map((v) => ({
+                            value: v,
+                            label: purposeLabels[v],
+                          }))}
+                        />
+                      </div>
+                      <div>
+                        <Label className="mb-2 block">Existing loan?</Label>
+                        <ChoiceGrid
+                          value={values.existingLoan}
+                          onChange={(v) =>
+                            form.setValue("existingLoan", v, {
+                              shouldValidate: true,
+                            })
+                          }
+                          options={[
+                            { value: "yes", label: "Yes" },
+                            { value: "no", label: "No" },
+                          ]}
+                        />
+                      </div>
+                    </>
+                  ) : null}
 
-        {phase === "report" && report && pendingInput ? (
-          <motion.div
-            key="report"
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0 }}
-          >
-            <FundingReportDashboard
-              input={pendingInput}
-              report={report}
-              assessmentId={assessmentId}
-              onRestart={restart}
-            />
-          </motion.div>
-        ) : null}
-      </AnimatePresence>
+                  {step === 2 ? (
+                    <>
+                      <h2 className="font-heading text-2xl font-semibold tracking-tight sm:text-3xl">
+                        Eligibility details
+                      </h2>
+                      {(
+                        [
+                          ["gstRegistered", "GST registered"],
+                          ["udyamRegistered", "Udyam registered"],
+                          ["dpiitStartup", "DPIIT startup"],
+                          ["womanFounder", "Woman founder"],
+                          ["scStFounder", "SC/ST founder"],
+                          ["exportBusiness", "Export business"],
+                          ["manufacturingUnit", "Manufacturing unit"],
+                        ] as const
+                      ).map(([key, label]) => (
+                        <div key={key}>
+                          <Label className="mb-2 block">{label}</Label>
+                          <ChoiceGrid
+                            value={values[key]}
+                            onChange={(v) =>
+                              form.setValue(key, v, { shouldValidate: true })
+                            }
+                            options={[
+                              { value: "yes", label: "Yes" },
+                              { value: "no", label: "No" },
+                            ]}
+                          />
+                        </div>
+                      ))}
+                      <Field label="Credit score (optional)">
+                        <Input
+                          type="number"
+                          min={300}
+                          max={900}
+                          placeholder="e.g. 720"
+                          value={values.creditScore ?? ""}
+                          onChange={(e) => {
+                            const raw = e.target.value;
+                            form.setValue(
+                              "creditScore",
+                              raw === "" ? undefined : Number(raw),
+                              { shouldValidate: true },
+                            );
+                          }}
+                        />
+                      </Field>
+                    </>
+                  ) : null}
+
+                  <div className="flex flex-wrap justify-between gap-3 pt-2">
+                    <Button
+                      type="button"
+                      variant="outline"
+                      disabled={step === 0}
+                      onClick={() => setStep((s) => Math.max(0, s - 1))}
+                    >
+                      Back
+                    </Button>
+                    <Button type="submit">
+                      {step === 2 ? "Generate report" : "Continue"}
+                    </Button>
+                  </div>
+                </form>
+              </motion.div>
+            ) : null}
+
+            {phase === "analyzing" ? (
+              <motion.div
+                key="analyzing"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className="min-h-[22rem]"
+              >
+                <FundingAnalysisLoader onDone={() => setPhase("report")} />
+              </motion.div>
+            ) : null}
+
+            {phase === "report" && report && pendingInput ? (
+              <motion.div
+                key="report"
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0 }}
+              >
+                <FundingReportDashboard
+                  input={pendingInput}
+                  report={report}
+                  assessmentId={assessmentId}
+                  onRestart={restart}
+                />
+              </motion.div>
+            ) : null}
+          </AnimatePresence>
+        </div>
+      </motion.div>
     </div>
   );
 }
