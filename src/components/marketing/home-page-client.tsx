@@ -4,6 +4,7 @@ import { useState } from "react";
 
 import { HomeCallback } from "@/components/marketing/home-callback";
 import { HomeCta } from "@/components/marketing/home-cta";
+import { EligibilityCheckerModal } from "@/components/marketing/eligibility-checker-modal";
 import { HomeFundingHero } from "@/components/marketing/home-funding-hero";
 import { HomeImpact } from "@/components/marketing/home-impact";
 import { HomeProcess } from "@/components/marketing/home-process";
@@ -27,6 +28,7 @@ export function HomePageClient() {
       <HomeImpact />
       <HomeCallback />
       <HomeCta />
+      <EligibilityCheckerModal />
       <FundingAssessmentWizard
         open={wizardOpen}
         onClose={() => setWizardOpen(false)}
