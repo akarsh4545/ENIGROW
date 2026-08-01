@@ -41,12 +41,12 @@ export function HomePageClient() {
   return (
     <>
       <HomeFundingHero />
-      <HomeImpact />
       <HomeServices />
       <HomeSchemeSupport />
       <HomeSchemes />
       <HomeProcess />
       <HomeSuccessStories />
+      <HomeImpact />
       <HomeCallback />
       <HomeCta />
       <FundingAssessmentWizard
