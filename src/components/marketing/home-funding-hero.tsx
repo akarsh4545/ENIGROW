@@ -10,12 +10,6 @@ import { homeCtaClass, homeEase } from "@/components/marketing/home-motion";
 import { ROUTES } from "@/constants/routes";
 import { cn } from "@/lib/utils";
 
-const trusts = [
-  { label: "Trusted by 5,000+ Entrepreneurs" },
-  { label: "98% Successful Registrations" },
-  { label: "₹120Cr+ Funding Assistance" },
-] as const;
-
 function Highlight({ children }: { children: React.ReactNode }) {
   return <span className="text-primary">{children}</span>;
 }
@@ -106,21 +100,17 @@ export function HomeFundingHero() {
             </Link>
           </motion.div>
 
-          <motion.div
-            className="text-foreground/85 mt-8 flex flex-col gap-2 text-sm sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-5 sm:gap-y-2"
+          <motion.p
+            className="text-muted-foreground mt-8 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm"
             initial={reduceMotion ? false : { opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4, delay: 0.24, ease: homeEase }}
           >
-            <p className="text-accent-foreground/90 font-medium tracking-wide">
+            <span className="text-accent-foreground/90 font-medium tracking-wide">
               ★★★★★
-            </p>
-            {trusts.map((item) => (
-              <p key={item.label} className="text-muted-foreground">
-                {item.label}
-              </p>
-            ))}
-          </motion.div>
+            </span>
+            <span>Trusted by 720+ businesses</span>
+          </motion.p>
         </div>
 
         <motion.div

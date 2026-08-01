@@ -1,18 +1,11 @@
 "use client";
 
-import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
 import { Award, IndianRupee, TrendingUp, Users } from "lucide-react";
 
-import { buttonVariants } from "@/components/ui/button-variants";
 import { HomeBackdrop } from "@/components/marketing/home-backdrop";
-import {
-  homeCtaClass,
-  homeEase,
-  useCountUp,
-} from "@/components/marketing/home-motion";
+import { homeEase, useCountUp } from "@/components/marketing/home-motion";
 import { homeContent } from "@/data/home";
-import { cn } from "@/lib/utils";
 
 const iconMap = {
   rupee: IndianRupee,
@@ -103,19 +96,6 @@ export function HomeImpact() {
             );
           })}
         </div>
-      </div>
-
-      <div className="flex justify-center px-4 py-8 sm:px-6">
-        <Link
-          href={impact.cta.href}
-          className={cn(
-            buttonVariants({ variant: "outline", size: "lg" }),
-            homeCtaClass,
-            "border-accent text-accent-foreground hover:bg-accent/10",
-          )}
-        >
-          {impact.cta.label} →
-        </Link>
       </div>
     </section>
   );
