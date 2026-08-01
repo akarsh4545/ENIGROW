@@ -1,41 +1,14 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
-import {
-  ArrowDown,
-  ArrowRight,
-  BadgeCheck,
-  Building2,
-  FileCheck2,
-  Landmark,
-  Rocket,
-  ShieldCheck,
-  TrendingUp,
-} from "lucide-react";
+import { ArrowRight } from "lucide-react";
 
 import { buttonVariants } from "@/components/ui/button-variants";
 import { homeCtaClass, homeEase } from "@/components/marketing/home-motion";
 import { ROUTES } from "@/constants/routes";
 import { cn } from "@/lib/utils";
-
-const chips = [
-  { label: "Company Registration", icon: Building2 },
-  { label: "GST & Compliance", icon: FileCheck2 },
-  { label: "MSME", icon: BadgeCheck },
-  { label: "Startup India", icon: Rocket },
-  { label: "Government Schemes", icon: Landmark },
-] as const;
-
-const journey = [
-  { label: "Business Idea", icon: Rocket },
-  { label: "Company Registration", icon: Building2 },
-  { label: "GST Registration", icon: FileCheck2 },
-  { label: "MSME Certification", icon: BadgeCheck },
-  { label: "Government Schemes", icon: Landmark },
-  { label: "Funding Readiness", icon: ShieldCheck },
-  { label: "Business Growth", icon: TrendingUp },
-] as const;
 
 const trusts = [
   { label: "Trusted by 5,000+ Entrepreneurs" },
@@ -47,103 +20,11 @@ function Highlight({ children }: { children: React.ReactNode }) {
   return <span className="text-primary">{children}</span>;
 }
 
-function JourneyIllustration({
-  reduceMotion,
-}: {
-  reduceMotion: boolean | null;
-}) {
-  return (
-    <div className="relative mx-auto w-full max-w-lg">
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 rounded-[2rem] bg-[radial-gradient(circle_at_50%_30%,color-mix(in_oklch,var(--primary)_10%,transparent),transparent_65%)]"
-      />
-
-      <motion.div
-        className="relative space-y-3"
-        animate={reduceMotion ? undefined : { y: [0, -8, 0] }}
-        transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
-      >
-        {journey.map((step, index) => {
-          const Icon = step.icon;
-          const offset =
-            index % 2 === 0 ? "sm:translate-x-0" : "sm:translate-x-8";
-
-          return (
-            <div key={step.label} className="relative">
-              <motion.div
-                className={cn(
-                  "border-border/60 bg-card/90 relative flex items-center gap-3 rounded-[1.35rem] border px-4 py-3.5 shadow-[0_14px_36px_-22px_color-mix(in_oklch,var(--primary)_35%,transparent)] backdrop-blur-sm",
-                  offset,
-                )}
-                initial={reduceMotion ? false : { opacity: 0, y: 16 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{
-                  delay: 0.2 + index * 0.07,
-                  duration: 0.45,
-                  ease: homeEase,
-                }}
-                whileHover={reduceMotion ? undefined : { y: -3, scale: 1.01 }}
-              >
-                <span className="bg-primary/10 text-primary grid size-10 shrink-0 place-items-center rounded-2xl">
-                  <Icon className="size-4" />
-                </span>
-                <div className="min-w-0">
-                  <p className="text-muted-foreground text-[10px] font-medium tracking-[0.14em] uppercase">
-                    Step {String(index + 1).padStart(2, "0")}
-                  </p>
-                  <p className="font-heading text-sm font-semibold tracking-tight sm:text-base">
-                    {step.label}
-                  </p>
-                </div>
-                {index === journey.length - 1 ? (
-                  <span className="bg-accent/25 text-accent-foreground ml-auto rounded-full px-2.5 py-1 text-[10px] font-semibold tracking-wide uppercase">
-                    Goal
-                  </span>
-                ) : null}
-              </motion.div>
-
-              {index < journey.length - 1 ? (
-                <div className="text-primary/50 flex justify-center py-1 sm:justify-start sm:pl-8">
-                  <ArrowDown className="size-4" />
-                </div>
-              ) : null}
-            </div>
-          );
-        })}
-      </motion.div>
-
-      <motion.div
-        aria-hidden
-        className="border-border/50 bg-background/80 absolute -top-3 -right-2 hidden rounded-2xl border px-3 py-2 text-xs font-medium shadow-md sm:block"
-        animate={reduceMotion ? undefined : { y: [0, -6, 0] }}
-        transition={{ duration: 5.5, repeat: Infinity, ease: "easeInOut" }}
-      >
-        Approval-ready
-      </motion.div>
-      <motion.div
-        aria-hidden
-        className="border-border/50 bg-background/80 absolute -bottom-2 -left-2 hidden rounded-2xl border px-3 py-2 text-xs font-medium shadow-md sm:block"
-        animate={reduceMotion ? undefined : { y: [0, 6, 0] }}
-        transition={{
-          duration: 6.2,
-          repeat: Infinity,
-          ease: "easeInOut",
-          delay: 0.4,
-        }}
-      >
-        Growth path
-      </motion.div>
-    </div>
-  );
-}
-
 export function HomeFundingHero() {
   const reduceMotion = useReducedMotion();
 
   return (
     <section className="relative isolate min-h-[calc(100dvh-5.5rem)] overflow-hidden sm:min-h-[calc(100dvh-6.25rem)] lg:min-h-[calc(100dvh-6.75rem)]">
-      {/* Soft off-white + mint/cream mesh */}
       <div
         aria-hidden
         className="dark:bg-background absolute inset-0 bg-[#FAFAF7]"
@@ -170,7 +51,7 @@ export function HomeFundingHero() {
         }}
       />
 
-      <div className="relative mx-auto grid w-full max-w-6xl items-center gap-12 px-4 py-14 sm:px-6 sm:py-16 lg:grid-cols-[1.08fr_0.92fr] lg:gap-16 lg:py-20">
+      <div className="relative mx-auto grid w-full max-w-6xl items-center gap-12 px-4 py-14 sm:px-6 sm:py-16 lg:grid-cols-[1.05fr_0.95fr] lg:gap-14 lg:py-20">
         <div className="max-w-xl">
           <motion.div
             initial={reduceMotion ? false : { opacity: 0, y: 12 }}
@@ -192,7 +73,7 @@ export function HomeFundingHero() {
           >
             Start Your <Highlight>Business</Highlight>. Access{" "}
             <Highlight>Government Benefits</Highlight>.{" "}
-            <Highlight>Grow</Highlight> With Confidence.
+            <Highlight>Grow With Confidence</Highlight>.
           </motion.h1>
 
           <motion.p
@@ -240,25 +121,6 @@ export function HomeFundingHero() {
               </p>
             ))}
           </motion.div>
-
-          <motion.ul
-            className="mt-8 flex flex-wrap gap-2"
-            initial={reduceMotion ? false : { opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4, delay: 0.3, ease: homeEase }}
-          >
-            {chips.map((chip) => {
-              const Icon = chip.icon;
-              return (
-                <li key={chip.label}>
-                  <span className="border-border/70 bg-background/80 text-foreground/90 hover:border-primary/30 hover:shadow-primary/10 inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-xs font-medium transition duration-300 hover:-translate-y-0.5 hover:shadow-md">
-                    <Icon className="text-primary size-3.5" />
-                    {chip.label}
-                  </span>
-                </li>
-              );
-            })}
-          </motion.ul>
         </div>
 
         <motion.div
@@ -267,9 +129,76 @@ export function HomeFundingHero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.55, delay: 0.16, ease: homeEase }}
         >
-          <div className="border-border/50 from-background/40 to-secondary/30 rounded-[2rem] border bg-gradient-to-b p-4 sm:p-6">
-            <JourneyIllustration reduceMotion={reduceMotion} />
+          <div className="border-border/40 relative overflow-hidden rounded-[2rem] border shadow-[0_32px_70px_-30px_color-mix(in_oklch,var(--primary)_40%,transparent)]">
+            <motion.div
+              className="relative aspect-[4/5] sm:aspect-[5/6]"
+              animate={reduceMotion ? undefined : { scale: [1, 1.04, 1] }}
+              transition={{
+                duration: 16,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+            >
+              <Image
+                src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1600&q=80"
+                alt="Entrepreneur planning business growth on a laptop"
+                fill
+                priority
+                sizes="(max-width: 1024px) 100vw, 44vw"
+                className="object-cover object-center"
+              />
+              <div
+                aria-hidden
+                className="absolute inset-0 bg-[linear-gradient(145deg,color-mix(in_oklch,var(--primary)_18%,transparent)_0%,transparent_45%,color-mix(in_oklch,var(--primary)_55%,black)_100%)]"
+              />
+            </motion.div>
+
+            <motion.div
+              className="absolute inset-x-0 bottom-0 p-6 sm:p-7"
+              initial={reduceMotion ? false : { opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.35, duration: 0.45, ease: homeEase }}
+            >
+              <p className="font-heading text-primary-foreground text-2xl font-semibold tracking-tight">
+                Built for Indian founders
+              </p>
+              <p className="text-primary-foreground/80 mt-2 max-w-sm text-sm leading-relaxed">
+                Clear guidance from registration to schemes and funding
+                readiness.
+              </p>
+            </motion.div>
           </div>
+
+          <motion.div
+            className="border-border/50 bg-card absolute top-[14%] -left-2 hidden rounded-2xl border px-3.5 py-2.5 shadow-lg sm:block lg:-left-4"
+            animate={reduceMotion ? undefined : { y: [0, -8, 0] }}
+            transition={{
+              duration: 5.8,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+          >
+            <p className="text-muted-foreground text-[10px] tracking-[0.14em] uppercase">
+              Pan-India
+            </p>
+            <p className="text-sm font-semibold">Advisor support</p>
+          </motion.div>
+
+          <motion.div
+            className="border-border/50 bg-card absolute right-2 bottom-[28%] hidden rounded-2xl border px-3.5 py-2.5 shadow-lg sm:block lg:-right-3"
+            animate={reduceMotion ? undefined : { y: [0, 8, 0] }}
+            transition={{
+              duration: 6.4,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: 0.35,
+            }}
+          >
+            <p className="text-muted-foreground text-[10px] tracking-[0.14em] uppercase">
+              Free consult
+            </p>
+            <p className="text-sm font-semibold">Book in minutes</p>
+          </motion.div>
         </motion.div>
       </div>
     </section>
