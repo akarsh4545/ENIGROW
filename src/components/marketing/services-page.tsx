@@ -1,16 +1,36 @@
 "use client";
 
+import { useMemo, useState } from "react";
 import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
-import { ArrowUpRight } from "lucide-react";
 
 import { buttonVariants } from "@/components/ui/button";
+import { ServiceCard } from "@/components/marketing/service-card";
+import { homeEase } from "@/components/marketing/home-motion";
 import { servicesContent } from "@/data/services";
 import { cn } from "@/lib/utils";
+
+const categoryLabels: Record<
+  (typeof servicesContent.items)[number]["category"],
+  string
+> = {
+  registration: "Registration",
+  compliance: "Compliance",
+  finance: "Finance",
+  growth: "Growth",
+};
 
 export function ServicesPageContent() {
   const reduceMotion = useReducedMotion();
   const { title, headline, support, categories, items, cta } = servicesContent;
+  const [active, setActive] = useState<
+    "all" | (typeof categories)[number]["id"]
+  >("all");
+
+  const filtered = useMemo(() => {
+    if (active === "all") return items;
+    return items.filter((item) => item.category === active);
+  }, [active, items]);
 
   return (
     <>
@@ -24,7 +44,7 @@ export function ServicesPageContent() {
             className="max-w-3xl"
             initial={reduceMotion ? false : { opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: 0.65, ease: homeEase }}
           >
             <p className="text-primary text-sm font-medium tracking-[0.18em] uppercase">
               {title}
@@ -39,75 +59,55 @@ export function ServicesPageContent() {
         </div>
       </section>
 
-      <section className="border-border/70 border-b">
+      <section className="border-border/70 border-b bg-[color-mix(in_oklch,var(--secondary)_22%,var(--background))]">
         <div className="mx-auto w-full max-w-6xl px-4 py-16 sm:px-6 sm:py-20">
-          <div className="border-border/70 text-muted-foreground flex flex-wrap gap-x-6 gap-y-2 border-b pb-4 text-sm">
-            {categories.map((category) => (
-              <a
-                key={category.id}
-                href={`#${category.id}`}
-                className="hover:text-foreground transition"
+          <div className="border-border/60 bg-card/90 rounded-[1.75rem] border p-4 shadow-sm sm:p-5">
+            <p className="text-muted-foreground mb-3 text-[11px] font-semibold tracking-[0.16em] uppercase">
+              Filter by category
+            </p>
+            <div className="flex flex-wrap gap-2">
+              <button
+                type="button"
+                onClick={() => setActive("all")}
+                className={cn(
+                  "rounded-full border px-3.5 py-1.5 text-sm font-medium transition",
+                  active === "all"
+                    ? "bg-primary text-primary-foreground border-primary"
+                    : "border-border/80 bg-background text-muted-foreground hover:border-primary/30 hover:text-foreground",
+                )}
               >
-                {category.label}
-              </a>
-            ))}
-          </div>
-
-          <div className="mt-12 space-y-16">
-            {categories.map((category) => {
-              const grouped = items.filter(
-                (item) => item.category === category.id,
-              );
-              if (grouped.length === 0) return null;
-
-              return (
-                <div
+                All
+              </button>
+              {categories.map((category) => (
+                <button
                   key={category.id}
-                  id={category.id}
-                  className="scroll-mt-24"
+                  type="button"
+                  onClick={() => setActive(category.id)}
+                  className={cn(
+                    "rounded-full border px-3.5 py-1.5 text-sm font-medium transition",
+                    active === category.id
+                      ? "bg-primary text-primary-foreground border-primary"
+                      : "border-border/80 bg-background text-muted-foreground hover:border-primary/30 hover:text-foreground",
+                  )}
                 >
-                  <motion.h2
-                    className="font-heading text-2xl font-semibold tracking-tight sm:text-3xl"
-                    initial={reduceMotion ? false : { opacity: 0, y: 12 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, amount: 0.4 }}
-                    transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-                  >
-                    {category.label}
-                  </motion.h2>
-
-                  <ul className="divide-border/80 border-border/80 mt-6 divide-y border-y">
-                    {grouped.map((item, index) => (
-                      <motion.li
-                        key={item.slug}
-                        initial={reduceMotion ? false : { opacity: 0, y: 10 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true, amount: 0.35 }}
-                        transition={{
-                          duration: 0.4,
-                          delay: index * 0.04,
-                          ease: [0.22, 1, 0.36, 1],
-                        }}
-                      >
-                        <Link
-                          href={item.href}
-                          className="group grid gap-2 py-6 transition sm:grid-cols-[minmax(0,1fr)_minmax(0,1.5fr)_auto] sm:items-center sm:gap-8"
-                        >
-                          <span className="font-heading group-hover:text-primary text-xl font-semibold tracking-tight transition sm:text-2xl">
-                            {item.title}
-                          </span>
-                          <span className="text-muted-foreground text-sm leading-relaxed sm:text-base">
-                            {item.summary}
-                          </span>
-                          <ArrowUpRight className="text-muted-foreground group-hover:text-primary size-5 transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                        </Link>
-                      </motion.li>
-                    ))}
-                  </ul>
-                </div>
-              );
-            })}
+                  {category.label}
+                </button>
+              ))}
+            </div>
           </div>
+
+          <ul className="mt-10 grid gap-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3">
+            {filtered.map((item, index) => (
+              <ServiceCard
+                key={item.slug}
+                href={item.href}
+                title={item.title}
+                summary={item.summary}
+                tag={categoryLabels[item.category]}
+                index={index}
+              />
+            ))}
+          </ul>
         </div>
       </section>
 
