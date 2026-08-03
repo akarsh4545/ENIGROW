@@ -1,15 +1,17 @@
 import type { MetadataRoute } from "next";
 
-const baseUrl = "https://enigrow.co.in";
+import { SITE_ORIGIN } from "@/lib/seo";
 
 export default function robots(): MetadataRoute.Robots {
   return {
-    rules: {
-      userAgent: "*",
-      allow: "/",
-      disallow: ["/admin", "/dashboard", "/api/", "/login", "/register"],
-    },
-    sitemap: `${baseUrl}/sitemap.xml`,
-    host: baseUrl,
+    rules: [
+      {
+        userAgent: "*",
+        allow: "/",
+        disallow: ["/admin", "/dashboard", "/api/", "/login", "/register"],
+      },
+    ],
+    sitemap: `${SITE_ORIGIN}/sitemap.xml`,
+    host: SITE_ORIGIN,
   };
 }

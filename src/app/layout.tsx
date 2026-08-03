@@ -4,6 +4,7 @@ import { Fraunces, Geist, Geist_Mono } from "next/font/google";
 import { AppProviders } from "@/components/providers/app-providers";
 import { PwaRegister } from "@/components/providers/pwa-register";
 import { siteConfig } from "@/config/site";
+import { SITE_ORIGIN } from "@/lib/seo";
 
 import "./globals.css";
 
@@ -24,13 +25,26 @@ const fraunces = Fraunces({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL(siteConfig.url),
+  metadataBase: new URL(SITE_ORIGIN),
   title: {
-    default: siteConfig.name,
+    default: `${siteConfig.name} | Startup Advisory & Business Consulting`,
     template: `%s | ${siteConfig.name}`,
   },
   description: siteConfig.description,
   applicationName: siteConfig.name,
+  authors: [{ name: siteConfig.legalName }],
+  creator: siteConfig.legalName,
+  publisher: siteConfig.legalName,
+  category: "business",
+  keywords: [
+    "startup advisory",
+    "MSME registration",
+    "company registration",
+    "government schemes",
+    "business funding",
+    "GST registration",
+    "Enigrow",
+  ],
   manifest: "/manifest.webmanifest",
   appleWebApp: {
     capable: true,
@@ -46,8 +60,22 @@ export const metadata: Metadata = {
       { url: "/icons/icon-192.png", sizes: "192x192", type: "image/png" },
     ],
   },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
+  },
   openGraph: {
-    title: siteConfig.name,
+    type: "website",
+    locale: "en_IN",
+    siteName: siteConfig.name,
+    title: `${siteConfig.name} | Startup Advisory & Business Consulting`,
     description: siteConfig.description,
     images: [
       {
@@ -57,6 +85,12 @@ export const metadata: Metadata = {
         alt: siteConfig.name,
       },
     ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `${siteConfig.name} | Startup Advisory & Business Consulting`,
+    description: siteConfig.description,
+    images: ["/brand/enigrow-logo.png"],
   },
   formatDetection: {
     telephone: false,
@@ -78,7 +112,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en-IN" suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${fraunces.variable} bg-background text-foreground min-h-dvh font-sans antialiased`}
       >

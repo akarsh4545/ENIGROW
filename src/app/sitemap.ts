@@ -1,8 +1,11 @@
 import type { MetadataRoute } from "next";
 
-const baseUrl = "https://enigrow.co.in";
+import { blogContent } from "@/data/blog";
+import { caseStudiesContent } from "@/data/careers-case-studies";
+import { eventsContent } from "@/data/gallery-events";
+import { schemesContent } from "@/data/schemes";
+import { absoluteUrl } from "@/lib/seo";
 
-/** Public static marketing routes (App Router). Auth/admin/dashboard excluded. */
 const staticRoutes: {
   path: string;
   changeFrequency: MetadataRoute.Sitemap[number]["changeFrequency"];
@@ -45,10 +48,54 @@ const staticRoutes: {
 export default function sitemap(): MetadataRoute.Sitemap {
   const lastModified = new Date();
 
-  return staticRoutes.map(({ path, changeFrequency, priority }) => ({
-    url: `${baseUrl}${path === "/" ? "" : path}`,
-    lastModified,
-    changeFrequency,
-    priority,
+  const staticEntries: MetadataRoute.Sitemap = staticRoutes.map(
+    ({ path, changeFrequency, priority }) => ({
+      url: absoluteUrl(path),
+      lastModified,
+      changeFrequency,
+      priority,
+    }),
+  );
+
+  const blogEntries: MetadataRoute.Sitemap = blogContent.posts.map((post) => ({
+    url: absoluteUrl(`/blog/${post.slug}`),
+    lastModified: new Date(post.publishedAt),
+    changeFrequency: "monthly",
+    priority: 0.6,
   }));
+
+  const schemeEntries: MetadataRoute.Sitemap = schemesContent.items.map(
+    (scheme) => ({
+      url: absoluteUrl(`/schemes/${scheme.slug}`),
+      lastModified,
+      changeFrequency: "monthly",
+      priority: 0.7,
+    }),
+  );
+
+  const caseStudyEntries: MetadataRoute.Sitemap = caseStudiesContent.items.map(
+    (item) => ({
+      url: absoluteUrl(`/case-studies/${item.slug}`),
+      lastModified,
+      changeFrequency: "monthly",
+      priority: 0.55,
+    }),
+  );
+
+  const eventEntries: MetadataRoute.Sitemap = eventsContent.items.map(
+    (item) => ({
+      url: absoluteUrl(`/events/${item.slug}`),
+      lastModified,
+      changeFrequency: "weekly",
+      priority: 0.55,
+    }),
+  );
+
+  return [
+    ...staticEntries,
+    ...blogEntries,
+    ...schemeEntries,
+    ...caseStudyEntries,
+    ...eventEntries,
+  ];
 }
