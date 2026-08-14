@@ -5,10 +5,15 @@ import { motion, useReducedMotion } from "framer-motion";
 import {
   ArrowRight,
   ArrowUpRight,
+  BadgeCheck,
+  BookOpen,
   Building2,
   FileCheck2,
+  Globe2,
   Landmark,
   Shield,
+  Stamp,
+  Utensils,
   type LucideIcon,
 } from "lucide-react";
 
@@ -19,6 +24,7 @@ import {
   homeEase,
 } from "@/components/marketing/home-motion";
 import { homeContent } from "@/data/home";
+import { schemesContent } from "@/data/schemes";
 import { servicesContent, type ServiceItem } from "@/data/services";
 import { ROUTES } from "@/constants/routes";
 import { cn } from "@/lib/utils";
@@ -27,121 +33,172 @@ const iconBySlug: Record<string, LucideIcon> = {
   funding: Landmark,
   "company-registration": Building2,
   "gst-registration": FileCheck2,
+  "msme-registration": BadgeCheck,
   trademark: Shield,
+  "iso-certification": Stamp,
+  "import-export-code": Globe2,
+  fssai: Utensils,
+  accounting: BookOpen,
 };
+
+const categoryLabels: Record<ServiceItem["category"], string> = {
+  registration: "Registration",
+  compliance: "Compliance",
+  finance: "Finance",
+  growth: "Growth",
+};
+
+/** Homepage bento order — featured first, then medium, then compact. */
+const homepageServiceSlugs = [
+  "funding",
+  "company-registration",
+  "gst-registration",
+  "msme-registration",
+  "trademark",
+  "iso-certification",
+  "import-export-code",
+  "fssai",
+  "accounting",
+] as const;
 
 function BentoCard({
   item,
   className,
-  featured = false,
   icon: Icon,
 }: {
   item: { title: string; summary: string; href: string; category?: string };
   className?: string;
-  featured?: boolean;
   icon?: LucideIcon;
 }) {
   return (
     <Link
       href={item.href}
       className={cn(
-        "group relative flex h-full flex-col overflow-hidden rounded-[1.4rem] border p-5 sm:p-6",
-        "focus-visible:ring-ring/40 focus-visible:ring-2 focus-visible:outline-none",
+        "group relative flex h-full flex-col overflow-hidden rounded-[1.35rem] border border-[#e2e6ef] bg-white p-5 shadow-[0_12px_36px_-28px_rgba(0,24,72,0.2)]",
+        "focus-visible:ring-ring/40 hover:border-[#001848]/20 focus-visible:ring-2 focus-visible:outline-none",
         homeCardHover,
-        featured
-          ? "border-transparent bg-[#001848] text-white shadow-[0_24px_56px_-28px_rgba(0,24,72,0.75)]"
-          : "border-[#e2e6ef] bg-white shadow-[0_12px_36px_-28px_rgba(0,24,72,0.22)] hover:border-[#001848]/20",
         className,
       )}
     >
-      {featured ? (
-        <div
-          aria-hidden
-          className="pointer-events-none absolute -top-20 -right-16 size-64 rounded-full bg-[#c08418]/25 blur-3xl transition duration-500 group-hover:scale-110"
-        />
-      ) : (
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-0 bg-gradient-to-br from-[#001848]/[0.03] to-transparent opacity-0 transition duration-300 group-hover:opacity-100"
-        />
-      )}
-
       <div className="relative flex items-start justify-between gap-3">
-        <span
-          className={cn(
-            "grid size-11 place-items-center rounded-2xl transition duration-300 group-hover:-translate-y-0.5",
-            featured
-              ? "bg-white/10 text-white"
-              : "bg-[#001848]/[0.06] text-[#001848]",
-          )}
-        >
-          {Icon ? <Icon className="size-5" aria-hidden /> : null}
+        <span className="grid size-10 place-items-center rounded-xl bg-[#001848]/[0.06] text-[#001848] transition duration-300 group-hover:-translate-y-0.5">
+          {Icon ? <Icon className="size-4.5" aria-hidden /> : null}
         </span>
-        <span
-          className={cn(
-            "grid size-8 place-items-center rounded-full transition duration-300",
-            featured
-              ? "bg-white/10 group-hover:bg-[#c08418] group-hover:text-[#1a1408]"
-              : "bg-[#f2f4f9] text-[#5b6577] group-hover:bg-[#001848] group-hover:text-white",
-          )}
-        >
-          <ArrowUpRight className="size-4 transition duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+        <span className="grid size-8 place-items-center rounded-full bg-[#f2f4f9] text-[#5b6577] transition duration-300 group-hover:bg-[#001848] group-hover:text-white">
+          <ArrowUpRight className="size-3.5 transition duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
         </span>
       </div>
-
       {item.category ? (
-        <p
-          className={cn(
-            "relative mt-5 text-[11px] font-semibold tracking-[0.14em] uppercase",
-            featured ? "text-[#c08418]" : "text-[#5b6577]",
-          )}
-        >
+        <p className="relative mt-4 text-[10px] font-semibold tracking-[0.14em] text-[#5b6577] uppercase">
           {item.category}
         </p>
       ) : null}
-
-      <h3
-        className={cn(
-          "font-heading relative mt-2 text-xl font-bold tracking-tight sm:text-2xl",
-          featured ? "text-white" : "text-[#001848]",
-        )}
-      >
+      <h3 className="font-heading relative mt-1.5 text-lg font-bold tracking-tight text-[#001848]">
         {item.title}
       </h3>
-      <p
-        className={cn(
-          "relative mt-2 flex-1 text-sm leading-relaxed",
-          featured ? "text-white/70" : "text-[#5b6577]",
-        )}
-      >
+      <p className="relative mt-1.5 flex-1 text-sm leading-relaxed text-[#5b6577]">
         {item.summary}
       </p>
     </Link>
   );
 }
 
+function FundingFeatureCard({
+  href,
+  summary,
+  fundingRange,
+}: {
+  href: string;
+  summary: string;
+  fundingRange: string;
+}) {
+  return (
+    <Link
+      href={href}
+      className={cn(
+        "group relative overflow-hidden rounded-[1.4rem] border border-transparent bg-[#001848] p-5 text-white sm:p-5",
+        "shadow-[0_22px_48px_-26px_rgba(0,24,72,0.7)]",
+        homeCardHover,
+        "focus-visible:ring-ring/40 focus-visible:ring-2 focus-visible:outline-none",
+      )}
+    >
+      <div
+        aria-hidden
+        className="pointer-events-none absolute -top-14 -right-10 size-36 rounded-full bg-[#c08418]/22 blur-3xl"
+      />
+
+      <div className="relative flex items-start justify-between gap-3">
+        <span className="grid size-9 place-items-center rounded-xl bg-white/10">
+          <Landmark className="size-4" aria-hidden />
+        </span>
+        <span className="grid size-8 place-items-center rounded-full bg-white/10 transition group-hover:bg-[#c08418] group-hover:text-[#1a1408]">
+          <ArrowUpRight className="size-3.5 transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+        </span>
+      </div>
+
+      <div className="relative mt-3 grid gap-4 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-end sm:gap-6">
+        <div className="min-w-0">
+          <p className="text-[10px] font-semibold tracking-[0.14em] text-[#c08418] uppercase">
+            Finance
+          </p>
+          <h3 className="font-heading mt-1 text-xl font-bold tracking-tight sm:text-[1.35rem]">
+            Business Funding
+          </h3>
+          <p className="mt-1.5 text-sm leading-relaxed text-white/70">
+            {summary}
+          </p>
+          <p className="mt-3 inline-flex items-center gap-1.5 text-sm font-semibold text-[#c08418]">
+            Explore Funding
+            <ArrowRight className="size-3.5 transition group-hover:translate-x-0.5" />
+          </p>
+        </div>
+
+        <div className="flex shrink-0 flex-col items-start gap-2 sm:items-end">
+          <div className="rounded-xl border border-white/10 bg-white/5 px-3 py-2 sm:text-right">
+            <p className="font-heading text-base font-bold text-white">
+              {fundingRange}
+            </p>
+            <p className="mt-0.5 text-[10px] font-semibold tracking-[0.12em] text-white/45 uppercase">
+              Funding range
+            </p>
+          </div>
+          <svg aria-hidden viewBox="0 0 112 32" className="h-7 w-28 opacity-90">
+            <path
+              d="M2 26 C18 24 26 14 40 13 C54 12 62 22 76 10 C90 -2 100 10 110 6"
+              fill="none"
+              stroke="#c08418"
+              strokeWidth="2"
+              strokeLinecap="round"
+            />
+            <circle cx="110" cy="6" r="2.5" fill="#c08418" />
+          </svg>
+        </div>
+      </div>
+    </Link>
+  );
+}
+
 export function HomeServices() {
   const reduceMotion = useReducedMotion();
-  const { services } = homeContent;
+  const { services, schemeSupport } = homeContent;
 
-  const funding = servicesContent.items.find((i) => i.slug === "funding");
-  const companyReg = servicesContent.items.find(
-    (i) => i.slug === "company-registration",
-  );
-  const gst = servicesContent.items.find((i) => i.slug === "gst-registration");
-  const featuredSlugs = new Set(
-    [funding?.slug, companyReg?.slug, gst?.slug].filter(Boolean) as string[],
-  );
-  const remaining = servicesContent.items
-    .slice(0, 8)
-    .filter((item) => !featuredSlugs.has(item.slug));
+  const bySlug = Object.fromEntries(
+    servicesContent.items.map((item) => [item.slug, item]),
+  ) as Record<string, ServiceItem>;
 
-  const categoryLabels: Record<ServiceItem["category"], string> = {
-    registration: "Registration",
-    compliance: "Compliance",
-    finance: "Finance",
-    growth: "Growth",
-  };
+  const funding = bySlug.funding;
+  const companyReg = bySlug["company-registration"];
+  const compactSlugs = homepageServiceSlugs.filter(
+    (slug) =>
+      slug !== "funding" &&
+      slug !== "company-registration" &&
+      slug !== "gst-registration",
+  );
+  const gst = bySlug["gst-registration"];
+
+  const fundingRange =
+    schemeSupport.metrics.find((m) => /funding/i.test(m.label))?.value ??
+    "₹10L–₹5Cr";
 
   return (
     <section className="relative overflow-hidden border-b border-[#e2e6ef] bg-[#f7f8fb]">
@@ -177,34 +234,51 @@ export function HomeServices() {
           </Link>
         </motion.div>
 
-        <div className="mt-12 grid auto-rows-[minmax(10.5rem,auto)] gap-4 sm:gap-5 lg:grid-cols-4">
+        {/*
+          Balanced bento:
+          Row 1 — Funding (featured 2) | Schemes | Company
+          Row 2+ — GST + remaining compact cards
+        */}
+        <div className="mt-12 grid items-start gap-4 sm:gap-5 lg:grid-cols-4">
           {funding ? (
             <motion.div
-              className="lg:col-span-2 lg:row-span-2"
-              initial={reduceMotion ? false : { opacity: 0, y: 18 }}
+              className="lg:col-span-2"
+              initial={reduceMotion ? false : { opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.25 }}
-              transition={{ duration: 0.5, ease: homeEase }}
+              transition={{ duration: 0.45, ease: homeEase }}
             >
-              <BentoCard
-                featured
-                icon={iconBySlug[funding.slug]}
-                item={{
-                  ...funding,
-                  category: categoryLabels[funding.category],
-                }}
-                className="min-h-[17rem] lg:min-h-full"
+              <FundingFeatureCard
+                href={funding.href}
+                summary={funding.summary}
+                fundingRange={fundingRange}
               />
             </motion.div>
           ) : null}
 
+          <motion.div
+            initial={reduceMotion ? false : { opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.25 }}
+            transition={{ duration: 0.45, delay: 0.05, ease: homeEase }}
+          >
+            <BentoCard
+              icon={Landmark}
+              item={{
+                title: schemesContent.title,
+                summary: schemesContent.headline,
+                href: ROUTES.schemes,
+                category: "Schemes",
+              }}
+            />
+          </motion.div>
+
           {companyReg ? (
             <motion.div
-              className="lg:col-span-2"
-              initial={reduceMotion ? false : { opacity: 0, y: 18 }}
+              initial={reduceMotion ? false : { opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.25 }}
-              transition={{ duration: 0.5, delay: 0.05, ease: homeEase }}
+              transition={{ duration: 0.45, delay: 0.08, ease: homeEase }}
             >
               <BentoCard
                 icon={iconBySlug[companyReg.slug]}
@@ -216,32 +290,12 @@ export function HomeServices() {
             </motion.div>
           ) : null}
 
-          <motion.div
-            className="lg:col-span-1"
-            initial={reduceMotion ? false : { opacity: 0, y: 18 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.25 }}
-            transition={{ duration: 0.5, delay: 0.08, ease: homeEase }}
-          >
-            <BentoCard
-              icon={Landmark}
-              item={{
-                title: "Government Schemes",
-                summary:
-                  "Explore PMEGP, CGTMSE, MUDRA, and other pathways mapped to your stage.",
-                href: ROUTES.schemes,
-                category: "Schemes",
-              }}
-            />
-          </motion.div>
-
           {gst ? (
             <motion.div
-              className="lg:col-span-1"
-              initial={reduceMotion ? false : { opacity: 0, y: 18 }}
+              initial={reduceMotion ? false : { opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.25 }}
-              transition={{ duration: 0.5, delay: 0.1, ease: homeEase }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.4, delay: 0.1, ease: homeEase }}
             >
               <BentoCard
                 icon={iconBySlug[gst.slug]}
@@ -253,27 +307,31 @@ export function HomeServices() {
             </motion.div>
           ) : null}
 
-          {remaining.map((item, index) => (
-            <motion.div
-              key={item.slug}
-              initial={reduceMotion ? false : { opacity: 0, y: 18 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.2 }}
-              transition={{
-                duration: 0.45,
-                delay: 0.06 + index * 0.04,
-                ease: homeEase,
-              }}
-            >
-              <BentoCard
-                icon={iconBySlug[item.slug]}
-                item={{
-                  ...item,
-                  category: categoryLabels[item.category],
+          {compactSlugs.map((slug, index) => {
+            const item = bySlug[slug];
+            if (!item) return null;
+            return (
+              <motion.div
+                key={item.slug}
+                initial={reduceMotion ? false : { opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{
+                  duration: 0.4,
+                  delay: 0.08 + index * 0.03,
+                  ease: homeEase,
                 }}
-              />
-            </motion.div>
-          ))}
+              >
+                <BentoCard
+                  icon={iconBySlug[item.slug]}
+                  item={{
+                    ...item,
+                    category: categoryLabels[item.category],
+                  }}
+                />
+              </motion.div>
+            );
+          })}
         </div>
       </div>
     </section>
