@@ -18,7 +18,7 @@ export function HomeFundingHero({
   onCheckEligibility?: () => void;
 }) {
   const reduceMotion = useReducedMotion();
-  const { schemeSupport } = homeContent;
+  const { schemeSupport, hero } = homeContent;
 
   const fundingRange =
     schemeSupport.metrics.find((m) => /funding/i.test(m.label))?.value ??
