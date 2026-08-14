@@ -2,9 +2,11 @@
 
 import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
+import { ArrowRight } from "lucide-react";
 
-import { buttonVariants } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button-variants";
 import { HomeBackdrop } from "@/components/marketing/home-backdrop";
+import { homeCtaClass, homeEase } from "@/components/marketing/home-motion";
 import { homeContent } from "@/data/home";
 import { cn } from "@/lib/utils";
 
@@ -21,7 +23,7 @@ export function HomeCta() {
           initial={reduceMotion ? false : { opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.4 }}
-          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ duration: 0.55, ease: homeEase }}
         >
           <h2 className="font-heading text-3xl font-semibold tracking-tight sm:text-4xl">
             {cta.title}
@@ -36,22 +38,25 @@ export function HomeCta() {
           initial={reduceMotion ? false : { opacity: 0, y: 12 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.4 }}
-          transition={{ duration: 0.55, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ duration: 0.5, delay: 0.08, ease: homeEase }}
         >
           <Link
             href={cta.primaryCta.href}
             className={cn(
               buttonVariants({ size: "lg" }),
-              "bg-accent text-accent-foreground hover:bg-accent/90 transition duration-300 hover:-translate-y-0.5 hover:scale-[1.02] active:scale-[0.99]",
+              homeCtaClass,
+              "bg-accent text-accent-foreground hover:bg-accent/90 h-12 rounded-[1.15rem] px-6 shadow-[0_14px_34px_-16px_color-mix(in_oklch,var(--accent)_55%,transparent)]",
             )}
           >
             {cta.primaryCta.label}
+            <ArrowRight className="size-4" />
           </Link>
           <Link
             href={cta.secondaryCta.href}
             className={cn(
               buttonVariants({ size: "lg", variant: "outline" }),
-              "border-primary-foreground/35 text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground bg-transparent transition duration-300 hover:-translate-y-0.5 hover:scale-[1.02] active:scale-[0.99]",
+              homeCtaClass,
+              "border-primary-foreground/35 text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground h-12 rounded-[1.15rem] bg-transparent px-5",
             )}
           >
             {cta.secondaryCta.label}

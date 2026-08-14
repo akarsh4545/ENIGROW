@@ -105,35 +105,60 @@ export function HomeCallback() {
   };
 
   return (
-    <section className="border-border/70 relative overflow-hidden border-b">
+    <section className="border-border/70 relative overflow-hidden border-b bg-[#f7f8fb]">
       <HomeBackdrop variant="callback" />
       <div className="relative mx-auto max-w-6xl px-4 py-20 sm:px-6 sm:py-24">
-        <div className="border-border/70 bg-secondary/40 grid overflow-hidden rounded-[1.75rem] border lg:grid-cols-[1.05fr_0.95fr]">
+        <div className="border-border/70 bg-card grid overflow-hidden rounded-[1.75rem] border shadow-[0_24px_60px_-36px_color-mix(in_oklch,var(--primary)_35%,transparent)] lg:grid-cols-[1.05fr_0.95fr]">
           <motion.div
-            className="p-6 sm:p-10"
+            className="bg-primary text-primary-foreground relative overflow-hidden p-6 sm:p-10"
             initial={reduceMotion ? false : { opacity: 0, y: 14 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.35 }}
             transition={{ duration: 0.5, ease: homeEase }}
           >
-            <p className="text-primary text-sm font-medium tracking-[0.18em] uppercase">
+            <div
+              aria-hidden
+              className="pointer-events-none absolute -top-16 -right-10 size-52 rounded-full bg-[color-mix(in_oklch,var(--accent)_28%,transparent)] blur-3xl"
+            />
+            <p className="text-accent relative text-sm font-medium tracking-[0.18em] uppercase">
               {callback.eyebrow}
             </p>
-            <h2 className="font-heading mt-3 text-3xl font-semibold tracking-tight sm:text-4xl">
-              {callback.title}
+            <h2 className="font-heading relative mt-3 text-3xl font-semibold tracking-tight text-balance sm:text-4xl">
+              Have a Business Goal? Let&apos;s Find the Right Path.
             </h2>
-            <p className="text-muted-foreground mt-4 max-w-md text-base leading-relaxed">
+            <p className="text-primary-foreground/80 relative mt-4 max-w-md text-base leading-relaxed">
               {callback.support}
             </p>
-            <ul className="text-muted-foreground mt-8 space-y-2 text-sm">
-              <li>No obligation consultation</li>
-              <li>Scheme and registration guidance</li>
-              <li>Clear next-step recommendation</li>
-            </ul>
+            <ol className="relative mt-8 space-y-3 text-sm">
+              <li className="flex gap-3">
+                <span className="bg-accent text-accent-foreground grid size-6 shrink-0 place-items-center rounded-full text-[11px] font-semibold">
+                  1
+                </span>
+                <span className="text-primary-foreground/85 pt-0.5">
+                  Share your goal and contact details
+                </span>
+              </li>
+              <li className="flex gap-3">
+                <span className="bg-accent text-accent-foreground grid size-6 shrink-0 place-items-center rounded-full text-[11px] font-semibold">
+                  2
+                </span>
+                <span className="text-primary-foreground/85 pt-0.5">
+                  An advisor reviews scheme and registration fit
+                </span>
+              </li>
+              <li className="flex gap-3">
+                <span className="bg-accent text-accent-foreground grid size-6 shrink-0 place-items-center rounded-full text-[11px] font-semibold">
+                  3
+                </span>
+                <span className="text-primary-foreground/85 pt-0.5">
+                  You get a clear, practical next-step recommendation
+                </span>
+              </li>
+            </ol>
           </motion.div>
 
           <motion.div
-            className="border-border/60 bg-card/80 border-t p-6 sm:p-10 lg:border-t-0 lg:border-l"
+            className="p-6 sm:p-10"
             initial={reduceMotion ? false : { opacity: 0, y: 14 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.35 }}
@@ -158,6 +183,9 @@ export function HomeCallback() {
               </div>
             ) : (
               <form onSubmit={onSubmit} className="space-y-4">
+                <p className="font-heading text-lg font-semibold tracking-tight">
+                  Guided consultation request
+                </p>
                 <FloatingField
                   id="callback-name"
                   label="Full name"
@@ -192,7 +220,7 @@ export function HomeCallback() {
                 <Button
                   type="submit"
                   size="lg"
-                  className={cn("w-full", homeCtaClass)}
+                  className={cn("w-full rounded-[1.1rem]", homeCtaClass)}
                   disabled={loading}
                 >
                   {loading ? "Sending…" : "Confirm callback request"}

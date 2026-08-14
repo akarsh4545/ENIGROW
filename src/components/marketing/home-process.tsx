@@ -14,7 +14,10 @@ export function HomeProcess() {
   const { process } = homeContent;
 
   return (
-    <section className="border-border/70 relative overflow-hidden border-b">
+    <section
+      id="how-it-works"
+      className="border-border/70 relative scroll-mt-24 overflow-hidden border-b"
+    >
       <HomeBackdrop variant="process" />
       <div className="relative mx-auto grid w-full max-w-6xl gap-12 px-4 py-20 sm:px-6 sm:py-24 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.2fr)] lg:gap-16">
         <motion.div
@@ -35,7 +38,11 @@ export function HomeProcess() {
           </p>
           <Link
             href={process.cta.href}
-            className={cn(buttonVariants({ size: "lg" }), homeCtaClass, "mt-8")}
+            className={cn(
+              buttonVariants({ size: "lg" }),
+              homeCtaClass,
+              "mt-8 h-11 rounded-[1.1rem] px-5",
+            )}
           >
             {process.cta.label}
           </Link>
@@ -75,7 +82,7 @@ export function HomeProcess() {
               </motion.span>
 
               <motion.div
-                className="font-heading text-accent-foreground/50 group-hover:text-accent-foreground/80 hidden text-5xl font-semibold tracking-tight transition sm:block md:text-6xl"
+                className="font-heading text-accent-foreground/45 group-hover:text-accent-foreground/75 hidden text-5xl font-semibold tracking-tight transition sm:block md:text-6xl"
                 initial={reduceMotion ? false : { opacity: 0 }}
                 whileInView={{ opacity: 1 }}
                 viewport={{ once: true }}

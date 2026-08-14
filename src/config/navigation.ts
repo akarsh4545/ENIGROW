@@ -13,11 +13,10 @@ export type NavGroup = {
 
 export const primaryNav: NavItem[] = [
   { title: "Services", href: ROUTES.services },
-  { title: "Schemes", href: ROUTES.schemes },
-  { title: "Funding", href: ROUTES.funding },
+  { title: "Government Schemes", href: ROUTES.schemes },
+  { title: "How It Works", href: "/#how-it-works" },
   { title: "About", href: ROUTES.about },
-  { title: "Blog", href: ROUTES.blog },
-  { title: "Contact", href: ROUTES.contact },
+  { title: "Resources", href: ROUTES.blog },
 ];
 
 export const serviceLinks: NavItem[] = [

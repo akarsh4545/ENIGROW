@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { ThemeToggle } from "@/components/shared/theme-toggle";
 import { BrandLogo } from "@/components/shared/brand-logo";
@@ -28,29 +28,49 @@ import { siteConfig } from "@/config/site";
 import { ROUTES } from "@/constants/routes";
 import { cn } from "@/lib/utils";
 
+function isActivePath(pathname: string, href: string) {
+  if (href.startsWith("/#")) return pathname === "/";
+  return pathname === href || pathname.startsWith(`${href}/`);
+}
+
 export function SiteHeader() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 8);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   return (
-    <header className="border-border/70 bg-background/90 sticky top-0 z-50 border-b backdrop-blur-md">
-      <div className="mx-auto flex h-[5.5rem] w-full max-w-6xl items-center justify-between gap-4 px-4 sm:h-[6.25rem] sm:px-6 lg:h-[6.75rem]">
+    <header
+      className={cn(
+        "sticky top-0 z-50 border-b transition-[background-color,box-shadow,border-color] duration-300",
+        scrolled
+          ? "border-border/80 bg-background/85 shadow-[0_8px_30px_-18px_rgba(0,24,72,0.35)] backdrop-blur-xl"
+          : "bg-background/70 border-transparent backdrop-blur-md",
+      )}
+    >
+      <div className="mx-auto flex h-16 w-full max-w-6xl items-center justify-between gap-4 px-4 sm:h-[4.25rem] sm:px-6">
         <Link
           href={ROUTES.home}
-          className="group inline-flex shrink-0 items-center transition group-hover:opacity-95"
+          className="inline-flex shrink-0 items-center"
           aria-label={`${siteConfig.name} home`}
         >
-          <BrandLogo
-            priority
-            className="h-[4.25rem] w-auto sm:h-[5rem] lg:h-[5.5rem]"
-          />
+          <BrandLogo priority className="h-11 w-auto sm:h-12" />
         </Link>
 
-        <nav className="hidden items-center gap-1 lg:flex" aria-label="Primary">
+        <nav
+          className="hidden items-center gap-0.5 lg:flex"
+          aria-label="Primary"
+        >
           <NavigationMenu viewport={false}>
-            <NavigationMenuList className="gap-1">
+            <NavigationMenuList className="gap-0.5">
               <NavigationMenuItem>
-                <NavigationMenuTrigger className="bg-transparent text-[0.95rem]">
+                <NavigationMenuTrigger className="bg-transparent text-[0.9rem] font-medium">
                   Services
                 </NavigationMenuTrigger>
                 <NavigationMenuContent className="p-3">
@@ -60,12 +80,12 @@ export function SiteHeader() {
                         <NavigationMenuLink asChild>
                           <Link
                             href={item.href}
-                            className="hover:bg-muted block rounded-lg p-3 transition"
+                            className="hover:bg-muted block rounded-xl p-3 transition"
                           >
-                            <div className="text-sm font-medium">
+                            <div className="text-sm font-semibold">
                               {item.title}
                             </div>
-                            <p className="text-muted-foreground mt-1 text-xs">
+                            <p className="text-muted-foreground mt-1 text-xs leading-relaxed">
                               {item.description}
                             </p>
                           </Link>
@@ -76,7 +96,7 @@ export function SiteHeader() {
                       <NavigationMenuLink asChild>
                         <Link
                           href={ROUTES.services}
-                          className="text-primary hover:bg-muted block rounded-lg p-3 text-sm font-medium transition"
+                          className="text-primary hover:bg-muted block rounded-xl p-3 text-sm font-semibold transition"
                         >
                           View all services →
                         </Link>
@@ -89,20 +109,17 @@ export function SiteHeader() {
               {primaryNav
                 .filter((item) => item.title !== "Services")
                 .map((item) => {
-                  const active =
-                    pathname === item.href ||
-                    pathname.startsWith(`${item.href}/`);
+                  const active = isActivePath(pathname, item.href);
                   return (
                     <NavigationMenuItem key={item.href}>
                       <NavigationMenuLink asChild>
                         <Link
                           href={item.href}
                           className={cn(
-                            "relative rounded-lg px-3 py-2.5 text-[0.95rem] font-medium transition-colors",
-                            "after:bg-primary after:absolute after:inset-x-3 after:bottom-1 after:h-0.5 after:origin-left after:scale-x-0 after:rounded-full after:transition after:duration-300 hover:after:scale-x-100",
+                            "rounded-lg px-3 py-2 text-[0.9rem] font-medium transition-colors",
                             active
-                              ? "bg-muted text-foreground after:scale-x-100"
-                              : "text-muted-foreground hover:bg-muted/70 hover:text-foreground",
+                              ? "bg-secondary text-foreground"
+                              : "text-muted-foreground hover:bg-secondary/80 hover:text-foreground",
                           )}
                         >
                           {item.title}
@@ -127,13 +144,13 @@ export function SiteHeader() {
             Sign in
           </Link>
           <Link
-            href={ROUTES.contact}
+            href={ROUTES.eligibility}
             className={cn(
               buttonVariants({ size: "sm" }),
-              "hidden sm:inline-flex",
+              "hidden rounded-full px-4 font-semibold sm:inline-flex",
             )}
           >
-            Book consult
+            Check Eligibility
           </Link>
 
           <Sheet open={open} onOpenChange={setOpen}>
@@ -151,7 +168,7 @@ export function SiteHeader() {
             <SheetContent side="right" className="w-[min(100%,22rem)]">
               <SheetHeader>
                 <SheetTitle className="text-left">
-                  <BrandLogo className="h-16 w-auto" />
+                  <BrandLogo className="h-12 w-auto" />
                 </SheetTitle>
               </SheetHeader>
               <div className="mt-6 flex flex-col gap-1">
@@ -162,9 +179,9 @@ export function SiteHeader() {
                     onClick={() => setOpen(false)}
                     className={cn(
                       "rounded-lg px-3 py-2.5 text-sm font-medium transition-colors",
-                      pathname === item.href
-                        ? "bg-muted text-foreground"
-                        : "text-muted-foreground hover:bg-muted/70 hover:text-foreground",
+                      isActivePath(pathname, item.href)
+                        ? "bg-secondary text-foreground"
+                        : "text-muted-foreground hover:bg-secondary/80 hover:text-foreground",
                     )}
                   >
                     {item.title}
@@ -176,17 +193,20 @@ export function SiteHeader() {
                   onClick={() => setOpen(false)}
                   className={cn(
                     buttonVariants({ variant: "outline" }),
-                    "w-full",
+                    "w-full rounded-full",
                   )}
                 >
                   Sign in
                 </Link>
                 <Link
-                  href={ROUTES.contact}
+                  href={ROUTES.eligibility}
                   onClick={() => setOpen(false)}
-                  className={cn(buttonVariants(), "w-full")}
+                  className={cn(
+                    buttonVariants(),
+                    "w-full rounded-full font-semibold",
+                  )}
                 >
-                  Book consult
+                  Check Eligibility
                 </Link>
               </div>
             </SheetContent>

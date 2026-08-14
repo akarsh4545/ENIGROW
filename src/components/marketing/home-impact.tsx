@@ -6,11 +6,7 @@ import { Award, IndianRupee, TrendingUp, Users } from "lucide-react";
 
 import { buttonVariants } from "@/components/ui/button-variants";
 import { HomeBackdrop } from "@/components/marketing/home-backdrop";
-import {
-  homeCtaClass,
-  homeEase,
-  useCountUp,
-} from "@/components/marketing/home-motion";
+import { homeCtaClass, homeEase } from "@/components/marketing/home-motion";
 import { homeContent } from "@/data/home";
 import { cn } from "@/lib/utils";
 
@@ -20,53 +16,6 @@ const iconMap = {
   people: Users,
   support: Award,
 } as const;
-
-function CountCr() {
-  const { ref, value } = useCountUp({ end: 110, duration: 1.5 });
-  return (
-    <p
-      ref={ref}
-      className="font-heading mt-5 text-3xl font-semibold tracking-tight sm:text-4xl"
-    >
-      ₹{Math.round(value)}Cr+
-    </p>
-  );
-}
-
-function CountPercent() {
-  const { ref, value } = useCountUp({ end: 92, duration: 1.35 });
-  return (
-    <p
-      ref={ref}
-      className="font-heading mt-5 text-3xl font-semibold tracking-tight sm:text-4xl"
-    >
-      {Math.round(value)}%
-    </p>
-  );
-}
-
-function CountPlus() {
-  const { ref, value } = useCountUp({ end: 720, duration: 1.45 });
-  return (
-    <p
-      ref={ref}
-      className="font-heading mt-5 text-3xl font-semibold tracking-tight sm:text-4xl"
-    >
-      {Math.round(value)}+
-    </p>
-  );
-}
-
-function StatDisplay({ value }: { value: string }) {
-  if (value.includes("Cr")) return <CountCr />;
-  if (value.includes("%")) return <CountPercent />;
-  if (value.endsWith("+") && /\d/.test(value)) return <CountPlus />;
-  return (
-    <p className="font-heading mt-5 text-3xl font-semibold tracking-tight sm:text-4xl">
-      {value}
-    </p>
-  );
-}
 
 export function HomeImpact() {
   const reduceMotion = useReducedMotion();
@@ -92,10 +41,12 @@ export function HomeImpact() {
                   ease: homeEase,
                 }}
               >
-                <span className="bg-accent text-accent-foreground grid size-12 place-items-center rounded-2xl shadow-[0_10px_30px_color-mix(in_oklch,var(--accent)_45%,transparent)] transition hover:scale-105">
+                <span className="bg-accent text-accent-foreground grid size-12 place-items-center rounded-2xl shadow-[0_10px_30px_color-mix(in_oklch,var(--accent)_45%,transparent)]">
                   <Icon className="size-5" aria-hidden />
                 </span>
-                <StatDisplay value={item.value} />
+                <p className="font-heading mt-5 text-3xl font-semibold tracking-tight sm:text-4xl">
+                  {item.value}
+                </p>
                 <p className="text-primary-foreground/75 mt-2 text-xs font-medium tracking-[0.18em] uppercase">
                   {item.label}
                 </p>
@@ -111,7 +62,7 @@ export function HomeImpact() {
           className={cn(
             buttonVariants({ variant: "outline", size: "lg" }),
             homeCtaClass,
-            "border-accent text-accent-foreground hover:bg-accent/10",
+            "border-accent text-accent-foreground hover:bg-accent/10 h-11 rounded-[1.1rem] px-5",
           )}
         >
           {impact.cta.label} →

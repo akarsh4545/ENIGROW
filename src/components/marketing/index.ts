@@ -1,7 +1,9 @@
 export { HomeHero } from "./home-hero";
+export { HomeFundingHero } from "./home-funding-hero";
 export { HomeServices } from "./home-services";
 export { HomeSchemeSupport } from "./home-scheme-support";
 export { HomeSchemes } from "./home-schemes";
+export { HomeFundingFinder } from "./home-funding-finder";
 export { HomeProcess } from "./home-process";
 export { HomeSuccessStories } from "./home-success-stories";
 export { HomeImpact } from "./home-impact";

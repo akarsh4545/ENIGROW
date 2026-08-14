@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Fraunces, Geist, Geist_Mono } from "next/font/google";
+import { Geist_Mono, Plus_Jakarta_Sans } from "next/font/google";
 
 import { AppProviders } from "@/components/providers/app-providers";
 import { PwaRegister } from "@/components/providers/pwa-register";
@@ -8,20 +8,15 @@ import { SITE_ORIGIN } from "@/lib/seo";
 
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const plusJakarta = Plus_Jakarta_Sans({
+  variable: "--font-plus-jakarta",
   subsets: ["latin"],
+  display: "swap",
 });
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
-});
-
-const fraunces = Fraunces({
-  variable: "--font-fraunces",
-  subsets: ["latin"],
-  axes: ["SOFT", "WONK", "opsz"],
 });
 
 export const metadata: Metadata = {
@@ -99,8 +94,8 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#1f5f6b" },
-    { media: "(prefers-color-scheme: dark)", color: "#0f2f36" },
+    { media: "(prefers-color-scheme: light)", color: "#001848" },
+    { media: "(prefers-color-scheme: dark)", color: "#020817" },
   ],
   width: "device-width",
   initialScale: 1,
@@ -114,7 +109,7 @@ export default function RootLayout({
   return (
     <html lang="en-IN" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${fraunces.variable} bg-background text-foreground min-h-dvh font-sans antialiased`}
+        className={`${plusJakarta.variable} ${geistMono.variable} bg-background text-foreground min-h-dvh font-sans antialiased`}
       >
         <AppProviders>
           {children}
