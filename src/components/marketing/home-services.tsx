@@ -19,9 +19,10 @@ import {
 
 import { buttonVariants } from "@/components/ui/button-variants";
 import {
-  homeCardHover,
   homeCtaClass,
-  homeEase,
+  revealContainer,
+  revealItem,
+  revealItemFast,
 } from "@/components/marketing/home-motion";
 import { homeContent } from "@/data/home";
 import { schemesContent } from "@/data/schemes";
@@ -74,35 +75,42 @@ function BentoCard({
     <Link
       href={item.href}
       className={cn(
-        "group relative flex h-full flex-col overflow-hidden rounded-[1.35rem] border border-[#e2e6ef] bg-white p-5 shadow-[0_12px_36px_-28px_rgba(0,24,72,0.2)]",
-        "focus-visible:ring-ring/40 hover:border-[#001848]/20 focus-visible:ring-2 focus-visible:outline-none",
-        homeCardHover,
+        "group relative flex h-full flex-col overflow-hidden rounded-[1.35rem] border border-[#e2e6ef] bg-white p-5",
+        "shadow-[0_12px_36px_-28px_rgba(0,24,72,0.18)]",
+        "transition duration-200 ease-out",
+        "hover:-translate-y-1 hover:border-[#001848]/25 hover:shadow-[0_20px_44px_-22px_rgba(0,24,72,0.3)]",
+        "focus-visible:ring-ring/40 focus-visible:ring-2 focus-visible:outline-none",
         className,
       )}
     >
-      <div className="relative flex items-start justify-between gap-3">
-        <span className="grid size-10 place-items-center rounded-xl bg-[#001848]/[0.06] text-[#001848] transition duration-300 group-hover:-translate-y-0.5">
+      <div className="relative z-[1] flex items-start justify-between gap-3">
+        <span className="grid size-10 place-items-center rounded-xl bg-[#001848]/[0.06] text-[#001848] transition duration-200 ease-out group-hover:-translate-y-0.5">
           {Icon ? <Icon className="size-4.5" aria-hidden /> : null}
         </span>
-        <span className="grid size-8 place-items-center rounded-full bg-[#f2f4f9] text-[#5b6577] transition duration-300 group-hover:bg-[#001848] group-hover:text-white">
-          <ArrowUpRight className="size-3.5 transition duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+        <span className="grid size-8 place-items-center rounded-full bg-[#f2f4f9] text-[#5b6577] transition duration-200 ease-out group-hover:translate-x-1 group-hover:bg-[#001848] group-hover:text-white">
+          <ArrowUpRight className="size-3.5" aria-hidden />
         </span>
       </div>
       {item.category ? (
-        <p className="relative mt-4 text-[10px] font-semibold tracking-[0.14em] text-[#5b6577] uppercase">
+        <p className="relative z-[1] mt-4 text-[10px] font-semibold tracking-[0.14em] text-[#5b6577] uppercase">
           {item.category}
         </p>
       ) : null}
-      <h3 className="font-heading relative mt-1.5 text-lg font-bold tracking-tight text-[#001848]">
+      <h3 className="font-heading relative z-[1] mt-1.5 text-lg font-bold tracking-tight text-[#001848]">
         {item.title}
       </h3>
-      <p className="relative mt-1.5 flex-1 text-sm leading-relaxed text-[#5b6577]">
+      <p className="relative z-[1] mt-1.5 flex-1 text-sm leading-relaxed text-[#5b6577]">
         {item.summary}
       </p>
     </Link>
   );
 }
 
+/**
+ * Featured Business Funding card.
+ * Explicit stacking: background → decor → graph → content → CTA
+ * so text never loses contrast against the light services section.
+ */
 function FundingFeatureCard({
   href,
   summary,
@@ -116,63 +124,82 @@ function FundingFeatureCard({
     <Link
       href={href}
       className={cn(
-        "group relative overflow-hidden rounded-[1.4rem] border border-transparent bg-[#001848] p-5 text-white sm:p-5",
-        "shadow-[0_22px_48px_-26px_rgba(0,24,72,0.7)]",
-        homeCardHover,
+        "group relative isolate block overflow-hidden rounded-[1.4rem] border border-[#001848]/80",
+        "shadow-[0_20px_44px_-24px_rgba(0,24,72,0.55)]",
+        "transition duration-200 ease-out",
+        "hover:-translate-y-1 hover:shadow-[0_26px_52px_-24px_rgba(0,24,72,0.6)]",
         "focus-visible:ring-ring/40 focus-visible:ring-2 focus-visible:outline-none",
       )}
     >
+      {/* Layer 1 — solid background (never transparent) */}
       <div
         aria-hidden
-        className="pointer-events-none absolute -top-14 -right-10 size-36 rounded-full bg-[#c08418]/22 blur-3xl"
+        className="absolute inset-0 z-0 bg-[#001848] transition-colors duration-300 group-hover:bg-[#0a2a6e]"
       />
 
-      <div className="relative flex items-start justify-between gap-3">
-        <span className="grid size-9 place-items-center rounded-xl bg-white/10">
-          <Landmark className="size-4" aria-hidden />
-        </span>
-        <span className="grid size-8 place-items-center rounded-full bg-white/10 transition group-hover:bg-[#c08418] group-hover:text-[#1a1408]">
-          <ArrowUpRight className="size-3.5 transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-        </span>
-      </div>
+      {/* Layer 2 — decorative glow (below content) */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute -top-12 -right-8 z-[1] size-32 rounded-full bg-[#c08418]/20 blur-3xl transition duration-500 group-hover:translate-x-1 group-hover:-translate-y-0.5 group-hover:bg-[#c08418]/28"
+      />
 
-      <div className="relative mt-3 grid gap-4 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-end sm:gap-6">
-        <div className="min-w-0">
-          <p className="text-[10px] font-semibold tracking-[0.14em] text-[#c08418] uppercase">
-            Finance
+      {/* Layer 3 — subtle graph (below content) */}
+      <svg
+        aria-hidden
+        viewBox="0 0 280 72"
+        className="pointer-events-none absolute right-3 bottom-3 z-[2] h-12 w-40 opacity-40 transition duration-300 group-hover:opacity-70 sm:h-14 sm:w-48"
+      >
+        <path
+          d="M4 58 C36 54 48 34 84 32 C120 30 132 48 168 24 C204 0 228 18 276 10"
+          fill="none"
+          stroke="#c08418"
+          strokeWidth="2"
+          strokeLinecap="round"
+          className="transition-[stroke-opacity] duration-300"
+        />
+        <circle
+          cx="276"
+          cy="10"
+          r="3"
+          fill="#c08418"
+          className="origin-center transition duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+        />
+      </svg>
+
+      {/* Layer 4+5 — content + CTA (always above decor) */}
+      <div className="relative z-10 p-5 text-white sm:p-5">
+        <div className="flex items-start justify-between gap-3">
+          <span className="grid size-9 place-items-center rounded-xl bg-white/10 text-white transition duration-200 group-hover:-translate-y-0.5">
+            <Landmark className="size-4" aria-hidden />
+          </span>
+          <span className="grid size-8 place-items-center rounded-full bg-white/10 text-white transition duration-200 group-hover:translate-x-1 group-hover:bg-[#c08418] group-hover:text-[#1a1408]">
+            <ArrowUpRight className="size-3.5" aria-hidden />
+          </span>
+        </div>
+
+        <p className="mt-3.5 text-[10px] font-semibold tracking-[0.14em] text-[#c08418] uppercase">
+          Finance
+        </p>
+        <h3 className="font-heading mt-1 text-xl font-bold tracking-tight text-white">
+          Business Funding
+        </h3>
+        <p className="mt-1.5 max-w-md text-sm leading-relaxed text-white/75">
+          {summary}
+        </p>
+
+        <div className="mt-4 inline-flex flex-col rounded-xl border border-white/15 bg-black/20 px-3 py-2">
+          <p className="font-heading text-base font-bold text-white">
+            {fundingRange}
           </p>
-          <h3 className="font-heading mt-1 text-xl font-bold tracking-tight sm:text-[1.35rem]">
-            Business Funding
-          </h3>
-          <p className="mt-1.5 text-sm leading-relaxed text-white/70">
-            {summary}
-          </p>
-          <p className="mt-3 inline-flex items-center gap-1.5 text-sm font-semibold text-[#c08418]">
-            Explore Funding
-            <ArrowRight className="size-3.5 transition group-hover:translate-x-0.5" />
+          <p className="mt-0.5 text-[10px] font-semibold tracking-[0.12em] text-white/55 uppercase">
+            Funding range
           </p>
         </div>
 
-        <div className="flex shrink-0 flex-col items-start gap-2 sm:items-end">
-          <div className="rounded-xl border border-white/10 bg-white/5 px-3 py-2 sm:text-right">
-            <p className="font-heading text-base font-bold text-white">
-              {fundingRange}
-            </p>
-            <p className="mt-0.5 text-[10px] font-semibold tracking-[0.12em] text-white/45 uppercase">
-              Funding range
-            </p>
-          </div>
-          <svg aria-hidden viewBox="0 0 112 32" className="h-7 w-28 opacity-90">
-            <path
-              d="M2 26 C18 24 26 14 40 13 C54 12 62 22 76 10 C90 -2 100 10 110 6"
-              fill="none"
-              stroke="#c08418"
-              strokeWidth="2"
-              strokeLinecap="round"
-            />
-            <circle cx="110" cy="6" r="2.5" fill="#c08418" />
-          </svg>
-        </div>
+        <p className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-[#c08418]">
+          Explore Funding
+          <ArrowRight className="size-3.5 transition duration-200 group-hover:translate-x-1" />
+        </p>
       </div>
     </Link>
   );
@@ -204,50 +231,56 @@ export function HomeServices() {
     <section className="relative overflow-hidden border-b border-[#e2e6ef] bg-[#f7f8fb]">
       <div className="relative mx-auto w-full max-w-6xl px-4 py-20 sm:px-6 sm:py-24">
         <motion.div
-          initial={reduceMotion ? false : { opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.4 }}
-          transition={{ duration: 0.5, ease: homeEase }}
+          initial={reduceMotion ? false : "hidden"}
+          whileInView={reduceMotion ? undefined : "show"}
+          viewport={{ once: true, amount: 0.35 }}
+          variants={revealContainer}
           className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between"
         >
           <div className="max-w-2xl">
-            <p className="text-sm font-semibold tracking-[0.18em] text-[#c08418] uppercase">
+            <motion.p
+              variants={revealItemFast}
+              className="text-sm font-semibold tracking-[0.18em] text-[#c08418] uppercase"
+            >
               What we do
-            </p>
-            <h2 className="font-heading mt-3 text-3xl font-bold tracking-tight text-[#001848] sm:text-4xl">
+            </motion.p>
+            <motion.h2
+              variants={revealItem}
+              className="font-heading mt-3 text-3xl font-bold tracking-tight text-[#001848] sm:text-4xl"
+            >
               {services.title}
-            </h2>
-            <p className="mt-4 text-base leading-relaxed text-[#5b6577] sm:text-lg">
+            </motion.h2>
+            <motion.p
+              variants={revealItem}
+              className="mt-4 text-base leading-relaxed text-[#5b6577] sm:text-lg"
+            >
               {services.support}
-            </p>
+            </motion.p>
           </div>
-          <Link
-            href={ROUTES.services}
-            className={cn(
-              buttonVariants({ size: "lg", variant: "outline" }),
-              homeCtaClass,
-              "h-11 shrink-0 px-5",
-            )}
-          >
-            View all
-            <ArrowRight className="size-4" />
-          </Link>
+          <motion.div variants={revealItemFast}>
+            <Link
+              href={ROUTES.services}
+              className={cn(
+                buttonVariants({ size: "lg", variant: "outline" }),
+                homeCtaClass,
+                "h-11 shrink-0 px-5",
+              )}
+            >
+              View all
+              <ArrowRight className="size-4 transition duration-250 group-hover/button:translate-x-0.5" />
+            </Link>
+          </motion.div>
         </motion.div>
 
-        {/*
-          Balanced bento:
-          Row 1 — Funding (featured 2) | Schemes | Company
-          Row 2+ — GST + remaining compact cards
-        */}
-        <div className="mt-12 grid items-start gap-4 sm:gap-5 lg:grid-cols-4">
+        <motion.div
+          className="mt-12 grid items-start gap-4 sm:gap-5 lg:grid-cols-4"
+          initial={reduceMotion ? false : "hidden"}
+          whileInView={reduceMotion ? undefined : "show"}
+          viewport={{ once: true, amount: 0.15 }}
+          variants={revealContainer}
+        >
           {funding ? (
-            <motion.div
-              className="lg:col-span-2"
-              initial={reduceMotion ? false : { opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.25 }}
-              transition={{ duration: 0.45, ease: homeEase }}
-            >
+            <motion.div className="lg:col-span-2" variants={revealItem}>
               <FundingFeatureCard
                 href={funding.href}
                 summary={funding.summary}
@@ -256,12 +289,7 @@ export function HomeServices() {
             </motion.div>
           ) : null}
 
-          <motion.div
-            initial={reduceMotion ? false : { opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.25 }}
-            transition={{ duration: 0.45, delay: 0.05, ease: homeEase }}
-          >
+          <motion.div variants={revealItem}>
             <BentoCard
               icon={Landmark}
               item={{
@@ -274,12 +302,7 @@ export function HomeServices() {
           </motion.div>
 
           {companyReg ? (
-            <motion.div
-              initial={reduceMotion ? false : { opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.25 }}
-              transition={{ duration: 0.45, delay: 0.08, ease: homeEase }}
-            >
+            <motion.div variants={revealItem}>
               <BentoCard
                 icon={iconBySlug[companyReg.slug]}
                 item={{
@@ -291,12 +314,7 @@ export function HomeServices() {
           ) : null}
 
           {gst ? (
-            <motion.div
-              initial={reduceMotion ? false : { opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.2 }}
-              transition={{ duration: 0.4, delay: 0.1, ease: homeEase }}
-            >
+            <motion.div variants={revealItem}>
               <BentoCard
                 icon={iconBySlug[gst.slug]}
                 item={{
@@ -307,21 +325,11 @@ export function HomeServices() {
             </motion.div>
           ) : null}
 
-          {compactSlugs.map((slug, index) => {
+          {compactSlugs.map((slug) => {
             const item = bySlug[slug];
             if (!item) return null;
             return (
-              <motion.div
-                key={item.slug}
-                initial={reduceMotion ? false : { opacity: 0, y: 16 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.2 }}
-                transition={{
-                  duration: 0.4,
-                  delay: 0.08 + index * 0.03,
-                  ease: homeEase,
-                }}
-              >
+              <motion.div key={item.slug} variants={revealItem}>
                 <BentoCard
                   icon={iconBySlug[item.slug]}
                   item={{
@@ -332,7 +340,7 @@ export function HomeServices() {
               </motion.div>
             );
           })}
-        </div>
+        </motion.div>
       </div>
     </section>
   );

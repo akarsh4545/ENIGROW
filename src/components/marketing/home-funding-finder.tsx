@@ -157,39 +157,63 @@ export function HomeFundingFinder() {
           </div>
 
           {step === 1 ? (
-            <div>
+            <motion.div
+              key="step-1"
+              initial={reduceMotion ? false : { opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.35, ease: homeEase }}
+            >
               <p className="font-heading text-xl font-bold tracking-tight text-[#001848]">
                 What do you need funding for?
               </p>
               <ul className="mt-5 flex flex-wrap gap-2.5">
-                {NEED_OPTIONS.map((option) => (
-                  <li
-                    key={option.id}
-                    className="w-full sm:w-[calc(50%-0.35rem)]"
-                  >
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setNeedId(option.id);
-                        setStep(2);
-                      }}
-                      className={cn(
-                        "w-full rounded-full border px-4 py-3.5 text-left text-sm font-semibold transition duration-200",
-                        needId === option.id
-                          ? "border-[#001848] bg-[#001848] text-white"
-                          : "border-[#e2e6ef] bg-white text-[#0b1220] hover:border-[#001848]/30",
-                      )}
+                {NEED_OPTIONS.map((option) => {
+                  const selected = needId === option.id;
+                  return (
+                    <li
+                      key={option.id}
+                      className="w-full sm:w-[calc(50%-0.35rem)]"
                     >
-                      {option.label}
-                    </button>
-                  </li>
-                ))}
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setNeedId(option.id);
+                          setStep(2);
+                        }}
+                        className={cn(
+                          "flex w-full items-center justify-between gap-3 rounded-full border px-4 py-3.5 text-left text-sm font-semibold transition duration-200 ease-out",
+                          selected
+                            ? "border-[#001848] bg-[#001848] text-white shadow-[0_12px_28px_-16px_rgba(0,24,72,0.45)]"
+                            : "border-[#e2e6ef] bg-white text-[#0b1220] hover:-translate-y-0.5 hover:border-[#001848]/30",
+                        )}
+                      >
+                        <span>{option.label}</span>
+                        <span
+                          className={cn(
+                            "grid size-5 shrink-0 place-items-center rounded-full border text-[10px] transition duration-200",
+                            selected
+                              ? "scale-100 border-white/30 bg-white/15 text-white opacity-100"
+                              : "scale-90 border-[#e2e6ef] text-transparent opacity-0",
+                          )}
+                          aria-hidden
+                        >
+                          ✓
+                        </span>
+                      </button>
+                    </li>
+                  );
+                })}
               </ul>
-            </div>
+            </motion.div>
           ) : null}
 
           {step === 2 ? (
-            <div>
+            <motion.div
+              key="step-2"
+              initial={reduceMotion ? false : { opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.35, ease: homeEase }}
+            >
               <button
                 type="button"
                 onClick={() => setStep(1)}
@@ -202,44 +226,63 @@ export function HomeFundingFinder() {
                 How much funding do you need?
               </p>
               <ul className="mt-5 flex flex-wrap gap-2.5">
-                {AMOUNT_OPTIONS.map((option) => (
-                  <li
-                    key={option.id}
-                    className="w-full sm:w-[calc(50%-0.35rem)]"
-                  >
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setAmountId(option.id);
-                        setStep(3);
-                      }}
-                      className={cn(
-                        "flex h-full w-full flex-col rounded-[1.1rem] border px-4 py-3.5 text-left transition duration-200",
-                        amountId === option.id
-                          ? "border-[#001848] bg-[#001848] text-white"
-                          : "border-[#e2e6ef] bg-white hover:border-[#001848]/30",
-                      )}
+                {AMOUNT_OPTIONS.map((option) => {
+                  const selected = amountId === option.id;
+                  return (
+                    <li
+                      key={option.id}
+                      className="w-full sm:w-[calc(50%-0.35rem)]"
                     >
-                      <span className="text-sm font-bold">{option.label}</span>
-                      <span
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setAmountId(option.id);
+                          setStep(3);
+                        }}
                         className={cn(
-                          "mt-1 text-xs",
-                          amountId === option.id
-                            ? "text-white/70"
-                            : "text-[#5b6577]",
+                          "flex h-full w-full flex-col rounded-[1.1rem] border px-4 py-3.5 text-left transition duration-200 ease-out",
+                          selected
+                            ? "border-[#001848] bg-[#001848] text-white shadow-[0_12px_28px_-16px_rgba(0,24,72,0.45)]"
+                            : "border-[#e2e6ef] bg-white hover:-translate-y-0.5 hover:border-[#001848]/30",
                         )}
                       >
-                        {option.hint}
-                      </span>
-                    </button>
-                  </li>
-                ))}
+                        <span className="flex items-center justify-between gap-2 text-sm font-bold">
+                          {option.label}
+                          <span
+                            className={cn(
+                              "grid size-5 shrink-0 place-items-center rounded-full border text-[10px] transition duration-200",
+                              selected
+                                ? "scale-100 border-white/30 bg-white/15 text-white opacity-100"
+                                : "scale-90 border-transparent text-transparent opacity-0",
+                            )}
+                            aria-hidden
+                          >
+                            ✓
+                          </span>
+                        </span>
+                        <span
+                          className={cn(
+                            "mt-1 text-xs",
+                            selected ? "text-white/70" : "text-[#5b6577]",
+                          )}
+                        >
+                          {option.hint}
+                        </span>
+                      </button>
+                    </li>
+                  );
+                })}
               </ul>
-            </div>
+            </motion.div>
           ) : null}
 
           {step === 3 && need && amount ? (
-            <div>
+            <motion.div
+              key="step-3"
+              initial={reduceMotion ? false : { opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.35, ease: homeEase }}
+            >
               <button
                 type="button"
                 onClick={() => setStep(2)}
@@ -271,11 +314,11 @@ export function HomeFundingFinder() {
                   className={cn(
                     buttonVariants({ size: "lg" }),
                     homeCtaClass,
-                    "h-12 bg-[#c08418] px-6 text-[#1a1408] hover:bg-[#c08418]/90",
+                    "group/button h-12 bg-[#c08418] px-6 text-[#1a1408] hover:bg-[#c08418]/90",
                   )}
                 >
                   Check My Eligibility
-                  <ArrowRight className="size-4" />
+                  <ArrowRight className="size-4 transition duration-200 group-hover/button:translate-x-1" />
                 </Link>
                 <Link
                   href={ROUTES.contact}
@@ -295,7 +338,7 @@ export function HomeFundingFinder() {
                   Start over
                 </button>
               </div>
-            </div>
+            </motion.div>
           ) : null}
         </motion.div>
       </div>

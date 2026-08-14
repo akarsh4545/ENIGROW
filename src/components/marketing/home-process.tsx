@@ -58,7 +58,7 @@ export function HomeProcess() {
         <ol className="relative mt-14 hidden gap-4 lg:grid lg:grid-cols-4">
           <motion.div
             aria-hidden
-            className="absolute top-6 right-4 left-4 h-px origin-left bg-white/15"
+            className="absolute top-6 right-4 left-4 h-px origin-left bg-gradient-to-r from-[#c08418]/80 via-white/25 to-white/15"
             initial={reduceMotion ? false : { scaleX: 0 }}
             whileInView={{ scaleX: 1 }}
             viewport={{ once: true, amount: 0.4 }}
@@ -75,9 +75,9 @@ export function HomeProcess() {
                 delay: index * 0.08,
                 ease: homeEase,
               }}
-              className="relative pt-2"
+              className="group relative pt-2"
             >
-              <span className="relative z-[1] grid size-12 place-items-center rounded-full border border-white/20 bg-[#001848] text-sm font-bold text-[#c08418]">
+              <span className="relative z-[1] grid size-12 place-items-center rounded-full border border-white/20 bg-[#001848] text-sm font-bold text-[#c08418] transition duration-200 group-hover:border-[#c08418]/50 group-hover:text-[#c08418]">
                 {String(index + 1).padStart(2, "0")}
               </span>
               <h3 className="font-heading mt-5 text-xl font-bold tracking-tight text-white">
@@ -97,7 +97,7 @@ export function HomeProcess() {
         <ol className="relative mt-12 space-y-0 lg:hidden">
           <motion.div
             aria-hidden
-            className="absolute top-3 bottom-3 left-[1.15rem] w-px origin-top bg-white/15"
+            className="absolute top-3 bottom-3 left-[1.15rem] w-px origin-top bg-gradient-to-b from-[#c08418]/80 via-white/25 to-white/15"
             initial={reduceMotion ? false : { scaleY: 0 }}
             whileInView={{ scaleY: 1 }}
             viewport={{ once: true, amount: 0.2 }}

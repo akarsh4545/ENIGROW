@@ -17,9 +17,10 @@ import {
 
 import { buttonVariants } from "@/components/ui/button-variants";
 import {
-  homeCardHover,
   homeCtaClass,
-  homeEase,
+  revealContainer,
+  revealItem,
+  revealItemFast,
 } from "@/components/marketing/home-motion";
 import { homeContent } from "@/data/home";
 import { ROUTES } from "@/constants/routes";
@@ -41,21 +42,30 @@ export function HomeSchemes() {
     <section className="relative overflow-hidden border-b border-[#e2e6ef] bg-[#eef1f7]/80">
       <div className="relative mx-auto w-full max-w-6xl px-4 py-20 sm:px-6 sm:py-24">
         <motion.div
-          initial={reduceMotion ? false : { opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={reduceMotion ? false : "hidden"}
+          whileInView={reduceMotion ? undefined : "show"}
           viewport={{ once: true, amount: 0.35 }}
-          transition={{ duration: 0.5, ease: homeEase }}
+          variants={revealContainer}
           className="max-w-2xl"
         >
-          <p className="text-sm font-semibold tracking-[0.18em] text-[#c08418] uppercase">
+          <motion.p
+            variants={revealItemFast}
+            className="text-sm font-semibold tracking-[0.18em] text-[#c08418] uppercase"
+          >
             Government schemes
-          </p>
-          <h2 className="font-heading mt-3 text-3xl font-bold tracking-tight text-[#001848] sm:text-4xl md:text-5xl">
+          </motion.p>
+          <motion.h2
+            variants={revealItem}
+            className="font-heading mt-3 text-3xl font-bold tracking-tight text-[#001848] sm:text-4xl md:text-5xl"
+          >
             Find the Right Funding Route for Your Business
-          </h2>
-          <p className="mt-4 text-base leading-relaxed text-[#5b6577] sm:text-lg">
+          </motion.h2>
+          <motion.p
+            variants={revealItem}
+            className="mt-4 text-base leading-relaxed text-[#5b6577] sm:text-lg"
+          >
             {schemes.support}
-          </p>
+          </motion.p>
         </motion.div>
 
         <div className="mt-12 grid gap-5 lg:grid-cols-5 lg:gap-6">
@@ -65,7 +75,7 @@ export function HomeSchemes() {
               initial={reduceMotion ? false : { opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.25 }}
-              transition={{ duration: 0.5, ease: homeEase }}
+              transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
             >
               {(() => {
                 const Icon = schemeIcons[featured.title] ?? BadgePercent;
@@ -79,54 +89,58 @@ export function HomeSchemes() {
                   <Link
                     href={featured.href}
                     className={cn(
-                      "group relative flex h-full min-h-[22rem] flex-col overflow-hidden rounded-[1.5rem] border border-transparent bg-[#001848] p-7 text-white sm:p-8",
+                      "group relative isolate flex h-full min-h-[22rem] flex-col overflow-hidden rounded-[1.5rem] border border-[#001848]/80 p-7 sm:p-8",
                       "shadow-[0_28px_60px_-30px_rgba(0,24,72,0.7)]",
-                      homeCardHover,
+                      "transition duration-200 ease-out hover:-translate-y-1 hover:shadow-[0_32px_64px_-28px_rgba(0,24,72,0.75)]",
                       "focus-visible:ring-ring/40 focus-visible:ring-2 focus-visible:outline-none",
                     )}
                   >
                     <div
                       aria-hidden
-                      className="pointer-events-none absolute -top-20 -right-16 size-72 rounded-full bg-[#c08418]/30 blur-3xl transition duration-500 group-hover:scale-110"
+                      className="absolute inset-0 z-0 bg-[#001848] transition-colors duration-300 group-hover:bg-[#0a2a6e]"
                     />
-                    <div className="relative flex items-start justify-between">
-                      <span className="grid size-12 place-items-center rounded-2xl bg-[#c08418] text-[#1a1408]">
+                    <div
+                      aria-hidden
+                      className="pointer-events-none absolute -top-20 -right-16 z-[1] size-72 rounded-full bg-[#c08418]/25 blur-3xl transition duration-500 group-hover:translate-x-1 group-hover:bg-[#c08418]/35"
+                    />
+                    <div className="relative z-10 flex items-start justify-between">
+                      <span className="grid size-12 place-items-center rounded-2xl bg-[#c08418] text-[#1a1408] transition duration-200 group-hover:-translate-y-0.5">
                         <Icon className="size-5" />
                       </span>
-                      <span className="grid size-9 place-items-center rounded-full bg-white/10 transition group-hover:bg-[#c08418] group-hover:text-[#1a1408]">
-                        <ArrowUpRight className="size-4 transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                      <span className="grid size-9 place-items-center rounded-full bg-white/10 text-white transition duration-200 group-hover:translate-x-1 group-hover:bg-[#c08418] group-hover:text-[#1a1408]">
+                        <ArrowUpRight className="size-4" />
                       </span>
                     </div>
-                    <p className="relative mt-8 text-[11px] font-semibold tracking-[0.14em] text-[#c08418] uppercase">
+                    <p className="relative z-10 mt-8 text-[11px] font-semibold tracking-[0.14em] text-[#c08418] uppercase">
                       {featured.tag}
                     </p>
-                    <h3 className="font-heading relative mt-2 text-3xl font-bold tracking-tight sm:text-4xl">
+                    <h3 className="font-heading relative z-10 mt-2 text-3xl font-bold tracking-tight text-white sm:text-4xl">
                       {featured.title}
                     </h3>
-                    <p className="relative mt-4 max-w-md text-sm leading-relaxed text-white/70 sm:text-base">
+                    <p className="relative z-10 mt-4 max-w-md text-sm leading-relaxed text-white/70 sm:text-base">
                       {featured.copy}
                     </p>
-                    <div className="relative mt-auto grid grid-cols-2 gap-3 pt-8">
-                      <div className="rounded-xl border border-white/10 bg-white/5 px-4 py-3">
+                    <div className="relative z-10 mt-auto grid grid-cols-2 gap-3 pt-8">
+                      <div className="rounded-xl border border-white/10 bg-black/20 px-4 py-3">
                         <p className="flex items-center gap-1.5 text-[10px] tracking-[0.12em] text-white/50 uppercase">
                           <Wallet className="size-3" /> Funding
                         </p>
-                        <p className="font-heading mt-1 text-lg font-bold">
+                        <p className="font-heading mt-1 text-lg font-bold text-white">
                           {amount}
                         </p>
                       </div>
-                      <div className="rounded-xl border border-white/10 bg-white/5 px-4 py-3">
+                      <div className="rounded-xl border border-white/10 bg-black/20 px-4 py-3">
                         <p className="flex items-center gap-1.5 text-[10px] tracking-[0.12em] text-white/50 uppercase">
                           <Clock3 className="size-3" /> Timeline
                         </p>
-                        <p className="font-heading mt-1 text-lg font-bold">
+                        <p className="font-heading mt-1 text-lg font-bold text-white">
                           {timeline}
                         </p>
                       </div>
                     </div>
-                    <p className="relative mt-5 inline-flex items-center gap-1 text-sm font-semibold text-[#c08418]">
+                    <p className="relative z-10 mt-5 inline-flex items-center gap-1 text-sm font-semibold text-[#c08418]">
                       Explore scheme
-                      <ArrowRight className="size-4 transition group-hover:translate-x-0.5" />
+                      <ArrowRight className="size-4 transition duration-200 group-hover:translate-x-1" />
                     </p>
                   </Link>
                 );
@@ -148,24 +162,26 @@ export function HomeSchemes() {
                   viewport={{ once: true, amount: 0.3 }}
                   transition={{
                     duration: 0.45,
-                    delay: 0.06 + index * 0.05,
-                    ease: homeEase,
+                    delay: 0.06 + index * 0.06,
+                    ease: [0.22, 1, 0.36, 1],
                   }}
                   className="h-full"
                 >
                   <Link
                     href={item.href}
                     className={cn(
-                      "group flex h-full flex-col rounded-[1.35rem] border border-[#e2e6ef] bg-white p-5 shadow-[0_12px_36px_-28px_rgba(0,24,72,0.2)]",
-                      homeCardHover,
-                      "focus-visible:ring-ring/40 hover:border-[#001848]/20 focus-visible:ring-2 focus-visible:outline-none",
+                      "group flex h-full flex-col rounded-[1.35rem] border border-[#e2e6ef] bg-white p-5",
+                      "shadow-[0_12px_36px_-28px_rgba(0,24,72,0.18)]",
+                      "transition duration-200 ease-out",
+                      "hover:-translate-y-1 hover:border-[#001848]/25 hover:bg-[#f7f8fb] hover:shadow-[0_20px_44px_-22px_rgba(0,24,72,0.28)]",
+                      "focus-visible:ring-ring/40 focus-visible:ring-2 focus-visible:outline-none",
                     )}
                   >
                     <div className="flex items-start justify-between gap-3">
-                      <span className="grid size-10 place-items-center rounded-xl bg-[#001848]/[0.06] text-[#001848] transition group-hover:-translate-y-0.5">
+                      <span className="grid size-10 place-items-center rounded-xl bg-[#001848]/[0.06] text-[#001848] transition duration-200 group-hover:-translate-y-0.5">
                         <Icon className="size-4" />
                       </span>
-                      <ArrowUpRight className="size-4 text-[#5b6577] transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-[#001848]" />
+                      <ArrowUpRight className="size-4 text-[#5b6577] transition duration-200 group-hover:translate-x-1 group-hover:text-[#001848]" />
                     </div>
                     <h3 className="font-heading mt-4 text-xl font-bold tracking-tight text-[#001848]">
                       {item.title}
@@ -189,11 +205,11 @@ export function HomeSchemes() {
             className={cn(
               buttonVariants({ size: "lg" }),
               homeCtaClass,
-              "h-11 px-6",
+              "group/button h-11 px-6",
             )}
           >
             Browse all schemes
-            <ArrowRight className="size-4" />
+            <ArrowRight className="size-4 transition duration-200 group-hover/button:translate-x-1" />
           </Link>
         </div>
       </div>

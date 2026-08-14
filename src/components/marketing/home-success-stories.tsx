@@ -40,7 +40,7 @@ export function HomeSuccessStories() {
         <div className="mt-14 grid gap-6 lg:grid-cols-[1.25fr_0.75fr]">
           {featured ? (
             <motion.article
-              className="border-border/70 bg-card relative overflow-hidden rounded-[1.5rem] border p-7 shadow-[0_18px_48px_-28px_color-mix(in_oklch,var(--primary)_32%,transparent)] sm:p-9"
+              className="border-border/70 bg-card relative overflow-hidden rounded-[1.5rem] border p-7 shadow-[0_18px_48px_-28px_color-mix(in_oklch,var(--primary)_32%,transparent)] transition duration-200 ease-out hover:-translate-y-1 hover:shadow-[0_24px_52px_-26px_color-mix(in_oklch,var(--primary)_40%,transparent)] sm:p-9"
               initial={reduceMotion ? false : { opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.3 }}
@@ -85,7 +85,7 @@ export function HomeSuccessStories() {
             {rest.map((item, index) => (
               <motion.li
                 key={item.name}
-                className="border-border/70 bg-card/90 flex flex-1 flex-col rounded-[1.25rem] border p-5 sm:p-6"
+                className="border-border/70 bg-card/90 flex flex-1 flex-col rounded-[1.25rem] border p-5 transition duration-200 ease-out hover:-translate-y-1 hover:border-[#001848]/20 hover:shadow-[0_18px_40px_-24px_rgba(0,24,72,0.25)] sm:p-6"
                 initial={reduceMotion ? false : { opacity: 0, y: 16 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.3 }}

@@ -38,7 +38,7 @@ function FloatingField({
         onChange={(e) => onChange(e.target.value)}
         placeholder=" "
         required={required}
-        className="peer border-border/80 bg-background focus:border-primary focus:ring-primary/20 h-12 w-full rounded-xl border px-3.5 pt-4 pb-1.5 text-sm transition duration-300 outline-none focus:ring-3"
+        className="peer border-border/80 bg-background h-12 w-full rounded-xl border px-3.5 pt-4 pb-1.5 text-sm transition duration-200 outline-none focus:border-[#001848] focus:ring-3 focus:ring-[#001848]/15"
       />
       <label
         htmlFor={id}
@@ -108,7 +108,7 @@ export function HomeCallback() {
     <section className="border-border/70 relative overflow-hidden border-b bg-[#f7f8fb]">
       <HomeBackdrop variant="callback" />
       <div className="relative mx-auto max-w-6xl px-4 py-20 sm:px-6 sm:py-24">
-        <div className="border-border/70 bg-card grid overflow-hidden rounded-[1.75rem] border shadow-[0_24px_60px_-36px_color-mix(in_oklch,var(--primary)_35%,transparent)] lg:grid-cols-[1.05fr_0.95fr]">
+        <div className="border-border/70 bg-card grid overflow-hidden rounded-[1.75rem] border shadow-[0_24px_60px_-36px_color-mix(in_oklch,var(--primary)_35%,transparent)] transition duration-200 hover:shadow-[0_28px_64px_-34px_color-mix(in_oklch,var(--primary)_42%,transparent)] lg:grid-cols-[1.05fr_0.95fr]">
           <motion.div
             className="bg-primary text-primary-foreground relative overflow-hidden p-6 sm:p-10"
             initial={reduceMotion ? false : { opacity: 0, y: 14 }}
@@ -205,7 +205,7 @@ export function HomeCallback() {
                     id="callback-interest"
                     value={interest}
                     onChange={(e) => setInterest(e.target.value)}
-                    className="border-border/80 bg-background focus:border-primary focus:ring-primary/20 h-12 w-full appearance-none rounded-xl border px-3.5 pt-4 pb-1.5 text-sm transition duration-300 outline-none focus:ring-3"
+                    className="border-border/80 bg-background h-12 w-full appearance-none rounded-xl border px-3.5 pt-4 pb-1.5 text-sm transition duration-200 outline-none focus:border-[#001848] focus:ring-3 focus:ring-[#001848]/15"
                   >
                     {callback.interests.map((option) => (
                       <option key={option} value={option}>

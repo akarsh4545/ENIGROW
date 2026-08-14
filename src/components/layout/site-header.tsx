@@ -50,7 +50,7 @@ export function SiteHeader() {
       className={cn(
         "sticky top-0 z-50 border-b transition-[background-color,box-shadow,border-color] duration-300",
         scrolled
-          ? "border-border/80 bg-background/85 shadow-[0_8px_30px_-18px_rgba(0,24,72,0.35)] backdrop-blur-xl"
+          ? "border-border/80 bg-background/90 shadow-[0_10px_32px_-18px_rgba(0,24,72,0.38)] backdrop-blur-xl"
           : "bg-background/70 border-transparent backdrop-blur-md",
       )}
     >

@@ -77,18 +77,18 @@ export function HomeFundingHero({
         <div className="max-w-xl">
           <motion.p
             className="text-sm font-semibold tracking-[0.2em] text-[#c08418] uppercase"
-            initial={reduceMotion ? false : { opacity: 0, y: 10 }}
+            initial={reduceMotion ? false : { opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4, ease: homeEase }}
+            transition={{ duration: 0.55, ease: homeEase }}
           >
             Business funding &amp; growth
           </motion.p>
 
           <motion.h1
             className="font-heading mt-4 text-[2.6rem] leading-[1.06] font-bold tracking-tight text-balance text-white sm:text-5xl md:text-[3.5rem] md:leading-[1.05]"
-            initial={reduceMotion ? false : { opacity: 0, y: 16 }}
+            initial={reduceMotion ? false : { opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.05, ease: homeEase }}
+            transition={{ duration: 0.65, delay: 0.06, ease: homeEase }}
           >
             Turn Your Business Ambition
             <br className="hidden sm:block" /> Into Funded Growth.
@@ -98,7 +98,7 @@ export function HomeFundingHero({
             className="mt-5 max-w-lg text-base leading-relaxed text-white/65 sm:text-lg"
             initial={reduceMotion ? false : { opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.45, delay: 0.1, ease: homeEase }}
+            transition={{ duration: 0.55, delay: 0.12, ease: homeEase }}
           >
             Registrations, government schemes, funding readiness, and compliance
             — guided so you can move forward with clarity.
@@ -108,21 +108,24 @@ export function HomeFundingHero({
             className="mt-8 flex flex-wrap items-center gap-3"
             initial={reduceMotion ? false : { opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.45, delay: 0.16, ease: homeEase }}
+            transition={{ duration: 0.55, delay: 0.18, ease: homeEase }}
           >
             {onCheckEligibility ? (
               <button
                 type="button"
                 onClick={onCheckEligibility}
-                className={primaryCtaClass}
+                className={cn(primaryCtaClass, "group/button")}
               >
                 Check Eligibility
-                <ArrowRight className="size-4 transition group-hover/button:translate-x-0.5" />
+                <ArrowRight className="size-4 transition duration-200 group-hover/button:translate-x-1" />
               </button>
             ) : (
-              <Link href={ROUTES.eligibility} className={primaryCtaClass}>
+              <Link
+                href={ROUTES.eligibility}
+                className={cn(primaryCtaClass, "group/button")}
+              >
                 Check Eligibility
-                <ArrowRight className="size-4 transition group-hover/button:translate-x-0.5" />
+                <ArrowRight className="size-4 transition duration-200 group-hover/button:translate-x-1" />
               </Link>
             )}
             <Link
@@ -130,7 +133,7 @@ export function HomeFundingHero({
               className={cn(
                 buttonVariants({ size: "lg", variant: "outline" }),
                 homeCtaClass,
-                "h-12 border-white/25 bg-transparent px-6 text-base text-white hover:bg-white/10 hover:text-white",
+                "h-12 border-white/25 bg-transparent px-6 text-base text-white hover:border-white/40 hover:bg-white/10 hover:text-white",
               )}
             >
               Explore Solutions
@@ -141,9 +144,9 @@ export function HomeFundingHero({
         {/* Metric stack — each figure is a separate labeled card */}
         <motion.div
           className="relative mx-auto w-full max-w-md lg:max-w-none"
-          initial={reduceMotion ? false : { opacity: 0, y: 20 }}
+          initial={reduceMotion ? false : { opacity: 0, y: 22 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.55, delay: 0.12, ease: homeEase }}
+          transition={{ duration: 0.65, delay: 0.14, ease: homeEase }}
         >
           <div
             aria-hidden
@@ -173,7 +176,7 @@ export function HomeFundingHero({
 
           <div className="relative z-[1] space-y-4">
             {/* Primary metric — funding range only */}
-            <div className="overflow-hidden rounded-[1.5rem] border border-white/15 bg-gradient-to-br from-[#001848] to-[#0a2a6e] p-6 shadow-[0_28px_60px_-28px_rgba(0,0,0,0.65)] sm:p-7">
+            <div className="overflow-hidden rounded-[1.5rem] border border-white/15 bg-gradient-to-br from-[#001848] to-[#0a2a6e] p-6 shadow-[0_28px_60px_-28px_rgba(0,0,0,0.65)] transition duration-200 sm:p-7">
               <p className="font-heading text-4xl font-bold tracking-tight text-white sm:text-[2.75rem]">
                 {fundingRange}
               </p>
@@ -187,12 +190,12 @@ export function HomeFundingHero({
               {supportMetrics.map((metric, index) => (
                 <motion.div
                   key={metric.label}
-                  className="rounded-[1.15rem] border border-white/10 bg-white px-3.5 py-3 shadow-[0_14px_36px_-20px_rgba(0,0,0,0.4)] sm:rounded-[1.2rem] sm:px-4 sm:py-3.5"
-                  initial={reduceMotion ? false : { opacity: 0, y: 10 }}
+                  className="rounded-[1.15rem] border border-white/10 bg-white px-3.5 py-3 shadow-[0_14px_36px_-20px_rgba(0,0,0,0.4)] transition duration-200 sm:rounded-[1.2rem] sm:px-4 sm:py-3.5"
+                  initial={reduceMotion ? false : { opacity: 0, y: 12 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{
-                    duration: 0.4,
-                    delay: 0.2 + index * 0.06,
+                    duration: 0.45,
+                    delay: 0.28 + index * 0.07,
                     ease: homeEase,
                   }}
                 >
