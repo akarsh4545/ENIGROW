@@ -16,7 +16,6 @@ import {
 } from "lucide-react";
 
 import { buttonVariants } from "@/components/ui/button-variants";
-import { HomeBackdrop } from "@/components/marketing/home-backdrop";
 import { homeCtaClass, homeEase } from "@/components/marketing/home-motion";
 import { homeContent } from "@/data/home";
 import { ROUTES } from "@/constants/routes";
@@ -34,9 +33,7 @@ export function HomeSchemes() {
   const { schemes } = homeContent;
 
   return (
-    <section className="border-border/70 relative overflow-hidden border-b">
-      <HomeBackdrop variant="schemes" />
-
+    <section className="border-border/70 relative overflow-hidden border-b bg-[#eef1f7]/70">
       <div className="relative mx-auto w-full max-w-6xl px-4 py-20 sm:px-6 sm:py-24">
         <motion.div
           initial={reduceMotion ? false : { opacity: 0, y: 16 }}

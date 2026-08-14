@@ -223,7 +223,7 @@ export function HomeCallback() {
                   className={cn("w-full rounded-[1.1rem]", homeCtaClass)}
                   disabled={loading}
                 >
-                  {loading ? "Sending…" : "Confirm callback request"}
+                  {loading ? "Sending…" : "Get My Free Assessment →"}
                 </Button>
               </form>
             )}

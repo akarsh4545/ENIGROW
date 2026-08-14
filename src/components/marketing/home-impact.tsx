@@ -2,67 +2,53 @@
 
 import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
-import { Award, IndianRupee, TrendingUp, Users } from "lucide-react";
+import { Headphones } from "lucide-react";
 
 import { buttonVariants } from "@/components/ui/button-variants";
-import { HomeBackdrop } from "@/components/marketing/home-backdrop";
 import { homeCtaClass, homeEase } from "@/components/marketing/home-motion";
 import { homeContent } from "@/data/home";
 import { cn } from "@/lib/utils";
 
-const iconMap = {
-  rupee: IndianRupee,
-  trend: TrendingUp,
-  people: Users,
-  support: Award,
-} as const;
-
+/**
+ * Company-wide impact stats (₹110Cr+ / 92% / 720+) are intentionally not
+ * rendered here — they can read as unverified on a financial-services site.
+ * We keep only the advisor-support signal plus a path to testimonials.
+ */
 export function HomeImpact() {
   const reduceMotion = useReducedMotion();
   const { impact } = homeContent;
+  const support = impact.items.find((item) => item.icon === "support");
 
   return (
-    <section className="border-border/70 border-b">
-      <div className="bg-primary text-primary-foreground relative overflow-hidden">
-        <HomeBackdrop variant="impact" />
-        <div className="relative mx-auto grid w-full max-w-6xl gap-10 px-4 py-14 sm:grid-cols-2 sm:px-6 sm:py-16 lg:grid-cols-4 lg:gap-6">
-          {impact.items.map((item, index) => {
-            const Icon = iconMap[item.icon];
-            return (
-              <motion.div
-                key={item.label}
-                className="flex flex-col items-center text-center"
-                initial={reduceMotion ? false : { opacity: 0, y: 16 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.4 }}
-                transition={{
-                  duration: 0.45,
-                  delay: index * 0.06,
-                  ease: homeEase,
-                }}
-              >
-                <span className="bg-accent text-accent-foreground grid size-12 place-items-center rounded-2xl shadow-[0_10px_30px_color-mix(in_oklch,var(--accent)_45%,transparent)]">
-                  <Icon className="size-5" aria-hidden />
-                </span>
-                <p className="font-heading mt-5 text-3xl font-semibold tracking-tight sm:text-4xl">
-                  {item.value}
-                </p>
-                <p className="text-primary-foreground/75 mt-2 text-xs font-medium tracking-[0.18em] uppercase">
-                  {item.label}
-                </p>
-              </motion.div>
-            );
-          })}
-        </div>
-      </div>
+    <section className="border-border/70 border-b bg-[#f7f8fb]">
+      <div className="mx-auto flex w-full max-w-6xl flex-col items-center gap-8 px-4 py-14 text-center sm:flex-row sm:justify-between sm:px-6 sm:py-16 sm:text-left">
+        <motion.div
+          className="flex max-w-xl flex-col items-center gap-4 sm:flex-row sm:items-start"
+          initial={reduceMotion ? false : { opacity: 0, y: 14 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.4 }}
+          transition={{ duration: 0.45, ease: homeEase }}
+        >
+          <span className="bg-primary text-primary-foreground grid size-12 shrink-0 place-items-center rounded-2xl">
+            <Headphones className="size-5" aria-hidden />
+          </span>
+          <div>
+            <p className="font-heading text-2xl font-bold tracking-tight text-[#001848] sm:text-3xl">
+              {support?.value ?? "Mon–Sat"} advisor support
+            </p>
+            <p className="text-muted-foreground mt-2 text-sm leading-relaxed sm:text-base">
+              Named ownership through registrations, schemes, and funding
+              readiness — without overpromising bank or government approvals.
+            </p>
+          </div>
+        </motion.div>
 
-      <div className="flex justify-center px-4 py-8 sm:px-6">
         <Link
           href={impact.cta.href}
           className={cn(
             buttonVariants({ variant: "outline", size: "lg" }),
             homeCtaClass,
-            "border-accent text-accent-foreground hover:bg-accent/10 h-11 rounded-[1.1rem] px-5",
+            "h-11 shrink-0 rounded-full px-5 font-semibold",
           )}
         >
           {impact.cta.label} →

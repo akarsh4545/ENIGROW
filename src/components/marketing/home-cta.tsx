@@ -5,31 +5,37 @@ import { motion, useReducedMotion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 
 import { buttonVariants } from "@/components/ui/button-variants";
-import { HomeBackdrop } from "@/components/marketing/home-backdrop";
 import { homeCtaClass, homeEase } from "@/components/marketing/home-motion";
-import { homeContent } from "@/data/home";
+import { ROUTES } from "@/constants/routes";
 import { cn } from "@/lib/utils";
 
 export function HomeCta() {
   const reduceMotion = useReducedMotion();
-  const { cta } = homeContent;
 
   return (
-    <section className="bg-primary relative overflow-hidden">
-      <HomeBackdrop variant="cta" />
+    <section className="relative overflow-hidden bg-[#001848]">
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0"
+        style={{
+          background:
+            "radial-gradient(ellipse at 20% 40%, rgba(192,132,24,0.22), transparent 50%), radial-gradient(ellipse at 90% 80%, rgba(255,255,255,0.06), transparent 45%)",
+        }}
+      />
       <div className="relative mx-auto flex w-full max-w-6xl flex-col gap-8 px-4 py-20 sm:px-6 sm:py-24 md:flex-row md:items-end md:justify-between">
         <motion.div
-          className="text-primary-foreground max-w-xl"
+          className="max-w-xl text-white"
           initial={reduceMotion ? false : { opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.4 }}
           transition={{ duration: 0.55, ease: homeEase }}
         >
-          <h2 className="font-heading text-3xl font-semibold tracking-tight sm:text-4xl">
-            {cta.title}
+          <h2 className="font-heading text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl">
+            Ready to Take the Next Step?
           </h2>
-          <p className="text-primary-foreground/80 mt-4 text-base leading-relaxed sm:text-lg">
-            {cta.support}
+          <p className="mt-4 text-base leading-relaxed text-white/70 sm:text-lg">
+            Tell us where you are — registration, schemes, or funding readiness.
+            We&apos;ll help you choose a practical path forward.
           </p>
         </motion.div>
 
@@ -41,25 +47,25 @@ export function HomeCta() {
           transition={{ duration: 0.5, delay: 0.08, ease: homeEase }}
         >
           <Link
-            href={cta.primaryCta.href}
+            href={ROUTES.contact}
             className={cn(
               buttonVariants({ size: "lg" }),
               homeCtaClass,
-              "bg-accent text-accent-foreground hover:bg-accent/90 h-12 rounded-[1.15rem] px-6 shadow-[0_14px_34px_-16px_color-mix(in_oklch,var(--accent)_55%,transparent)]",
+              "h-12 rounded-full bg-[#c08418] px-6 font-semibold text-[#1a1408] hover:bg-[#c08418]/90",
             )}
           >
-            {cta.primaryCta.label}
+            Get Started
             <ArrowRight className="size-4" />
           </Link>
           <Link
-            href={cta.secondaryCta.href}
+            href={ROUTES.eligibility}
             className={cn(
               buttonVariants({ size: "lg", variant: "outline" }),
               homeCtaClass,
-              "border-primary-foreground/35 text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground h-12 rounded-[1.15rem] bg-transparent px-5",
+              "h-12 rounded-full border-white/30 bg-transparent px-5 font-semibold text-white hover:bg-white/10 hover:text-white",
             )}
           >
-            {cta.secondaryCta.label}
+            Check Eligibility
           </Link>
         </motion.div>
       </div>

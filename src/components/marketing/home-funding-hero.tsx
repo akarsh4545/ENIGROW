@@ -18,7 +18,7 @@ export function HomeFundingHero({
   onCheckEligibility?: () => void;
 }) {
   const reduceMotion = useReducedMotion();
-  const { schemeSupport, hero } = homeContent;
+  const { schemeSupport } = homeContent;
 
   const fundingRange =
     schemeSupport.metrics.find((m) => /funding/i.test(m.label))?.value ??
@@ -62,16 +62,17 @@ export function HomeFundingHero({
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4, ease: homeEase }}
           >
-            Business funding &amp; growth advisory
+            Business funding &amp; growth
           </motion.p>
 
           <motion.h1
-            className="font-heading text-foreground mt-4 text-4xl font-semibold tracking-tight text-balance sm:text-5xl md:text-[3.15rem] md:leading-[1.12]"
+            className="font-heading text-foreground mt-4 text-[2.75rem] leading-[1.05] font-bold tracking-tight text-balance sm:text-5xl md:text-[3.75rem] md:leading-[1.05]"
             initial={reduceMotion ? false : { opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.05, ease: homeEase }}
           >
-            Turn Your Business Ambition Into Funded Growth.
+            Turn Your Business Ambition
+            <br className="hidden sm:block" /> Into Funded Growth.
           </motion.h1>
 
           <motion.p
@@ -80,7 +81,8 @@ export function HomeFundingHero({
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.45, delay: 0.1, ease: homeEase }}
           >
-            {hero.support}
+            Registrations, government schemes, funding readiness, and compliance
+            — guided so you can move forward with clarity.
           </motion.p>
 
           <motion.div
@@ -112,7 +114,7 @@ export function HomeFundingHero({
                 "h-12 rounded-[1.15rem] px-5 text-base",
               )}
             >
-              Explore Funding Options
+              Explore Solutions
             </Link>
           </motion.div>
         </div>

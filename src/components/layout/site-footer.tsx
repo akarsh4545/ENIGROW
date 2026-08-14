@@ -23,6 +23,12 @@ export function SiteFooter() {
     ? formatPhoneDisplay(siteConfig.supportPhone)
     : null;
 
+  // Hide placeholder email (support@example.com) until NEXT_PUBLIC_SUPPORT_EMAIL is set.
+  const supportEmail =
+    siteConfig.supportEmail && !/example\.com$/i.test(siteConfig.supportEmail)
+      ? siteConfig.supportEmail
+      : null;
+
   return (
     <footer className="bg-primary text-primary-foreground">
       <div className="mx-auto grid w-full max-w-6xl gap-12 px-4 py-16 sm:px-6 lg:grid-cols-[1.15fr_2fr] lg:gap-16">
@@ -45,16 +51,16 @@ export function SiteFooter() {
                 {siteConfig.registeredOffice}
               </p>
             </div>
-            {siteConfig.supportEmail ? (
+            {supportEmail ? (
               <a
-                href={`mailto:${siteConfig.supportEmail}`}
+                href={`mailto:${supportEmail}`}
                 className="hover:text-accent inline-flex items-center gap-3 transition"
               >
                 <Mail
                   className="size-4 shrink-0 text-[var(--brand-gold)]"
                   aria-hidden
                 />
-                {siteConfig.supportEmail}
+                {supportEmail}
               </a>
             ) : null}
             {phoneDisplay && siteConfig.supportPhone ? (
