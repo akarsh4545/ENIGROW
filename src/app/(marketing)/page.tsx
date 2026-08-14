@@ -4,11 +4,11 @@ import { HomePageClient } from "@/components/marketing/home-page-client";
 import { buildPageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = buildPageMetadata({
-  title: "Build. Fund. Grow.",
+  title: "Start Your Business. Access Government Benefits.",
   description:
-    "From business registration and government schemes to funding and compliance, Enigrow helps Indian businesses navigate the process and unlock the opportunities behind it.",
+    "Register your business, unlock government schemes, stay compliant, and become funding-ready with expert guidance from Enigrow—all in one place.",
   path: "/",
-  ogTitle: "Enigrow | Build. Fund. Grow.",
+  ogTitle: "Enigrow | Start Your Business. Access Government Benefits.",
 });
 
 export default function HomePage() {

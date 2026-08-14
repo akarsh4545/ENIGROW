@@ -2,79 +2,119 @@
 
 import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
-import { Building2, FileCheck2, Landmark, ShieldCheck } from "lucide-react";
+import { Award, IndianRupee, TrendingUp, Users } from "lucide-react";
 
 import { buttonVariants } from "@/components/ui/button-variants";
-import { homeEase } from "@/components/marketing/home-motion";
+import { HomeBackdrop } from "@/components/marketing/home-backdrop";
+import {
+  homeCtaClass,
+  homeEase,
+  useCountUp,
+} from "@/components/marketing/home-motion";
+import { homeContent } from "@/data/home";
 import { cn } from "@/lib/utils";
 
-const proof = [
-  {
-    icon: Building2,
-    title: "Business Registration",
-    copy: "Company, MSME, and entity setup with clear filings.",
-  },
-  {
-    icon: Landmark,
-    title: "Government Schemes",
-    copy: "PMEGP, CGTMSE, MUDRA and allied pathway guidance.",
-  },
-  {
-    icon: FileCheck2,
-    title: "Funding Assistance",
-    copy: "Documentation and readiness support for capital conversations.",
-  },
-  {
-    icon: ShieldCheck,
-    title: "Compliance Support",
-    copy: "GST, licensing, and ongoing formalities with named ownership.",
-  },
-] as const;
+const iconMap = {
+  rupee: IndianRupee,
+  trend: TrendingUp,
+  people: Users,
+  support: Award,
+} as const;
+
+function CountCr() {
+  const { ref, value } = useCountUp({ end: 110, duration: 1.5 });
+  return (
+    <p
+      ref={ref}
+      className="font-heading mt-5 text-3xl font-semibold tracking-tight sm:text-4xl"
+    >
+      ₹{Math.round(value)}Cr+
+    </p>
+  );
+}
+
+function CountPercent() {
+  const { ref, value } = useCountUp({ end: 92, duration: 1.35 });
+  return (
+    <p
+      ref={ref}
+      className="font-heading mt-5 text-3xl font-semibold tracking-tight sm:text-4xl"
+    >
+      {Math.round(value)}%
+    </p>
+  );
+}
+
+function CountPlus() {
+  const { ref, value } = useCountUp({ end: 720, duration: 1.45 });
+  return (
+    <p
+      ref={ref}
+      className="font-heading mt-5 text-3xl font-semibold tracking-tight sm:text-4xl"
+    >
+      {Math.round(value)}+
+    </p>
+  );
+}
+
+function StatDisplay({ value }: { value: string }) {
+  if (value.includes("Cr")) return <CountCr />;
+  if (value.includes("%")) return <CountPercent />;
+  if (value.endsWith("+") && /\d/.test(value)) return <CountPlus />;
+  return (
+    <p className="font-heading mt-5 text-3xl font-semibold tracking-tight sm:text-4xl">
+      {value}
+    </p>
+  );
+}
 
 export function HomeImpact() {
   const reduceMotion = useReducedMotion();
+  const { impact } = homeContent;
 
   return (
-    <section className="border-b border-[#0B1F33]/[0.06] bg-[#0B1F33]">
-      <div className="mx-auto grid w-full max-w-6xl gap-6 px-4 py-14 sm:grid-cols-2 sm:px-6 sm:py-16 lg:grid-cols-4 lg:gap-5">
-        {proof.map((item, index) => {
-          const Icon = item.icon;
-          return (
-            <motion.div
-              key={item.title}
-              className="rounded-2xl border border-white/10 bg-white/[0.05] p-5 text-center"
-              initial={reduceMotion ? false : { opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.4 }}
-              transition={{
-                duration: 0.45,
-                delay: index * 0.06,
-                ease: homeEase,
-              }}
-            >
-              <span className="mx-auto grid size-11 place-items-center rounded-2xl bg-[#18B878] text-white">
-                <Icon className="size-5" aria-hidden />
-              </span>
-              <h3 className="font-heading mt-4 text-lg font-bold tracking-tight text-white">
-                {item.title}
-              </h3>
-              <p className="mt-2 text-sm leading-relaxed text-white/65">
-                {item.copy}
-              </p>
-            </motion.div>
-          );
-        })}
+    <section className="border-border/70 border-b">
+      <div className="bg-primary text-primary-foreground relative overflow-hidden">
+        <HomeBackdrop variant="impact" />
+        <div className="relative mx-auto grid w-full max-w-6xl gap-10 px-4 py-14 sm:grid-cols-2 sm:px-6 sm:py-16 lg:grid-cols-4 lg:gap-6">
+          {impact.items.map((item, index) => {
+            const Icon = iconMap[item.icon];
+            return (
+              <motion.div
+                key={item.label}
+                className="flex flex-col items-center text-center"
+                initial={reduceMotion ? false : { opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.4 }}
+                transition={{
+                  duration: 0.45,
+                  delay: index * 0.06,
+                  ease: homeEase,
+                }}
+              >
+                <span className="bg-accent text-accent-foreground grid size-12 place-items-center rounded-2xl shadow-[0_10px_30px_color-mix(in_oklch,var(--accent)_45%,transparent)] transition hover:scale-105">
+                  <Icon className="size-5" aria-hidden />
+                </span>
+                <StatDisplay value={item.value} />
+                <p className="text-primary-foreground/75 mt-2 text-xs font-medium tracking-[0.18em] uppercase">
+                  {item.label}
+                </p>
+              </motion.div>
+            );
+          })}
+        </div>
       </div>
 
-      <div className="flex justify-center px-4 pb-10 sm:px-6">
+      <div className="flex justify-center px-4 py-8 sm:px-6">
         <Link
-          href="/testimonials"
+          href={impact.cta.href}
           className={cn(
             buttonVariants({ variant: "outline", size: "lg" }),
-            "rounded-full border-white/25 bg-transparent font-semibold text-white hover:bg-white/10 hover:text-white",
+            homeCtaClass,
+            "border-accent text-accent-foreground hover:bg-accent/10",
           )}
         >
-          View all success stories →
+          {impact.cta.label} →
         </Link>
       </div>
     </section>
