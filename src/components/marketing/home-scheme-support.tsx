@@ -5,7 +5,6 @@ import { motion, useReducedMotion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 
 import { homeEase } from "@/components/marketing/home-motion";
-import { HomeBackdrop } from "@/components/marketing/home-backdrop";
 import { homeContent } from "@/data/home";
 import { ROUTES } from "@/constants/routes";
 
@@ -14,8 +13,15 @@ export function HomeSchemeSupport() {
   const { schemeSupport } = homeContent;
 
   return (
-    <section className="border-border/70 bg-primary text-primary-foreground relative overflow-hidden border-b">
-      <HomeBackdrop variant="teal" />
+    <section className="relative overflow-hidden border-b border-[#0B1F33]/[0.06] bg-[#0B1F33] text-white">
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 opacity-40"
+        style={{
+          background:
+            "radial-gradient(ellipse at 15% 20%, rgba(24,184,120,0.22), transparent 50%), radial-gradient(ellipse at 90% 80%, rgba(231,247,239,0.08), transparent 45%)",
+        }}
+      />
       <div className="relative mx-auto w-full max-w-6xl px-4 py-20 sm:px-6 sm:py-24">
         <div className="grid gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-end lg:gap-14">
           <motion.div
@@ -24,18 +30,18 @@ export function HomeSchemeSupport() {
             viewport={{ once: true, amount: 0.4 }}
             transition={{ duration: 0.55, ease: homeEase }}
           >
-            <p className="text-accent text-sm font-medium tracking-[0.18em] uppercase">
+            <p className="text-sm font-semibold tracking-[0.18em] text-[#18B878] uppercase">
               {schemeSupport.eyebrow}
             </p>
-            <h2 className="font-heading mt-3 text-3xl font-semibold tracking-tight text-balance sm:text-4xl md:text-5xl">
+            <h2 className="font-heading mt-3 text-3xl font-bold tracking-tight text-balance sm:text-4xl md:text-5xl">
               {schemeSupport.title}
             </h2>
-            <p className="text-primary-foreground/80 mt-4 max-w-xl text-base leading-relaxed sm:text-lg">
+            <p className="mt-4 max-w-xl text-base leading-relaxed text-white/75 sm:text-lg">
               {schemeSupport.support}
             </p>
             <Link
               href={ROUTES.schemes}
-              className="text-accent mt-7 inline-flex items-center gap-2 text-sm font-semibold transition hover:gap-2.5"
+              className="mt-7 inline-flex items-center gap-2 text-sm font-semibold text-[#18B878] transition hover:gap-2.5"
             >
               Explore facilitated schemes
               <ArrowRight className="size-4" />
@@ -43,7 +49,7 @@ export function HomeSchemeSupport() {
           </motion.div>
 
           <motion.p
-            className="text-primary-foreground/65 text-sm leading-relaxed lg:text-right"
+            className="text-sm leading-relaxed text-white/55 lg:text-right"
             initial={reduceMotion ? false : { opacity: 0, y: 12 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.4 }}
@@ -66,18 +72,15 @@ export function HomeSchemeSupport() {
                 delay: index * 0.06,
                 ease: homeEase,
               }}
-              whileHover={reduceMotion ? undefined : { y: -4 }}
-              className="border-primary-foreground/12 bg-primary-foreground/8 hover:border-accent/40 hover:bg-primary-foreground/12 rounded-2xl border p-5 transition duration-300"
+              className="rounded-2xl border border-white/10 bg-white/[0.06] p-5 transition duration-300 hover:border-[#18B878]/40 hover:bg-white/[0.09]"
             >
-              <dt className="text-primary-foreground/65 text-[11px] font-medium tracking-[0.16em] uppercase">
+              <dt className="text-[11px] font-medium tracking-[0.16em] text-white/60 uppercase">
                 {metric.label}
               </dt>
-              <dd className="font-heading mt-3 text-2xl font-semibold tracking-tight sm:text-3xl">
+              <dd className="font-heading mt-3 text-2xl font-bold tracking-tight sm:text-3xl">
                 {metric.value}
               </dd>
-              <p className="text-primary-foreground/60 mt-2 text-xs">
-                {metric.note}
-              </p>
+              <p className="mt-2 text-xs text-white/50">{metric.note}</p>
             </motion.div>
           ))}
         </dl>

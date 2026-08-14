@@ -5,8 +5,7 @@ import { toast } from "sonner";
 import { motion, useReducedMotion } from "framer-motion";
 
 import { Button } from "@/components/ui/button";
-import { HomeBackdrop } from "@/components/marketing/home-backdrop";
-import { homeCtaClass, homeEase } from "@/components/marketing/home-motion";
+import { homeEase } from "@/components/marketing/home-motion";
 import { homeContent } from "@/data/home";
 import { siteConfig } from "@/config/site";
 import { apiFetch } from "@/lib/api";
@@ -38,15 +37,15 @@ function FloatingField({
         onChange={(e) => onChange(e.target.value)}
         placeholder=" "
         required={required}
-        className="peer border-border/80 bg-background focus:border-primary focus:ring-primary/20 h-12 w-full rounded-xl border px-3.5 pt-4 pb-1.5 text-sm transition duration-300 outline-none focus:ring-3"
+        className="peer h-12 w-full rounded-xl border border-[#0B1F33]/15 bg-white px-3.5 pt-4 pb-1.5 text-sm text-[#0B1F33] transition duration-300 outline-none focus:border-[#18B878] focus:ring-3 focus:ring-[#18B878]/20"
       />
       <label
         htmlFor={id}
         className={cn(
-          "text-muted-foreground pointer-events-none absolute left-3.5 transition-all duration-300",
+          "pointer-events-none absolute left-3.5 text-[#5A6B7A] transition-all duration-300",
           active
-            ? "text-primary top-1.5 text-[11px] tracking-wide"
-            : "peer-focus:text-primary top-1.5 text-[11px] tracking-wide peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-sm peer-focus:top-1.5 peer-focus:text-[11px] peer-focus:tracking-wide",
+            ? "top-1.5 text-[11px] tracking-wide text-[#18B878]"
+            : "top-1.5 text-[11px] tracking-wide peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-sm peer-focus:top-1.5 peer-focus:text-[11px] peer-focus:tracking-wide peer-focus:text-[#18B878]",
         )}
       >
         {label}
@@ -105,27 +104,26 @@ export function HomeCallback() {
   };
 
   return (
-    <section className="border-border/70 relative overflow-hidden border-b">
-      <HomeBackdrop variant="callback" />
+    <section className="relative overflow-hidden border-b border-[#0B1F33]/[0.06] bg-[#F7F9F6]">
       <div className="relative mx-auto max-w-6xl px-4 py-20 sm:px-6 sm:py-24">
-        <div className="border-border/70 bg-secondary/40 grid overflow-hidden rounded-[1.75rem] border lg:grid-cols-[1.05fr_0.95fr]">
+        <div className="grid overflow-hidden rounded-[1.75rem] border border-[#0B1F33]/[0.08] bg-white shadow-[0_24px_60px_-40px_rgba(11,31,51,0.35)] lg:grid-cols-[1.05fr_0.95fr]">
           <motion.div
-            className="p-6 sm:p-10"
+            className="bg-[#E7F7EF]/60 p-6 sm:p-10"
             initial={reduceMotion ? false : { opacity: 0, y: 14 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.35 }}
             transition={{ duration: 0.5, ease: homeEase }}
           >
-            <p className="text-primary text-sm font-medium tracking-[0.18em] uppercase">
+            <p className="text-sm font-semibold tracking-[0.18em] text-[#18B878] uppercase">
               {callback.eyebrow}
             </p>
-            <h2 className="font-heading mt-3 text-3xl font-semibold tracking-tight sm:text-4xl">
+            <h2 className="font-heading mt-3 text-3xl font-bold tracking-tight text-[#0B1F33] sm:text-4xl">
               {callback.title}
             </h2>
-            <p className="text-muted-foreground mt-4 max-w-md text-base leading-relaxed">
+            <p className="mt-4 max-w-md text-base leading-relaxed text-[#5A6B7A]">
               {callback.support}
             </p>
-            <ul className="text-muted-foreground mt-8 space-y-2 text-sm">
+            <ul className="mt-8 space-y-2 text-sm text-[#0B1F33]/80">
               <li>No obligation consultation</li>
               <li>Scheme and registration guidance</li>
               <li>Clear next-step recommendation</li>
@@ -133,7 +131,7 @@ export function HomeCallback() {
           </motion.div>
 
           <motion.div
-            className="border-border/60 bg-card/80 border-t p-6 sm:p-10 lg:border-t-0 lg:border-l"
+            className="border-t border-[#0B1F33]/[0.08] p-6 sm:p-10 lg:border-t-0 lg:border-l"
             initial={reduceMotion ? false : { opacity: 0, y: 14 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.35 }}
@@ -141,16 +139,16 @@ export function HomeCallback() {
           >
             {done ? (
               <div>
-                <h3 className="font-heading text-2xl font-semibold tracking-tight">
+                <h3 className="font-heading text-2xl font-bold tracking-tight text-[#0B1F33]">
                   Request received
                 </h3>
-                <p className="text-muted-foreground mt-3 text-sm leading-relaxed">
+                <p className="mt-3 text-sm leading-relaxed text-[#5A6B7A]">
                   An advisor will review your interest area and call you back.
                 </p>
                 <Button
                   type="button"
                   variant="outline"
-                  className={cn("mt-6", homeCtaClass)}
+                  className="home-v2-outline mt-6 rounded-full font-semibold"
                   onClick={() => setDone(false)}
                 >
                   Request another callback
@@ -177,7 +175,7 @@ export function HomeCallback() {
                     id="callback-interest"
                     value={interest}
                     onChange={(e) => setInterest(e.target.value)}
-                    className="border-border/80 bg-background focus:border-primary focus:ring-primary/20 h-12 w-full appearance-none rounded-xl border px-3.5 pt-4 pb-1.5 text-sm transition duration-300 outline-none focus:ring-3"
+                    className="h-12 w-full appearance-none rounded-xl border border-[#0B1F33]/15 bg-white px-3.5 pt-4 pb-1.5 text-sm text-[#0B1F33] transition duration-300 outline-none focus:border-[#18B878] focus:ring-3 focus:ring-[#18B878]/20"
                   >
                     {callback.interests.map((option) => (
                       <option key={option} value={option}>
@@ -185,14 +183,14 @@ export function HomeCallback() {
                       </option>
                     ))}
                   </select>
-                  <span className="text-primary pointer-events-none absolute top-1.5 left-3.5 text-[11px] tracking-wide">
+                  <span className="pointer-events-none absolute top-1.5 left-3.5 text-[11px] tracking-wide text-[#18B878]">
                     Interest
                   </span>
                 </div>
                 <Button
                   type="submit"
                   size="lg"
-                  className={cn("w-full", homeCtaClass)}
+                  className="home-v2-cta w-full rounded-full font-semibold"
                   disabled={loading}
                 >
                   {loading ? "Sending…" : "Confirm callback request"}
