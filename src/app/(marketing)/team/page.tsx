@@ -4,7 +4,7 @@ import { TeamPageContent } from "@/components/marketing/team-page";
 import { siteConfig } from "@/config/site";
 
 export const metadata: Metadata = {
-  title: "Team",
+  title: "Team | Advisory Leadership",
   description: `Meet the ${siteConfig.name} advisory team.`,
 };
 

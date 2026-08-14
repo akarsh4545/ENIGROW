@@ -37,8 +37,9 @@ export function SiteFooter() {
             <BrandLogo className="h-11 w-auto" />
           </div>
           <p className="max-w-sm text-sm leading-relaxed text-white/70">
-            Advisory for registrations, government schemes, funding readiness,
-            and compliance — so Indian businesses can move forward with clarity.
+            {siteConfig.name} helps Indian businesses with registrations,
+            government schemes, funding readiness, and compliance — so you can
+            move forward with clarity.
           </p>
 
           <div className="space-y-3 pt-2 text-sm text-white/75">
@@ -75,7 +76,7 @@ export function SiteFooter() {
                 {phoneDisplay}
               </a>
             ) : null}
-            <p className="text-white/55">Mon–Sat · 09:30 AM – 06:00 PM</p>
+            <p className="text-white/55">{siteConfig.hours.display}</p>
           </div>
         </div>
 
@@ -105,11 +106,12 @@ export function SiteFooter() {
       <div className="border-t border-white/10">
         <div className="mx-auto flex w-full max-w-6xl flex-col gap-3 px-4 py-5 text-xs text-white/55 sm:px-6">
           <p className="max-w-4xl leading-relaxed">
-            {siteConfig.legalName} is the only official entity under the Enigrow
-            brand. Always verify authenticity and pay only through official
-            Enigrow channels. Scheme and loan outcomes depend on banks and
-            government authorities — Enigrow provides advisory and facilitation,
-            not guarantees.
+            {siteConfig.legalName} is the only official entity under the{" "}
+            {siteConfig.name} brand. Always verify authenticity and pay only
+            through official {siteConfig.name} channels. Scheme and loan
+            outcomes depend on banks and government authorities —{" "}
+            {siteConfig.name} provides advisory and facilitation, not
+            guarantees.
           </p>
           <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
             <p>

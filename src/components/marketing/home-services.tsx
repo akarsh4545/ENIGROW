@@ -266,8 +266,8 @@ export function HomeServices() {
                 "h-11 shrink-0 px-5",
               )}
             >
-              View all
-              <ArrowRight className="size-4 transition duration-250 group-hover/button:translate-x-0.5" />
+              View all services
+              <ArrowRight className="size-4 transition duration-200 group-hover/button:translate-x-0.5" />
             </Link>
           </motion.div>
         </motion.div>

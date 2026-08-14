@@ -5,8 +5,9 @@ import { siteConfig } from "@/config/site";
 import { buildPageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = buildPageMetadata({
-  title: "About",
-  description: `Learn how ${siteConfig.name} helps businesses with registrations, schemes, funding, and compliance.`,
+  title: `About ${siteConfig.name} | Business Funding & Advisory`,
+  absoluteTitle: true,
+  description: `Learn who ${siteConfig.name} is, what ${siteConfig.legalName} does, and how we help Indian businesses with funding, government schemes, registrations, and compliance.`,
   path: "/about",
 });
 

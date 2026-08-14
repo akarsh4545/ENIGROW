@@ -7,9 +7,9 @@ import { buildPageMetadata } from "@/lib/seo";
 import { faqPageJsonLd } from "@/lib/structured-data";
 
 export const metadata: Metadata = buildPageMetadata({
-  title: "FAQ",
+  title: "FAQ | Business Funding & Government Schemes",
   description:
-    "Frequently asked questions about Enigrow services, schemes, funding support, and process.",
+    "Frequently asked questions about ENIGROW services, government schemes, business funding support, registrations, and advisory process.",
   path: "/faq",
 });
 

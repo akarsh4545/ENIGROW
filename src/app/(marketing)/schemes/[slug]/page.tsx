@@ -21,7 +21,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!scheme) return { title: "Scheme" };
 
   return buildPageMetadata({
-    title: scheme.title,
+    title: `${scheme.title} | Government Scheme`,
     description: scheme.summary,
     path: `/schemes/${slug}`,
   });

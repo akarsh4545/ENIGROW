@@ -1,18 +1,30 @@
-import { siteConfig } from "@/config/site";
+import { hasVerifiedSupportEmail, siteConfig } from "@/config/site";
 import { absoluteUrl, SITE_ORIGIN } from "@/lib/seo";
 
+const organizationId = `${SITE_ORIGIN}/#organization`;
+const websiteId = `${SITE_ORIGIN}/#website`;
+const logoUrl = absoluteUrl("/brand/enigrow-logo.png");
+
 export function organizationJsonLd() {
-  return {
+  const data: Record<string, unknown> = {
     "@context": "https://schema.org",
-    "@type": ["Organization", "ProfessionalService", "LocalBusiness"],
-    "@id": `${SITE_ORIGIN}/#organization`,
+    "@type": ["Organization", "ProfessionalService"],
+    "@id": organizationId,
     name: siteConfig.name,
     legalName: siteConfig.legalName,
-    url: SITE_ORIGIN,
-    logo: absoluteUrl("/brand/enigrow-logo.png"),
-    image: absoluteUrl("/brand/enigrow-logo.png"),
+    alternateName: [
+      "Enigrow",
+      "Enigrow Startup Advisory",
+      siteConfig.legalName,
+    ],
+    url: `${SITE_ORIGIN}/`,
+    logo: {
+      "@type": "ImageObject",
+      url: logoUrl,
+      contentUrl: logoUrl,
+    },
+    image: logoUrl,
     description: siteConfig.description,
-    email: siteConfig.supportEmail,
     telephone: siteConfig.supportPhone,
     taxID: siteConfig.cin,
     address: {
@@ -27,20 +39,14 @@ export function organizationJsonLd() {
       "@type": "Country",
       name: "India",
     },
+    // Only include verified official profiles — none configured yet.
     sameAs: [],
     openingHoursSpecification: [
       {
         "@type": "OpeningHoursSpecification",
-        dayOfWeek: [
-          "Monday",
-          "Tuesday",
-          "Wednesday",
-          "Thursday",
-          "Friday",
-          "Saturday",
-        ],
-        opens: "10:00",
-        closes: "19:00",
+        dayOfWeek: [...siteConfig.hours.days],
+        opens: siteConfig.hours.opens,
+        closes: siteConfig.hours.closes,
       },
     ],
     contactPoint: [
@@ -52,6 +58,85 @@ export function organizationJsonLd() {
         availableLanguage: ["English", "Hindi"],
       },
     ],
+  };
+
+  if (hasVerifiedSupportEmail()) {
+    data.email = siteConfig.supportEmail;
+  }
+
+  return data;
+}
+
+/** LocalBusiness signals for the verified Noida registered office. */
+export function localBusinessJsonLd() {
+  const data: Record<string, unknown> = {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "@id": `${SITE_ORIGIN}/#localbusiness`,
+    name: siteConfig.name,
+    legalName: siteConfig.legalName,
+    url: `${SITE_ORIGIN}/`,
+    image: logoUrl,
+    telephone: siteConfig.supportPhone,
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: "B-128, 1st Floor, Sector-2",
+      addressLocality: "Noida",
+      addressRegion: "Uttar Pradesh",
+      postalCode: "201301",
+      addressCountry: "IN",
+    },
+    geo: {
+      "@type": "GeoCoordinates",
+      // Approximate Noida Sector-2 — omit if not verified coordinates
+    },
+    openingHoursSpecification: [
+      {
+        "@type": "OpeningHoursSpecification",
+        dayOfWeek: [...siteConfig.hours.days],
+        opens: siteConfig.hours.opens,
+        closes: siteConfig.hours.closes,
+      },
+    ],
+    parentOrganization: {
+      "@id": organizationId,
+    },
+  };
+
+  // Remove empty geo if we don't have verified coordinates
+  delete data.geo;
+
+  if (hasVerifiedSupportEmail()) {
+    data.email = siteConfig.supportEmail;
+  }
+
+  return data;
+}
+
+export function websiteJsonLd() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "@id": websiteId,
+    name: siteConfig.name,
+    alternateName: ["Enigrow", "Enigrow Startup Advisory"],
+    url: `${SITE_ORIGIN}/`,
+    description: siteConfig.description,
+    inLanguage: "en-IN",
+    publisher: {
+      "@id": organizationId,
+    },
+  };
+}
+
+/** Homepage-only additions (Organization is already in marketing layout). */
+export function homeAdditionalJsonLd() {
+  const { ["@context"]: _w, ...website } = websiteJsonLd();
+  const { ["@context"]: _l, ...local } = localBusinessJsonLd();
+
+  return {
+    "@context": "https://schema.org",
+    "@graph": [website, local],
   };
 }
 
@@ -80,7 +165,7 @@ export function serviceJsonLd(input: {
     description: input.description,
     url: absoluteUrl(input.path),
     provider: {
-      "@id": `${SITE_ORIGIN}/#organization`,
+      "@id": organizationId,
     },
     areaServed: {
       "@type": "Country",
@@ -124,7 +209,7 @@ export function articleJsonLd(input: {
       name: input.author,
     },
     publisher: {
-      "@id": `${SITE_ORIGIN}/#organization`,
+      "@id": organizationId,
     },
     mainEntityOfPage: absoluteUrl(input.path),
   };

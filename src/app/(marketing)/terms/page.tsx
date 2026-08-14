@@ -5,7 +5,8 @@ import { termsContent } from "@/data/legal";
 
 export const metadata: Metadata = {
   title: "Terms of Service",
-  description: "Terms governing use of the Enigrow platform and services.",
+  description:
+    "Terms governing use of the ENIGROW website and services and services.",
 };
 
 export default function TermsPage() {

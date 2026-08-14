@@ -17,8 +17,25 @@ export function createServiceMetadata(slug: string): Metadata {
     return { title: "Service" };
   }
 
+  const titleBySlug: Record<string, string> = {
+    funding: "Business Funding | Funding Readiness & Advisory",
+    loans: "Loan Services | Documentation & Application Support",
+    "company-registration": "Company Registration | Business Incorporation",
+    "gst-registration": "GST Registration & Compliance",
+    "msme-registration": "MSME Registration | Scheme Eligibility Pathways",
+    trademark: "Trademark Registration",
+    "iso-certification": "ISO Certification Readiness",
+    "import-export-code": "Import Export Code (IEC)",
+    fssai: "FSSAI Food Business Licensing",
+    accounting: "Accounting & Bookkeeping Support",
+    taxation: "Taxation Planning & Filing Support",
+    "startup-support": "Startup Support | Recognition & Scheme Fit",
+    "digital-marketing": "Digital Marketing for Business Growth",
+    "website-development": "Website Development for Business Enquiries",
+  };
+
   return buildPageMetadata({
-    title: service.title,
+    title: titleBySlug[slug] ?? service.title,
     description: service.summary,
     path: `/${slug}`,
   });

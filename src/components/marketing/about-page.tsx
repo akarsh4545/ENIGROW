@@ -5,6 +5,7 @@ import { motion, useReducedMotion } from "framer-motion";
 
 import { buttonVariants } from "@/components/ui/button";
 import { aboutContent } from "@/data/about";
+import { siteConfig } from "@/config/site";
 import { cn } from "@/lib/utils";
 
 export function AboutPageContent() {
@@ -35,6 +36,71 @@ export function AboutPageContent() {
               {content.intro}
             </p>
           </motion.div>
+        </div>
+      </section>
+
+      <section className="border-border/70 border-b">
+        <div className="mx-auto w-full max-w-6xl px-4 py-16 sm:px-6 sm:py-20">
+          <h2 className="font-heading text-3xl font-semibold tracking-tight sm:text-4xl">
+            {content.identity.title}
+          </h2>
+          <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="border-border/70 rounded-2xl border p-5">
+              <p className="text-muted-foreground text-xs font-semibold tracking-[0.14em] uppercase">
+                {content.identity.brandLabel}
+              </p>
+              <p className="font-heading mt-2 text-xl font-semibold tracking-tight">
+                {content.identity.brandValue}
+              </p>
+            </div>
+            <div className="border-border/70 rounded-2xl border p-5 sm:col-span-2 lg:col-span-2">
+              <p className="text-muted-foreground text-xs font-semibold tracking-[0.14em] uppercase">
+                {content.identity.legalLabel}
+              </p>
+              <p className="font-heading mt-2 text-xl font-semibold tracking-tight">
+                {content.identity.legalValue}
+              </p>
+              <p className="text-muted-foreground mt-2 text-sm">
+                {content.identity.cinLabel}: {siteConfig.cin}
+              </p>
+            </div>
+            <div className="border-border/70 rounded-2xl border p-5 sm:col-span-2 lg:col-span-3">
+              <p className="text-muted-foreground text-xs font-semibold tracking-[0.14em] uppercase">
+                {content.identity.locationLabel}
+              </p>
+              <p className="mt-2 text-sm leading-relaxed sm:text-base">
+                {siteConfig.registeredOffice}
+              </p>
+            </div>
+          </div>
+          <div className="mt-8 grid gap-6 sm:grid-cols-2">
+            <p className="text-muted-foreground text-sm leading-relaxed sm:text-base">
+              {content.identity.whoWeHelp}
+            </p>
+            <p className="text-muted-foreground text-sm leading-relaxed sm:text-base">
+              {content.identity.whatWeDo}
+            </p>
+          </div>
+          <div className="mt-8 flex flex-wrap gap-3">
+            <Link
+              href="/contact"
+              className={cn(buttonVariants({ size: "lg" }))}
+            >
+              Contact ENIGROW
+            </Link>
+            <Link
+              href="/funding"
+              className={cn(buttonVariants({ size: "lg", variant: "outline" }))}
+            >
+              Business Funding
+            </Link>
+            <Link
+              href="/schemes"
+              className={cn(buttonVariants({ size: "lg", variant: "outline" }))}
+            >
+              Government Schemes
+            </Link>
+          </div>
         </div>
       </section>
 

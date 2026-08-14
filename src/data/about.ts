@@ -1,19 +1,32 @@
 export const aboutContent = {
-  title: "About Enigrow",
+  title: "About ENIGROW",
   headline:
     "Your partner for business consulting, MSME funding readiness, and compliance.",
   intro:
-    "Enigrow Startup Advisory Pvt Ltd helps startups, MSMEs, and growing companies across India access registrations, government schemes, funding pathways, and certifications — with clear ownership from consultation to execution.",
+    "ENIGROW is the public brand of Enigrow Startup Advisory Pvt Ltd. We help startups, MSMEs, and growing companies across India with registrations, government schemes, funding pathways, and certifications — with clear ownership from consultation to execution.",
+  identity: {
+    title: "Brand & legal identity",
+    brandLabel: "Brand",
+    brandValue: "ENIGROW",
+    legalLabel: "Legal entity",
+    legalValue: "Enigrow Startup Advisory Pvt Ltd",
+    cinLabel: "CIN",
+    locationLabel: "Registered office",
+    whoWeHelp:
+      "ENIGROW serves Indian startups, MSMEs, and growing businesses that need clear guidance on funding, government schemes, registrations, and compliance.",
+    whatWeDo:
+      "We provide advisory and facilitation for company and MSME registration, GST and compliance, trademark and certifications, government scheme pathways (including PMEGP, CGTMSE, and MUDRA), and funding readiness — without guaranteeing bank or government approvals.",
+  },
   story: {
     title: "Built for decisions that cannot wait",
     paragraphs: [
       "Starting or scaling a business in India means more than a good idea. It means filings, eligibility checks, documentation, and timing — often across departments that do not speak to each other.",
-      "We built Enigrow as a single advisory desk where those steps are mapped clearly, executed carefully, and tracked end to end.",
+      "We built ENIGROW as a single advisory desk where those steps are mapped clearly, executed carefully, and tracked end to end.",
       "Our approach is practical: fewer handoffs, clearer ownership, and guidance that matches the stage your business is actually in — without overpromising bank or government approvals.",
     ],
   },
   values: {
-    title: "What drives Enigrow",
+    title: "What drives ENIGROW",
     support: "Our operating principles from first consult to final handover.",
     items: [
       {
@@ -35,7 +48,7 @@ export const aboutContent = {
     ],
   },
   principles: {
-    title: "Why founders choose Enigrow",
+    title: "Why founders choose ENIGROW",
     support:
       "Trusted for transparent, expert-driven facilitation — not vague promises.",
     items: [
@@ -88,7 +101,7 @@ export const aboutContent = {
     title: "Let’s discuss your business needs",
     support:
       "Get practical guidance on schemes, registration, certifications, and funding readiness. We’ll outline the shortest reliable path.",
-    primary: { label: "Contact us", href: "/contact" },
+    primary: { label: "Contact ENIGROW", href: "/contact" },
     secondary: { label: "Explore services", href: "/services" },
   },
 } as const;

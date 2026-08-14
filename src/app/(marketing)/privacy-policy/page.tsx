@@ -5,7 +5,7 @@ import { privacyContent } from "@/data/legal";
 
 export const metadata: Metadata = {
   title: "Privacy Policy",
-  description: "How Enigrow collects, uses, and protects personal information.",
+  description: "How ENIGROW collects, uses, and protects personal information.",
 };
 
 export default function PrivacyPolicyPage() {

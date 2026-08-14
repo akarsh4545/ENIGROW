@@ -4,7 +4,7 @@ import { Geist_Mono, Plus_Jakarta_Sans } from "next/font/google";
 import { AppProviders } from "@/components/providers/app-providers";
 import { PwaRegister } from "@/components/providers/pwa-register";
 import { siteConfig } from "@/config/site";
-import { SITE_ORIGIN } from "@/lib/seo";
+import { DEFAULT_OG_IMAGE, SITE_ORIGIN } from "@/lib/seo";
 
 import "./globals.css";
 
@@ -19,10 +19,12 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const defaultTitle = `${siteConfig.name} | Business Funding, Government Schemes & Business Advisory`;
+
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_ORIGIN),
   title: {
-    default: `${siteConfig.name} | Startup Advisory & Business Consulting`,
+    default: defaultTitle,
     template: `%s | ${siteConfig.name}`,
   },
   description: siteConfig.description,
@@ -32,13 +34,18 @@ export const metadata: Metadata = {
   publisher: siteConfig.legalName,
   category: "business",
   keywords: [
-    "startup advisory",
+    "ENIGROW",
+    "Enigrow",
+    "Enigrow Startup Advisory",
+    "business funding",
+    "government schemes",
     "MSME registration",
     "company registration",
-    "government schemes",
-    "business funding",
     "GST registration",
-    "Enigrow",
+    "PMEGP",
+    "CGTMSE",
+    "MUDRA",
+    "startup advisory India",
   ],
   manifest: "/manifest.webmanifest",
   appleWebApp: {
@@ -54,6 +61,7 @@ export const metadata: Metadata = {
     apple: [
       { url: "/icons/icon-192.png", sizes: "192x192", type: "image/png" },
     ],
+    shortcut: ["/icons/icon-192.png"],
   },
   robots: {
     index: true,
@@ -69,26 +77,30 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_IN",
+    url: `${SITE_ORIGIN}/`,
     siteName: siteConfig.name,
-    title: `${siteConfig.name} | Startup Advisory & Business Consulting`,
+    title: defaultTitle,
     description: siteConfig.description,
     images: [
       {
-        url: "/brand/enigrow-logo.png",
-        width: 748,
-        height: 496,
-        alt: siteConfig.name,
+        url: DEFAULT_OG_IMAGE.url,
+        width: DEFAULT_OG_IMAGE.width,
+        height: DEFAULT_OG_IMAGE.height,
+        alt: DEFAULT_OG_IMAGE.alt,
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: `${siteConfig.name} | Startup Advisory & Business Consulting`,
+    title: defaultTitle,
     description: siteConfig.description,
-    images: ["/brand/enigrow-logo.png"],
+    images: [DEFAULT_OG_IMAGE.url],
   },
   formatDetection: {
     telephone: false,
+  },
+  alternates: {
+    canonical: `${SITE_ORIGIN}/`,
   },
 };
 

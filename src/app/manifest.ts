@@ -5,12 +5,12 @@ import { siteConfig } from "@/config/site";
 export default function manifest(): MetadataRoute.Manifest {
   return {
     name: siteConfig.name,
-    short_name: "Enigrow",
+    short_name: "ENIGROW",
     description: siteConfig.description,
     start_url: "/",
     display: "standalone",
-    background_color: "#f7f8fa",
-    theme_color: "#1f5f6b",
+    background_color: "#f7f8fb",
+    theme_color: "#001848",
     lang: "en-IN",
     orientation: "portrait-primary",
     icons: [

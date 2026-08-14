@@ -3,14 +3,13 @@
 import Image from "next/image";
 import { motion, useReducedMotion } from "framer-motion";
 
-import { siteConfig } from "@/config/site";
 import { cn } from "@/lib/utils";
 
 export const brandLogo = {
   src: "/brand/enigrow-logo.png",
   width: 748,
   height: 496,
-  alt: `${siteConfig.name} — सफलता की सही शुरुआत`,
+  alt: "ENIGROW logo",
 } as const;
 
 type BrandLogoProps = {

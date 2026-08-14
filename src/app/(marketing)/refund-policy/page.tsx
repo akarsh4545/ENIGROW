@@ -5,7 +5,7 @@ import { refundContent } from "@/data/legal";
 
 export const metadata: Metadata = {
   title: "Refund Policy",
-  description: "Enigrow refund policy for advisory and service engagements.",
+  description: "ENIGROW refund policy for advisory and service engagements.",
 };
 
 export default function RefundPolicyPage() {

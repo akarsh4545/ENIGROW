@@ -4,7 +4,7 @@ import { TestimonialsPageContent } from "@/components/marketing/testimonials-pag
 import { siteConfig } from "@/config/site";
 
 export const metadata: Metadata = {
-  title: "Testimonials",
+  title: "Testimonials | Client Experiences",
   description: `Client experiences with ${siteConfig.name}.`,
 };
 

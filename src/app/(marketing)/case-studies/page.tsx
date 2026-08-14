@@ -4,7 +4,7 @@ import { CaseStudiesIndexContent } from "@/components/marketing/case-studies-ind
 import { siteConfig } from "@/config/site";
 
 export const metadata: Metadata = {
-  title: "Case Studies",
+  title: "Case Studies | Business Outcomes",
   description: `Case studies from ${siteConfig.name} engagements.`,
 };
 

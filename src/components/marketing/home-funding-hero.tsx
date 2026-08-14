@@ -100,8 +100,9 @@ export function HomeFundingHero({
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.55, delay: 0.12, ease: homeEase }}
           >
-            Registrations, government schemes, funding readiness, and compliance
-            — guided so you can move forward with clarity.
+            ENIGROW helps Indian businesses navigate funding, government
+            schemes, registrations, and compliance with practical advisory
+            support.
           </motion.p>
 
           <motion.div
@@ -136,7 +137,7 @@ export function HomeFundingHero({
                 "h-12 border-white/25 bg-transparent px-6 text-base text-white hover:border-white/40 hover:bg-white/10 hover:text-white",
               )}
             >
-              Explore Solutions
+              Explore Business Funding
             </Link>
           </motion.div>
         </div>

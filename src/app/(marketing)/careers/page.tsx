@@ -4,7 +4,7 @@ import { CareersPageContent } from "@/components/marketing/careers-page";
 import { siteConfig } from "@/config/site";
 
 export const metadata: Metadata = {
-  title: "Careers",
+  title: "Careers | Join the Advisory Team",
   description: `Careers at ${siteConfig.name}.`,
 };
 

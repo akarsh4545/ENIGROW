@@ -1,6 +1,6 @@
 export const contactContent = {
-  title: "Contact",
-  headline: "Talk to Enigrow about funding, registration, or compliance.",
+  title: "Contact ENIGROW",
+  headline: "Talk to ENIGROW about funding, registration, or compliance.",
   support:
     "Share a few details and an advisor from Enigrow Startup Advisory Pvt Ltd will follow up with a clear plan — whether you need registration, scheme guidance, or funding readiness support.",
   hours: "Monday–Saturday, 9:30 AM – 6:00 PM IST · Sunday closed",

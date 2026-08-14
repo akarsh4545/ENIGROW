@@ -4,7 +4,7 @@ import { BlogIndexContent } from "@/components/marketing/blog-index";
 import { siteConfig } from "@/config/site";
 
 export const metadata: Metadata = {
-  title: "Blog",
+  title: "Blog | Schemes, Funding and Compliance",
   description: `${siteConfig.name} insights on registrations, schemes, funding, and compliance.`,
 };
 
