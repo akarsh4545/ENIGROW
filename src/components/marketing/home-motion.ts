@@ -45,5 +45,10 @@ export function useCountUp({
 
 export const homeEase = [0.22, 1, 0.36, 1] as const;
 
+/** Shared primary CTA micro-interaction for marketing surfaces */
 export const homeCtaClass =
-  "transition duration-300 hover:-translate-y-0.5 hover:scale-[1.02] hover:shadow-[0_14px_34px_-16px_color-mix(in_oklch,var(--primary)_45%,transparent)] active:scale-[0.99] active:translate-y-0";
+  "rounded-full font-semibold transition duration-300 ease-out hover:-translate-y-0.5 hover:shadow-[0_16px_36px_-16px_rgba(0,24,72,0.45)] active:translate-y-0 active:scale-[0.99]";
+
+/** Shared card hover lift */
+export const homeCardHover =
+  "transition duration-300 ease-out hover:-translate-y-1 hover:shadow-[0_22px_50px_-24px_rgba(0,24,72,0.35)]";

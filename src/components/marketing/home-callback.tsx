@@ -220,7 +220,10 @@ export function HomeCallback() {
                 <Button
                   type="submit"
                   size="lg"
-                  className={cn("w-full rounded-[1.1rem]", homeCtaClass)}
+                  className={cn(
+                    "w-full rounded-full bg-[#c08418] font-semibold text-[#1a1408] hover:bg-[#c08418]/90",
+                    homeCtaClass,
+                  )}
                   disabled={loading}
                 >
                   {loading ? "Sending…" : "Get My Free Assessment →"}

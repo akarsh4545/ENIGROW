@@ -16,7 +16,7 @@ export function HomeSuccessStories() {
   const [featured, ...rest] = successStories.items;
 
   return (
-    <section className="border-border/70 relative overflow-hidden border-b bg-white">
+    <section className="border-border/70 relative overflow-hidden border-b bg-[#f7f8fb]">
       <HomeBackdrop variant="stories" />
       <div className="relative mx-auto w-full max-w-6xl px-4 py-20 sm:px-6 sm:py-24">
         <motion.div
