@@ -55,7 +55,8 @@ async function main() {
   }
 
   await mongoose.connect(uri, {
-    dbName: process.env.MONGODB_DB_NAME || "consultvault",
+    dbName:
+      (process.env.MONGODB_DB_NAME || "consultvault").trim() || "consultvault",
   });
 
   const passwordHash = await hash(password, 12);

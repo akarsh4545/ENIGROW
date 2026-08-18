@@ -10,7 +10,11 @@ import clientPromise from "@/lib/db/mongo-client";
 import { User, type UserRole } from "@/models/user";
 
 const credentialsSchema = z.object({
-  email: z.string().email(),
+  email: z
+    .string()
+    .trim()
+    .email()
+    .transform((v) => v.toLowerCase()),
   password: z.string().min(8),
 });
 
@@ -20,7 +24,9 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
   ...(process.env.MONGODB_URI
     ? {
         adapter: MongoDBAdapter(clientPromise, {
-          databaseName: process.env.MONGODB_DB_NAME ?? "consultvault",
+          databaseName:
+            (process.env.MONGODB_DB_NAME ?? "consultvault").trim() ||
+            "consultvault",
         }),
       }
     : {}),
@@ -44,7 +50,8 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
 
         await connectToDatabase();
 
-        const user = await User.findOne({ email: parsed.data.email })
+        const email = parsed.data.email.trim().toLowerCase();
+        const user = await User.findOne({ email })
           .select("+passwordHash")
           .exec();
 

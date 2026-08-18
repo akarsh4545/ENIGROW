@@ -51,7 +51,9 @@ export async function connectToDatabase(): Promise<typeof mongoose> {
   }
 
   const uri = assertMongoUri();
-  const dbName = process.env.MONGODB_DB_NAME ?? "consultvault";
+  // Trim aggressively — a pasted tab/newline in Vercel creates a *different* DB name.
+  const dbName =
+    (process.env.MONGODB_DB_NAME ?? "consultvault").trim() || "consultvault";
 
   if (!cached.promise) {
     cached.promise = mongoose.connect(uri, {

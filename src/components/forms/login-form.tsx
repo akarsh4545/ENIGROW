@@ -38,7 +38,14 @@ export function LoginForm() {
       });
 
       if (result?.error) {
-        toast.error("Invalid email or password.");
+        // Auth.js returns "Configuration" for server/env failures — not bad credentials.
+        if (result.error === "Configuration") {
+          toast.error(
+            "Sign-in is temporarily unavailable (server config). Try again or contact support.",
+          );
+        } else {
+          toast.error("Invalid email or password.");
+        }
         return;
       }
 
