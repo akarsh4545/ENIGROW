@@ -1,0 +1,8 @@
+.venv/
+output/
+sales/output/
+__pycache__/
+*.pyc
+
+# local PDF-edit scratch (do not commit candidate letters)
+/*.png
