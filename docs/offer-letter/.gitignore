@@ -1,6 +1,7 @@
 .venv/
 output/
 sales/output/
+non-sales/output/
 __pycache__/
 *.pyc
 
