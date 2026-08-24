@@ -103,7 +103,7 @@ export function HomeFundingHero({
           Reference balance: ~45% copy / 55% visual. Soft left fade on photo.
           Cards are smaller and spaced so the photo does not feel congested.
         */}
-        <div className="grid items-center gap-8 lg:grid-cols-12 lg:gap-6 xl:gap-8">
+        <div className="grid items-center gap-6 lg:grid-cols-12 lg:gap-4 xl:gap-6">
           {/* Copy — sits on the left like the reference */}
           <div className="relative z-[2] lg:col-span-5 lg:pr-2">
             <motion.p
@@ -173,37 +173,37 @@ export function HomeFundingHero({
             </motion.div>
           </div>
 
-          {/* Visual — breathable card layout */}
+          {/* Visual — fills column; matched to photo ratio so it is not face-cropped */}
           <motion.div
-            className="relative z-[1] lg:col-span-7"
+            className="relative z-[1] w-full self-stretch lg:col-span-7"
             initial={reduceMotion ? false : { opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.08, ease: homeEase }}
           >
-            <div className="relative mx-auto aspect-[16/11] w-full max-w-xl overflow-visible sm:aspect-[16/10] lg:ml-0 lg:max-w-none">
-              <div className="absolute inset-0 overflow-hidden rounded-2xl lg:rounded-l-[1.5rem] lg:rounded-r-none">
+            <div className="relative aspect-[16/9] w-full overflow-visible sm:aspect-[16/10] lg:aspect-[16/9] lg:min-h-[360px] xl:min-h-[400px]">
+              <div className="absolute inset-0 overflow-hidden">
                 <Image
                   src={HERO_PHOTO.src}
                   alt={HERO_PHOTO.alt}
                   fill
                   priority
-                  sizes="(max-width: 1024px) 100vw, 55vw"
-                  className="object-cover object-[58%_28%]"
+                  sizes="(max-width: 1024px) 100vw, 58vw"
+                  className="object-cover object-[38%_48%]"
                 />
                 <div
                   aria-hidden
-                  className="pointer-events-none absolute inset-y-0 left-0 w-[22%] bg-gradient-to-r from-[#f7f8fc] via-[#f7f8fc]/50 to-transparent lg:w-[18%]"
+                  className="pointer-events-none absolute inset-y-0 left-0 w-[16%] bg-gradient-to-r from-[#f7f8fc] via-[#f7f8fc]/40 to-transparent"
                 />
                 <div
                   aria-hidden
-                  className="pointer-events-none absolute inset-x-0 bottom-0 h-14 bg-gradient-to-t from-[#eef0fa]/60 to-transparent"
+                  className="pointer-events-none absolute inset-x-0 bottom-0 h-12 bg-gradient-to-t from-[#eef0fa]/50 to-transparent"
                 />
               </div>
 
               {/* Mini chart — left of subject, away from other cards */}
               <div
                 aria-hidden
-                className="absolute bottom-[34%] left-[8%] z-[3] hidden rounded-lg bg-white p-2 shadow-[0_10px_24px_-12px_rgba(0,24,72,0.28)] ring-1 ring-black/[0.04] sm:block"
+                className="absolute bottom-[28%] left-[12%] z-[3] hidden rounded-lg bg-white p-2 shadow-[0_10px_24px_-12px_rgba(0,24,72,0.28)] ring-1 ring-black/[0.04] sm:block"
               >
                 <div className="flex items-end gap-0.5">
                   {[10, 15, 12, 20, 17, 24].map((h, i) => (
