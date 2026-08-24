@@ -17,102 +17,10 @@ import { homeContent } from "@/data/home";
 import { ROUTES } from "@/constants/routes";
 import { cn } from "@/lib/utils";
 
-function HeroGrowthChart({ className }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 320 160" className={className} aria-hidden fill="none">
-      <defs>
-        <linearGradient id="heroChartFill" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor="#c08418" stopOpacity="0.28" />
-          <stop offset="100%" stopColor="#c08418" stopOpacity="0" />
-        </linearGradient>
-        <linearGradient id="heroChartStroke" x1="0" y1="0" x2="1" y2="0">
-          <stop offset="0%" stopColor="#001848" stopOpacity="0.35" />
-          <stop offset="100%" stopColor="#c08418" />
-        </linearGradient>
-      </defs>
-      <path
-        d="M8 128 C48 122 72 98 108 88 C148 76 168 102 208 64 C236 40 268 48 312 22 L312 152 L8 152 Z"
-        fill="url(#heroChartFill)"
-      />
-      <path
-        d="M8 128 C48 122 72 98 108 88 C148 76 168 102 208 64 C236 40 268 48 312 22"
-        stroke="url(#heroChartStroke)"
-        strokeWidth="3"
-        strokeLinecap="round"
-      />
-      <circle cx="312" cy="22" r="5" fill="#c08418" />
-    </svg>
-  );
-}
-
-function EntrepreneurIllustration() {
-  return (
-    <div className="relative flex h-full min-h-[320px] w-full items-end justify-center overflow-hidden rounded-[1.75rem] bg-gradient-to-br from-[#001848] via-[#0a2a6e] to-[#163a8a] sm:min-h-[380px] lg:min-h-[440px]">
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 opacity-40"
-        style={{
-          backgroundImage:
-            "radial-gradient(circle at 30% 20%, rgba(192,132,24,0.35), transparent 42%), radial-gradient(circle at 80% 70%, rgba(255,255,255,0.12), transparent 40%)",
-        }}
-      />
-      <HeroGrowthChart className="pointer-events-none absolute right-[-6%] bottom-[18%] h-[42%] w-[70%] opacity-70" />
-
-      {/* Stylized entrepreneur — brand-safe SVG composition (no stock photo) */}
-      <svg
-        viewBox="0 0 280 340"
-        className="relative z-[1] h-[92%] w-auto max-w-[78%]"
-        role="img"
-        aria-label="Illustration of an Indian entrepreneur growing a business"
-      >
-        <defs>
-          <linearGradient id="heroFigure" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="#f7f8fb" stopOpacity="0.95" />
-            <stop offset="100%" stopColor="#dbe2f0" stopOpacity="0.9" />
-          </linearGradient>
-        </defs>
-        {/* Soft podium */}
-        <ellipse cx="140" cy="318" rx="92" ry="14" fill="rgba(0,0,0,0.18)" />
-        {/* Body */}
-        <path
-          d="M78 310 C78 230 92 188 140 188 C188 188 202 230 202 310 Z"
-          fill="url(#heroFigure)"
-        />
-        {/* Jacket lapel */}
-        <path
-          d="M118 210 C128 236 132 270 134 310 L106 310 C104 268 98 232 88 208 Z"
-          fill="#001848"
-          opacity="0.55"
-        />
-        <path
-          d="M162 210 C152 236 148 270 146 310 L174 310 C176 268 182 232 192 208 Z"
-          fill="#001848"
-          opacity="0.55"
-        />
-        {/* Head */}
-        <circle cx="140" cy="138" r="46" fill="#f0d5b8" />
-        {/* Hair */}
-        <path
-          d="M96 132 C98 96 118 84 140 84 C162 84 182 96 184 132 C168 118 152 114 140 114 C128 114 112 118 96 132 Z"
-          fill="#1a1408"
-        />
-        {/* Shirt collar */}
-        <path
-          d="M118 188 L140 208 L162 188 L152 198 L140 192 L128 198 Z"
-          fill="#ffffff"
-          opacity="0.9"
-        />
-        {/* Gold accent pin */}
-        <circle cx="152" cy="236" r="4" fill="#c08418" />
-      </svg>
-
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-[#001848]/50 to-transparent"
-      />
-    </div>
-  );
-}
+const HERO_PHOTO = {
+  src: "/images/hero-entrepreneur.jpg",
+  alt: "Indian entrepreneur in a modern office preparing for business growth",
+} as const;
 
 export function HomeFundingHero({
   onCheckEligibility: _onCheckEligibility,
@@ -152,37 +60,36 @@ export function HomeFundingHero({
 
   return (
     <section className="relative isolate overflow-hidden border-b border-[#e2e6ef]">
-      {/* Soft white → light navy/blue wash (brand-aligned, not purple) */}
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0"
         style={{
           background:
-            "linear-gradient(165deg, #ffffff 0%, #f7f8fb 38%, #eef1f8 72%, #e4eaf8 100%)",
+            "linear-gradient(165deg, #ffffff 0%, #f7f8fb 40%, #eef1f8 78%, #e8ecf8 100%)",
         }}
       />
       <div
         aria-hidden
-        className="pointer-events-none absolute -top-24 -left-16 size-[28rem] rounded-full bg-[#001848]/[0.06] blur-3xl"
+        className="pointer-events-none absolute -top-24 -left-16 size-[28rem] rounded-full bg-[#001848]/[0.05] blur-3xl"
       />
       <div
         aria-hidden
-        className="pointer-events-none absolute top-10 right-[-8%] size-[26rem] rounded-full bg-[#c08418]/[0.10] blur-3xl"
+        className="pointer-events-none absolute top-[8%] right-[-6%] size-[24rem] rounded-full bg-[#c08418]/[0.08] blur-3xl"
       />
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 opacity-[0.35]"
+        className="pointer-events-none absolute inset-0 opacity-[0.28]"
         style={{
           backgroundImage:
-            "radial-gradient(rgba(0,24,72,0.12) 1px, transparent 1px)",
+            "radial-gradient(rgba(0,24,72,0.1) 1px, transparent 1px)",
           backgroundSize: "28px 28px",
           maskImage:
-            "radial-gradient(ellipse at 70% 40%, black 10%, transparent 70%)",
+            "radial-gradient(ellipse at 72% 42%, black 8%, transparent 68%)",
         }}
       />
 
-      <div className="relative mx-auto grid min-h-[min(780px,92dvh)] w-full max-w-6xl items-center gap-10 px-4 py-14 sm:px-6 sm:py-16 lg:grid-cols-[0.92fr_1.08fr] lg:gap-12 lg:py-20 xl:gap-14">
-        {/* Left copy */}
+      <div className="relative mx-auto grid min-h-[min(760px,90dvh)] w-full max-w-6xl items-center gap-10 px-4 py-14 sm:px-6 sm:py-16 lg:grid-cols-[0.92fr_1.08fr] lg:gap-10 lg:py-20 xl:gap-12">
+        {/* Left copy — largely unchanged */}
         <div className="relative z-[2] max-w-xl">
           <motion.p
             className="inline-flex items-center gap-2 rounded-full border border-[#001848]/10 bg-white/80 px-3.5 py-1.5 text-xs font-semibold tracking-[0.14em] text-[#001848] uppercase shadow-[0_8px_24px_-16px_rgba(0,24,72,0.35)] backdrop-blur-sm"
@@ -254,7 +161,7 @@ export function HomeFundingHero({
             {metrics.map((metric, index) => (
               <motion.div
                 key={metric.label}
-                className="rounded-2xl border border-[#e2e6ef] bg-white/90 px-4 py-3.5 shadow-[0_12px_32px_-22px_rgba(0,24,72,0.28)] backdrop-blur-sm transition duration-200 hover:-translate-y-0.5 hover:shadow-[0_16px_36px_-20px_rgba(0,24,72,0.35)]"
+                className="rounded-2xl border border-[#e2e6ef] bg-white/90 px-4 py-3.5 shadow-[0_12px_32px_-22px_rgba(0,24,72,0.22)] backdrop-blur-sm transition duration-200 hover:-translate-y-0.5"
                 initial={reduceMotion ? false : { opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{
@@ -274,126 +181,203 @@ export function HomeFundingHero({
           </motion.dl>
         </div>
 
-        {/* Right visual composition */}
+        {/* Right visual — realistic photo + refined floating cards */}
         <motion.div
-          className="relative z-[1] mx-auto w-full max-w-lg lg:max-w-none lg:justify-self-end"
-          initial={reduceMotion ? false : { opacity: 0, y: 24 }}
+          className="relative z-[1] mx-auto w-full max-w-md sm:max-w-lg lg:max-w-none lg:justify-self-end"
+          initial={reduceMotion ? false : { opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.12, ease: homeEase }}
+          transition={{ duration: 0.7, delay: 0.1, ease: homeEase }}
         >
-          <div className="relative mx-auto aspect-[4/5] w-full max-w-[520px] sm:aspect-[5/6] lg:ml-auto lg:aspect-[4/4.6] lg:max-w-none">
-            {/* Glow behind stage */}
+          <div className="relative mx-auto aspect-[4/5] w-full max-w-[480px] sm:aspect-[5/6] lg:ml-auto lg:aspect-[4/4.8] lg:max-w-[540px]">
+            {/* Soft glow — not a solid navy box */}
             <div
               aria-hidden
-              className="pointer-events-none absolute top-[12%] right-[8%] left-[8%] h-[70%] rounded-[2rem] bg-[#001848]/[0.08] blur-2xl"
+              className="pointer-events-none absolute top-[10%] right-[6%] left-[10%] h-[72%] rounded-full bg-[#001848]/[0.07] blur-3xl"
+            />
+            <div
+              aria-hidden
+              className="pointer-events-none absolute top-[28%] right-[18%] size-40 rounded-full bg-[#c08418]/[0.12] blur-3xl"
             />
 
-            <div className="absolute inset-x-[6%] inset-y-[4%] sm:inset-x-[8%]">
-              <EntrepreneurIllustration />
+            {/* Photo stage — edge fade into page background */}
+            <div className="absolute inset-0 overflow-hidden">
+              <motion.div
+                className="absolute inset-0"
+                initial={reduceMotion ? false : { opacity: 0, scale: 1.03 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.85, ease: homeEase }}
+              >
+                <Image
+                  src={HERO_PHOTO.src}
+                  alt={HERO_PHOTO.alt}
+                  fill
+                  priority
+                  sizes="(max-width: 1024px) 90vw, 540px"
+                  className="object-cover object-[center_12%]"
+                />
+              </motion.div>
+              {/* Blend edges into light hero background */}
+              <div
+                aria-hidden
+                className="pointer-events-none absolute inset-0"
+                style={{
+                  background: `
+                    linear-gradient(90deg, #f7f8fb 0%, rgba(247,248,251,0.72) 8%, transparent 28%),
+                    linear-gradient(270deg, #eef1f8 0%, rgba(238,241,248,0.55) 10%, transparent 32%),
+                    linear-gradient(180deg, #f7f8fb 0%, transparent 14%),
+                    linear-gradient(0deg, #eef1f8 0%, rgba(238,241,248,0.85) 12%, transparent 38%)
+                  `,
+                }}
+              />
             </div>
 
-            {/* Funding Approved card */}
-            <motion.div
-              className="absolute top-[6%] right-0 z-[3] w-[min(100%,220px)] rounded-2xl border border-white/70 bg-white/95 p-3.5 shadow-[0_18px_44px_-20px_rgba(0,24,72,0.4)] backdrop-blur-md sm:top-[8%] sm:right-[-2%] sm:w-[240px] sm:p-4"
-              animate={reduceMotion ? undefined : { y: [0, -8, 0] }}
-              transition={{
-                duration: 5.5,
-                repeat: Infinity,
-                ease: "easeInOut",
-              }}
+            {/* Tiny growth accent — not a large crossing chart */}
+            <motion.svg
+              viewBox="0 0 120 40"
+              className="pointer-events-none absolute top-[42%] right-[8%] z-[2] hidden h-9 w-28 opacity-80 sm:block"
+              aria-hidden
+              initial={reduceMotion ? false : { opacity: 0, pathLength: 0 }}
+              animate={{ opacity: 0.85 }}
+              transition={{ duration: 0.6, delay: 0.5 }}
             >
-              <div className="flex items-center justify-between gap-2">
-                <p className="text-[10px] font-semibold tracking-[0.14em] text-[#c08418] uppercase">
-                  Funding Approved
+              <motion.path
+                d="M4 32 C24 30 34 18 52 16 C72 13 84 24 100 8 L116 4"
+                fill="none"
+                stroke="#c08418"
+                strokeWidth="2.25"
+                strokeLinecap="round"
+                initial={reduceMotion ? false : { pathLength: 0 }}
+                animate={{ pathLength: 1 }}
+                transition={{ duration: 1.1, delay: 0.55, ease: homeEase }}
+              />
+              <circle cx="116" cy="4" r="3" fill="#c08418" />
+            </motion.svg>
+
+            {/* Funding Approved */}
+            <motion.div
+              className="absolute top-[5%] right-0 z-[3] w-[min(92%,200px)] rounded-2xl bg-white/95 p-3 shadow-[0_16px_40px_-18px_rgba(0,24,72,0.35)] ring-1 ring-[#001848]/[0.06] backdrop-blur-md sm:top-[7%] sm:right-[-1%] sm:w-[214px] sm:p-3.5"
+              initial={reduceMotion ? false : { opacity: 0, y: 14 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.35, ease: homeEase }}
+            >
+              <motion.div
+                animate={reduceMotion ? undefined : { y: [0, -5, 0] }}
+                transition={{
+                  duration: 5.5,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
+              >
+                <div className="flex items-center justify-between gap-2">
+                  <p className="text-[10px] font-semibold tracking-[0.16em] text-[#c08418] uppercase">
+                    Funding Approved
+                  </p>
+                  <span className="grid size-6 place-items-center rounded-full bg-[#c08418]/10 text-[#c08418]">
+                    <TrendingUp className="size-3" aria-hidden />
+                  </span>
+                </div>
+                <p className="font-heading mt-1.5 text-xl font-bold tracking-tight text-[#001848] sm:text-2xl">
+                  ₹25,00,000
                 </p>
-                <span className="grid size-7 place-items-center rounded-full bg-[#001848]/[0.06] text-[#001848]">
-                  <TrendingUp className="size-3.5" aria-hidden />
-                </span>
-              </div>
-              <p className="font-heading mt-2 text-2xl font-bold tracking-tight text-[#001848]">
-                ₹25,00,000
-              </p>
-              <p className="mt-0.5 text-xs font-medium text-[#5b6577]">
-                Business Expansion Loan
-              </p>
-              <svg viewBox="0 0 180 36" className="mt-3 h-8 w-full" aria-hidden>
-                <path
-                  d="M2 28 C28 26 40 18 58 16 C82 13 96 24 118 12 C136 3 152 8 178 4"
-                  fill="none"
-                  stroke="#c08418"
-                  strokeWidth="2.5"
-                  strokeLinecap="round"
-                />
-                <path
-                  d="M2 28 C28 26 40 18 58 16 C82 13 96 24 118 12 C136 3 152 8 178 4 L178 36 L2 36 Z"
-                  fill="#c08418"
-                  opacity="0.12"
-                />
-              </svg>
+                <p className="mt-0.5 text-[11px] font-medium text-[#5b6577]">
+                  Business Expansion Loan
+                </p>
+                <svg
+                  viewBox="0 0 160 28"
+                  className="mt-2.5 h-6 w-full"
+                  aria-hidden
+                >
+                  <path
+                    d="M2 22 C22 20 34 12 52 11 C74 9 88 18 108 8 C122 2 138 6 158 3"
+                    fill="none"
+                    stroke="#c08418"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                  />
+                  <path
+                    d="M2 22 C22 20 34 12 52 11 C74 9 88 18 108 8 C122 2 138 6 158 3 L158 28 L2 28 Z"
+                    fill="#c08418"
+                    opacity="0.1"
+                  />
+                </svg>
+              </motion.div>
             </motion.div>
 
-            {/* Verification card */}
+            {/* Verification — smaller, less dominant; hide on very small screens */}
             <motion.div
-              className="absolute bottom-[18%] left-0 z-[3] w-[min(100%,230px)] rounded-2xl border border-white/70 bg-white/95 p-3.5 shadow-[0_18px_44px_-20px_rgba(0,24,72,0.38)] backdrop-blur-md sm:bottom-[16%] sm:left-[-2%] sm:w-[250px] sm:p-4"
-              animate={reduceMotion ? undefined : { y: [0, 7, 0] }}
-              transition={{
-                duration: 6.2,
-                repeat: Infinity,
-                ease: "easeInOut",
-                delay: 0.4,
-              }}
+              className="absolute bottom-[22%] left-0 z-[3] hidden w-[210px] rounded-2xl bg-white/95 p-3 shadow-[0_14px_36px_-18px_rgba(0,24,72,0.32)] ring-1 ring-[#001848]/[0.05] backdrop-blur-md sm:bottom-[20%] sm:left-[-2%] sm:block sm:w-[220px] sm:p-3.5"
+              initial={reduceMotion ? false : { opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.48, ease: homeEase }}
             >
-              <p className="text-[10px] font-semibold tracking-[0.14em] text-[#001848] uppercase">
-                Verification Status
-              </p>
-              <ul className="mt-2.5 space-y-2">
-                {verificationItems.map((item) => (
-                  <li
-                    key={item}
-                    className="flex items-start gap-2 text-[11px] leading-snug font-medium text-[#0b1220] sm:text-xs"
-                  >
-                    <CheckCircle2
-                      className="mt-0.5 size-3.5 shrink-0 text-[#c08418]"
+              <motion.div
+                animate={reduceMotion ? undefined : { y: [0, 4, 0] }}
+                transition={{
+                  duration: 6,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                  delay: 0.5,
+                }}
+              >
+                <p className="text-[9px] font-semibold tracking-[0.14em] text-[#5b6577] uppercase">
+                  Verification
+                </p>
+                <ul className="mt-2 space-y-1.5">
+                  {verificationItems.map((item) => (
+                    <li
+                      key={item}
+                      className="flex items-start gap-1.5 text-[10px] leading-snug font-medium text-[#0b1220] sm:text-[11px]"
+                    >
+                      <CheckCircle2
+                        className="mt-0.5 size-3 shrink-0 text-[#c08418]"
+                        aria-hidden
+                      />
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </motion.div>
+            </motion.div>
+
+            {/* Growth Partner */}
+            <motion.div
+              className="absolute right-[2%] bottom-[3%] z-[3] flex w-[min(92%,220px)] items-start gap-2.5 rounded-2xl bg-gradient-to-br from-[#001848] to-[#0a2a6e] p-3 text-white shadow-[0_18px_40px_-20px_rgba(0,24,72,0.5)] sm:right-[4%] sm:bottom-[2%] sm:w-[236px] sm:gap-3 sm:p-3.5"
+              initial={reduceMotion ? false : { opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.58, ease: homeEase }}
+            >
+              <motion.div
+                className="flex w-full items-start gap-2.5 sm:gap-3"
+                animate={reduceMotion ? undefined : { y: [0, -4, 0] }}
+                transition={{
+                  duration: 5.8,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                  delay: 0.9,
+                }}
+              >
+                <div className="relative mt-0.5 size-9 shrink-0 overflow-hidden rounded-lg bg-white/10 p-1">
+                  <Image
+                    src="/brand/enigrow-logo.png"
+                    alt=""
+                    width={36}
+                    height={36}
+                    className="size-full object-contain"
+                  />
+                </div>
+                <div className="min-w-0">
+                  <p className="flex items-center gap-1 text-[11px] font-bold tracking-tight sm:text-xs">
+                    Your Growth Partner
+                    <ArrowUpRight
+                      className="size-3 text-[#c08418]"
                       aria-hidden
                     />
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
-            </motion.div>
-
-            {/* Growth partner card */}
-            <motion.div
-              className="absolute right-0 bottom-[4%] z-[3] flex w-[min(100%,240px)] items-start gap-3 rounded-2xl border border-[#001848]/10 bg-[#001848] p-3.5 text-white shadow-[0_20px_48px_-22px_rgba(0,24,72,0.55)] sm:right-[4%] sm:bottom-[2%] sm:w-[260px] sm:p-4"
-              animate={reduceMotion ? undefined : { y: [0, -6, 0] }}
-              transition={{
-                duration: 5.8,
-                repeat: Infinity,
-                ease: "easeInOut",
-                delay: 0.8,
-              }}
-            >
-              <div className="relative mt-0.5 size-10 shrink-0 overflow-hidden rounded-xl bg-white/10 p-1.5">
-                <Image
-                  src="/brand/enigrow-logo.png"
-                  alt=""
-                  width={40}
-                  height={40}
-                  className="size-full object-contain"
-                />
-              </div>
-              <div className="min-w-0">
-                <p className="flex items-center gap-1 text-xs font-bold tracking-tight">
-                  Your Growth Partner
-                  <ArrowUpRight
-                    className="size-3.5 text-[#c08418]"
-                    aria-hidden
-                  />
-                </p>
-                <p className="mt-1 text-[11px] leading-snug text-white/70">
-                  From Registration to Funding, We&apos;ve Got You Covered!
-                </p>
-              </div>
+                  </p>
+                  <p className="mt-0.5 text-[10px] leading-snug text-white/70 sm:text-[11px]">
+                    From Registration to Funding, We&apos;ve Got You Covered!
+                  </p>
+                </div>
+              </motion.div>
             </motion.div>
           </div>
         </motion.div>
