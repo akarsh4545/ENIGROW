@@ -106,23 +106,23 @@ export function HomeFundingHero({
         <div className="relative flex flex-col gap-8 lg:block lg:min-h-[440px] xl:min-h-[480px]">
           {/* Photo plane */}
           <motion.div
-            className="relative order-2 aspect-[16/10] w-full sm:aspect-[16/9] lg:absolute lg:inset-y-0 lg:right-0 lg:left-[38%] lg:order-none lg:aspect-auto xl:left-[36%]"
+            className="relative order-2 aspect-[16/10] w-full overflow-visible sm:aspect-[16/9] lg:absolute lg:inset-y-0 lg:right-0 lg:left-[26%] lg:order-none lg:aspect-auto xl:left-[24%]"
             initial={reduceMotion ? false : { opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.6, ease: homeEase }}
           >
-            <div className="absolute inset-0 overflow-hidden">
+            <div className="absolute inset-0 overflow-hidden lg:right-4">
               <Image
                 src={HERO_PHOTO.src}
                 alt={HERO_PHOTO.alt}
                 fill
                 priority
-                sizes="(max-width: 1024px) 100vw, 62vw"
-                className="object-cover object-[72%_28%]"
+                sizes="(max-width: 1024px) 100vw, 70vw"
+                className="object-cover object-[48%_30%]"
               />
               <div
                 aria-hidden
-                className="pointer-events-none absolute inset-y-0 left-0 w-[36%] bg-gradient-to-r from-[#f7f8fc] via-[#f7f8fc]/80 to-transparent lg:w-[42%]"
+                className="pointer-events-none absolute inset-y-0 left-0 w-[26%] bg-gradient-to-r from-[#f7f8fc] via-[#f7f8fc]/65 to-transparent lg:w-[30%]"
               />
               <div
                 aria-hidden
@@ -133,7 +133,7 @@ export function HomeFundingHero({
             {/* Mini growth chart */}
             <div
               aria-hidden
-              className="absolute bottom-[30%] left-[26%] z-[3] hidden rounded-xl bg-white p-2.5 shadow-[0_12px_30px_-14px_rgba(0,24,72,0.3)] ring-1 ring-black/[0.04] sm:block lg:left-[24%]"
+              className="absolute bottom-[28%] left-[34%] z-[3] hidden rounded-xl bg-white p-2.5 shadow-[0_12px_30px_-14px_rgba(0,24,72,0.3)] ring-1 ring-black/[0.04] sm:block lg:left-[32%]"
             >
               <div className="flex items-end gap-1">
                 {[14, 20, 16, 26, 22, 32].map((h, i) => (
@@ -149,7 +149,7 @@ export function HomeFundingHero({
 
             {/* Funding Approved */}
             <motion.div
-              className="absolute top-[5%] right-[2%] z-[4] w-[158px] rounded-2xl bg-white p-3 shadow-[0_16px_40px_-16px_rgba(0,24,72,0.32)] ring-1 ring-black/[0.05] sm:w-[180px] sm:p-3.5 lg:top-[6%] lg:right-[4%]"
+              className="absolute top-[5%] right-[6%] z-[4] w-[158px] rounded-2xl bg-white p-3 shadow-[0_16px_40px_-16px_rgba(0,24,72,0.32)] ring-1 ring-black/[0.05] sm:w-[180px] sm:p-3.5 lg:top-[6%] lg:right-[8%]"
               animate={reduceMotion ? undefined : { y: [0, -4, 0] }}
               transition={{
                 duration: 5.5,
@@ -191,7 +191,7 @@ export function HomeFundingHero({
 
             {/* Verification Status */}
             <motion.div
-              className="absolute top-[36%] right-[1%] z-[4] hidden w-[178px] rounded-2xl bg-white p-3 shadow-[0_14px_36px_-16px_rgba(0,24,72,0.28)] ring-1 ring-black/[0.05] sm:block sm:w-[190px] sm:p-3.5 lg:right-[2%]"
+              className="absolute top-[36%] right-[5%] z-[4] hidden w-[178px] rounded-2xl bg-white p-3 shadow-[0_14px_36px_-16px_rgba(0,24,72,0.28)] ring-1 ring-black/[0.05] sm:block sm:w-[190px] sm:p-3.5 lg:right-[7%]"
               animate={reduceMotion ? undefined : { y: [0, 3, 0] }}
               transition={{
                 duration: 6,
@@ -223,7 +223,7 @@ export function HomeFundingHero({
 
             {/* Growth Partner */}
             <motion.div
-              className="absolute right-[3%] bottom-[5%] z-[4] flex w-[min(92%,248px)] items-center gap-2.5 rounded-2xl bg-gradient-to-r from-[#001848] to-[#1e3a6e] p-3 text-white shadow-[0_16px_40px_-18px_rgba(0,24,72,0.45)] sm:p-3.5"
+              className="absolute right-[7%] bottom-[5%] z-[4] flex w-[min(92%,248px)] items-center gap-2.5 rounded-2xl bg-gradient-to-r from-[#001848] to-[#1e3a6e] p-3 text-white shadow-[0_16px_40px_-18px_rgba(0,24,72,0.45)] sm:p-3.5 lg:right-[9%]"
               animate={reduceMotion ? undefined : { y: [0, -2.5, 0] }}
               transition={{
                 duration: 5.8,
