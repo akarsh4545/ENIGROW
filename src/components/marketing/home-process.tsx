@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
 
@@ -10,7 +11,7 @@ import { cn } from "@/lib/utils";
 
 export function HomeProcess() {
   const reduceMotion = useReducedMotion();
-  const { process } = homeContent;
+  const { process, visuals } = homeContent;
 
   return (
     <section
@@ -26,33 +27,55 @@ export function HomeProcess() {
         }}
       />
       <div className="relative mx-auto w-full max-w-6xl px-4 py-20 sm:px-6 sm:py-24">
-        <motion.div
-          className="max-w-2xl"
-          initial={reduceMotion ? false : { opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.4 }}
-          transition={{ duration: 0.55, ease: homeEase }}
-        >
-          <p className="text-sm font-semibold tracking-[0.18em] text-[#c08418] uppercase">
-            {process.eyebrow}
-          </p>
-          <h2 className="font-heading mt-3 text-3xl font-bold tracking-tight text-balance text-white sm:text-4xl md:text-5xl">
-            {process.title}
-          </h2>
-          <p className="mt-4 max-w-md text-base leading-relaxed text-white/65 sm:text-lg">
-            {process.support}
-          </p>
-          <Link
-            href={process.cta.href}
-            className={cn(
-              buttonVariants({ size: "lg" }),
-              homeCtaClass,
-              "mt-8 h-11 bg-[#c08418] px-5 text-[#1a1408] hover:bg-[#c08418]/90",
-            )}
+        <div className="grid items-center gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:gap-14">
+          <motion.div
+            className="max-w-2xl"
+            initial={reduceMotion ? false : { opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.4 }}
+            transition={{ duration: 0.55, ease: homeEase }}
           >
-            {process.cta.label}
-          </Link>
-        </motion.div>
+            <p className="text-sm font-semibold tracking-[0.18em] text-[#c08418] uppercase">
+              {process.eyebrow}
+            </p>
+            <h2 className="font-heading mt-3 text-3xl font-bold tracking-tight text-balance text-white sm:text-4xl md:text-5xl">
+              {process.title}
+            </h2>
+            <p className="mt-4 max-w-md text-base leading-relaxed text-white/65 sm:text-lg">
+              {process.support}
+            </p>
+            <Link
+              href={process.cta.href}
+              className={cn(
+                buttonVariants({ size: "lg" }),
+                homeCtaClass,
+                "mt-8 h-11 bg-[#c08418] px-5 text-[#1a1408] hover:bg-[#c08418]/90",
+              )}
+            >
+              {process.cta.label}
+            </Link>
+          </motion.div>
+
+          <motion.div
+            className="relative mx-auto hidden aspect-[4/3] w-full max-w-md overflow-hidden rounded-[1.5rem] border border-white/15 shadow-[0_28px_60px_-28px_rgba(0,0,0,0.55)] lg:mx-0 lg:block lg:max-w-none"
+            initial={reduceMotion ? false : { opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.35 }}
+            transition={{ duration: 0.65, delay: 0.08, ease: homeEase }}
+          >
+            <Image
+              src={visuals.process.src}
+              alt={visuals.process.alt}
+              fill
+              sizes="(max-width: 1024px) 0px, 480px"
+              className="object-cover"
+            />
+            <div
+              aria-hidden
+              className="absolute inset-0 bg-gradient-to-t from-[#001848]/50 via-transparent to-transparent"
+            />
+          </motion.div>
+        </div>
 
         {/* Desktop horizontal timeline */}
         <ol className="relative mt-14 hidden gap-4 lg:grid lg:grid-cols-4">

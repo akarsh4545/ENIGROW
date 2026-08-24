@@ -1,25 +1,44 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 
 import { buttonVariants } from "@/components/ui/button-variants";
 import { homeCtaClass, homeEase } from "@/components/marketing/home-motion";
+import { homeContent } from "@/data/home";
 import { ROUTES } from "@/constants/routes";
 import { cn } from "@/lib/utils";
 
 export function HomeCta() {
   const reduceMotion = useReducedMotion();
+  const photo = homeContent.visuals.atmosphere;
 
   return (
     <section className="relative overflow-hidden bg-[#001848]">
+      <motion.div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 opacity-[0.22]"
+        initial={reduceMotion ? false : { scale: 1.04 }}
+        whileInView={{ scale: 1 }}
+        viewport={{ once: true, amount: 0.3 }}
+        transition={{ duration: 1.1, ease: homeEase }}
+      >
+        <Image
+          src={photo.src}
+          alt=""
+          fill
+          sizes="100vw"
+          className="object-cover object-center"
+        />
+      </motion.div>
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0"
         style={{
           background:
-            "radial-gradient(ellipse at 20% 40%, rgba(192,132,24,0.22), transparent 50%), radial-gradient(ellipse at 90% 80%, rgba(255,255,255,0.06), transparent 45%)",
+            "linear-gradient(90deg, rgba(0,24,72,0.94) 0%, rgba(0,24,72,0.88) 45%, rgba(0,24,72,0.78) 100%), radial-gradient(ellipse at 20% 40%, rgba(192,132,24,0.2), transparent 50%)",
         }}
       />
       <div className="relative mx-auto flex w-full max-w-6xl flex-col gap-8 px-4 py-20 sm:px-6 sm:py-24 md:flex-row md:items-end md:justify-between">

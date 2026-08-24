@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
 import { Quote } from "lucide-react";
@@ -12,8 +13,9 @@ import { cn } from "@/lib/utils";
 
 export function HomeSuccessStories() {
   const reduceMotion = useReducedMotion();
-  const { successStories } = homeContent;
+  const { successStories, visuals } = homeContent;
   const [featured, ...rest] = successStories.items;
+  const successStoriesPhoto = visuals.stories;
 
   return (
     <section className="border-border/70 relative overflow-hidden border-b bg-[#f7f8fb]">
@@ -40,44 +42,59 @@ export function HomeSuccessStories() {
         <div className="mt-14 grid gap-6 lg:grid-cols-[1.25fr_0.75fr]">
           {featured ? (
             <motion.article
-              className="border-border/70 bg-card relative overflow-hidden rounded-[1.5rem] border p-7 shadow-[0_18px_48px_-28px_color-mix(in_oklch,var(--primary)_32%,transparent)] transition duration-200 ease-out hover:-translate-y-1 hover:shadow-[0_24px_52px_-26px_color-mix(in_oklch,var(--primary)_40%,transparent)] sm:p-9"
+              className="border-border/70 bg-card relative overflow-hidden rounded-[1.5rem] border shadow-[0_18px_48px_-28px_color-mix(in_oklch,var(--primary)_32%,transparent)] transition duration-200 ease-out hover:-translate-y-1 hover:shadow-[0_24px_52px_-26px_color-mix(in_oklch,var(--primary)_40%,transparent)]"
               initial={reduceMotion ? false : { opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.3 }}
               transition={{ duration: 0.55, ease: homeEase }}
             >
-              <Quote
-                className="text-primary/15 absolute top-6 right-6 size-12"
-                aria-hidden
-              />
-              <div className="flex items-center gap-3">
-                <span className="bg-primary text-primary-foreground grid size-12 place-items-center rounded-xl text-sm font-semibold">
-                  {featured.initials}
-                </span>
-                <div>
-                  <p className="font-heading text-xl font-semibold tracking-tight">
-                    {featured.name}
-                  </p>
-                  <p className="text-muted-foreground text-xs font-medium tracking-[0.14em] uppercase">
-                    {featured.role}
-                  </p>
-                </div>
+              <div className="relative h-36 overflow-hidden sm:h-44">
+                <Image
+                  src={successStoriesPhoto.src}
+                  alt={successStoriesPhoto.alt}
+                  fill
+                  sizes="(max-width: 1024px) 100vw, 60vw"
+                  className="object-cover object-center"
+                />
+                <div
+                  aria-hidden
+                  className="absolute inset-0 bg-gradient-to-t from-white via-white/20 to-transparent"
+                />
               </div>
-              <p className="text-foreground/85 mt-7 text-lg leading-relaxed sm:text-xl">
-                “{featured.quote}”
-              </p>
-              <dl className="border-border/70 mt-8 grid grid-cols-3 gap-3 border-t pt-5">
-                {featured.metrics.map((metric) => (
-                  <div key={metric.label}>
-                    <dd className="font-heading text-base font-semibold tracking-tight sm:text-lg">
-                      {metric.value}
-                    </dd>
-                    <dt className="text-muted-foreground mt-1 text-[0.65rem] tracking-[0.12em] uppercase">
-                      {metric.label}
-                    </dt>
+              <div className="relative p-7 sm:p-9">
+                <Quote
+                  className="text-primary/15 absolute top-6 right-6 size-12"
+                  aria-hidden
+                />
+                <div className="flex items-center gap-3">
+                  <span className="bg-primary text-primary-foreground grid size-12 place-items-center rounded-xl text-sm font-semibold">
+                    {featured.initials}
+                  </span>
+                  <div>
+                    <p className="font-heading text-xl font-semibold tracking-tight">
+                      {featured.name}
+                    </p>
+                    <p className="text-muted-foreground text-xs font-medium tracking-[0.14em] uppercase">
+                      {featured.role}
+                    </p>
                   </div>
-                ))}
-              </dl>
+                </div>
+                <p className="text-foreground/85 mt-7 text-lg leading-relaxed sm:text-xl">
+                  “{featured.quote}”
+                </p>
+                <dl className="border-border/70 mt-8 grid grid-cols-3 gap-3 border-t pt-5">
+                  {featured.metrics.map((metric) => (
+                    <div key={metric.label}>
+                      <dd className="font-heading text-base font-semibold tracking-tight sm:text-lg">
+                        {metric.value}
+                      </dd>
+                      <dt className="text-muted-foreground mt-1 text-[0.65rem] tracking-[0.12em] uppercase">
+                        {metric.label}
+                      </dt>
+                    </div>
+                  ))}
+                </dl>
+              </div>
             </motion.article>
           ) : null}
 
