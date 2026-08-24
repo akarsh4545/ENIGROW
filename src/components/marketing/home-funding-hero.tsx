@@ -89,30 +89,21 @@ export function HomeFundingHero({
         className="pointer-events-none absolute inset-0"
         style={{
           background:
-            "linear-gradient(165deg, #ffffff 0%, #f7f8fc 48%, #eef1f8 100%)",
+            "linear-gradient(165deg, #ffffff 0%, #f8f9fc 50%, #eef0fa 100%)",
         }}
       />
-      {/* Soft left dot pattern like reference */}
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-y-0 left-0 w-[42%] opacity-[0.45]"
-        style={{
-          backgroundImage:
-            "radial-gradient(circle, rgba(148,163,184,0.55) 1px, transparent 1.2px)",
-          backgroundSize: "18px 18px",
-          maskImage:
-            "linear-gradient(to right, black 0%, black 35%, transparent 85%)",
-          WebkitMaskImage:
-            "linear-gradient(to right, black 0%, black 35%, transparent 85%)",
-        }}
+        className="pointer-events-none absolute top-[-10%] right-[0%] size-[26rem] rounded-full bg-[#6366f1]/[0.07] blur-3xl"
       />
 
+      {/* Wider than nav gutters so the hero reads full on large screens */}
       <div className="relative mx-auto w-full max-w-[90rem] px-4 pt-10 pb-8 sm:px-6 sm:pt-12 sm:pb-10 lg:px-10 lg:pt-12 lg:pb-12 xl:px-12">
-        <div className="grid items-center gap-6 lg:grid-cols-12 lg:gap-3 xl:gap-5">
-          {/* Left copy */}
-          <div className="relative z-[2] max-w-xl lg:col-span-5 lg:max-w-none lg:translate-x-6 xl:col-span-5 xl:translate-x-10">
+        <div className="grid items-center gap-6 lg:grid-cols-12 lg:gap-4 xl:gap-6">
+          {/* Left — copy (nudged slightly toward the photo) */}
+          <div className="relative z-[2] max-w-xl lg:col-span-5 lg:max-w-none lg:translate-x-6 xl:col-span-4 xl:translate-x-10">
             <motion.p
-              className="inline-flex items-center gap-1.5 rounded-full border border-[#c08418]/45 bg-white/90 px-3 py-1 text-[11px] font-semibold tracking-wide text-[#001848] shadow-[0_1px_2px_rgba(0,24,72,0.04)] sm:text-xs"
+              className="inline-flex items-center gap-2 rounded-full border border-[#001848]/10 bg-[#eef0fa] px-3.5 py-1.5 text-xs font-semibold text-[#001848]"
               initial={reduceMotion ? false : { opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.45, ease: homeEase }}
@@ -125,15 +116,14 @@ export function HomeFundingHero({
             </motion.p>
 
             <motion.h1
-              className="font-heading mt-4 text-[2.35rem] leading-[1.12] font-bold tracking-tight text-balance text-[#001848] sm:text-[2.75rem] lg:text-[3.05rem] lg:leading-[1.08] xl:text-[3.35rem]"
+              className="font-heading mt-5 text-[2.35rem] leading-[1.12] font-bold tracking-tight text-balance text-[#001848] sm:text-[2.75rem] lg:text-[3rem] lg:leading-[1.1] xl:text-[3.25rem]"
               initial={reduceMotion ? false : { opacity: 0, y: 14 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.55, delay: 0.05, ease: homeEase }}
             >
               Turn Your Business Ambition Into{" "}
-              <span className="bg-gradient-to-r from-[#3b82f6] via-[#c08418] to-[#ea580c] bg-clip-text text-transparent">
-                Funded Growth.
-              </span>
+              <span className="text-[#c08418]">Funded</span>{" "}
+              <span className="text-[#7c3aed]">Growth.</span>
             </motion.h1>
 
             <motion.p
@@ -161,7 +151,9 @@ export function HomeFundingHero({
                 )}
               >
                 Explore Funding Options
-                <ArrowRight className="size-4 transition duration-200 group-hover/button:translate-x-0.5" />
+                <span className="ml-1 grid size-6 place-items-center rounded-full bg-white/15">
+                  <ArrowRight className="size-3.5 transition duration-200 group-hover/button:translate-x-0.5" />
+                </span>
               </Link>
               <Link
                 href={ROUTES.contact}
@@ -177,60 +169,44 @@ export function HomeFundingHero({
             </motion.div>
           </div>
 
-          {/* Right visual */}
+          {/* Right — large image filling remaining width */}
           <motion.div
-            className="relative z-[1] w-full lg:col-span-7"
+            className="relative z-[1] w-full lg:col-span-7 xl:col-span-8"
             initial={reduceMotion ? false : { opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.08, ease: homeEase }}
           >
-            <div className="relative mx-auto aspect-[4/3] w-full sm:aspect-[5/4] lg:aspect-auto lg:min-h-[500px] xl:min-h-[560px]">
+            <div className="relative mx-auto aspect-[4/3] w-full sm:aspect-[5/4] lg:aspect-auto lg:min-h-[500px] xl:min-h-[580px]">
+              {/* Soft-bleed photo plane */}
               <div className="absolute inset-0 overflow-hidden">
                 <Image
                   src={HERO_PHOTO.src}
                   alt={HERO_PHOTO.alt}
                   fill
                   priority
-                  sizes="(max-width: 1024px) 100vw, 58vw"
-                  className="scale-[1.06] object-cover object-[76%_34%]"
+                  sizes="(max-width: 1024px) 100vw, 68vw"
+                  className="object-cover object-[58%_32%]"
                 />
-                {/* Soft left merge — top-biased so desk mug stays clear */}
+                {/* Soft merge only at upper-left — keep desk cup + plant visible */}
                 <div
                   aria-hidden
-                  className="pointer-events-none absolute inset-y-0 left-0 w-[14%] bg-gradient-to-r from-[#f7f8fc]/70 via-[#f7f8fc]/25 to-transparent"
+                  className="pointer-events-none absolute inset-y-0 left-0 w-[22%] bg-gradient-to-r from-[#f8f9fc]/90 via-[#f8f9fc]/35 to-transparent"
                   style={{
                     maskImage:
-                      "linear-gradient(to bottom, black 0%, black 36%, transparent 68%)",
+                      "linear-gradient(to bottom, black 0%, black 45%, transparent 78%)",
                     WebkitMaskImage:
-                      "linear-gradient(to bottom, black 0%, black 36%, transparent 68%)",
+                      "linear-gradient(to bottom, black 0%, black 45%, transparent 78%)",
                   }}
                 />
                 <div
                   aria-hidden
-                  className="pointer-events-none absolute inset-x-0 bottom-0 h-12 bg-gradient-to-t from-[#eef1f8]/40 to-transparent"
+                  className="pointer-events-none absolute inset-x-0 bottom-0 h-14 bg-gradient-to-t from-[#eef0fa]/45 to-transparent"
                 />
               </div>
 
-              {/*
-                Growth chart — gap between headline & shoulder,
-                ~1.5 headline lines tall
-              */}
-              <div
-                aria-hidden
-                className="pointer-events-none absolute top-[18%] left-[-2%] z-[3] hidden w-[78px] sm:block md:w-[86px] lg:top-[20%] lg:left-[2%] lg:w-[92px] xl:left-[4%] xl:w-[100px]"
-              >
-                <Image
-                  src="/images/hero-growth-chart.png"
-                  alt=""
-                  width={192}
-                  height={200}
-                  className="h-auto w-full drop-shadow-[0_12px_24px_rgba(0,24,72,0.25)]"
-                />
-              </div>
-
-              {/* Funding Approved */}
+              {/* Funding Approved — top right */}
               <motion.div
-                className="absolute top-[3%] right-[2%] z-[4] w-[156px] rounded-2xl bg-white p-3 shadow-[0_16px_40px_-18px_rgba(0,24,72,0.32)] ring-1 ring-black/[0.05] sm:w-[172px] sm:p-3.5"
+                className="absolute top-[3%] right-[2%] z-[4] w-[148px] rounded-2xl bg-white p-3 shadow-[0_16px_40px_-18px_rgba(0,24,72,0.32)] ring-1 ring-black/[0.05] sm:w-[168px] sm:p-3.5"
                 animate={reduceMotion ? undefined : { y: [0, -4, 0] }}
                 transition={{
                   duration: 5.5,
@@ -238,7 +214,11 @@ export function HomeFundingHero({
                   ease: "easeInOut",
                 }}
               >
-                <p className="font-heading text-xl font-bold tracking-tight text-[#001848] sm:text-[1.35rem]">
+                <p className="flex items-center gap-1.5 text-[10px] font-semibold tracking-[0.08em] text-[#16a34a] uppercase">
+                  <CheckCircle2 className="size-3.5 shrink-0" aria-hidden />
+                  Funding Approved
+                </p>
+                <p className="font-heading mt-1.5 text-xl font-bold tracking-tight text-[#001848]">
                   ₹25,00,000
                 </p>
                 <p className="mt-0.5 text-[11px] font-medium text-[#5b6577]">
@@ -262,15 +242,11 @@ export function HomeFundingHero({
                     strokeLinecap="round"
                   />
                 </svg>
-                <p className="mt-2 inline-flex items-center gap-1 rounded-full bg-[#16a34a]/10 px-2 py-0.5 text-[10px] font-semibold text-[#16a34a]">
-                  <CheckCircle2 className="size-3 shrink-0" aria-hidden />
-                  Funding Approved
-                </p>
               </motion.div>
 
-              {/* Verification Status */}
+              {/* Verification Status — mid right */}
               <motion.div
-                className="absolute top-[40%] right-[2%] z-[4] hidden w-[168px] rounded-2xl bg-white p-3 shadow-[0_14px_36px_-16px_rgba(0,24,72,0.28)] ring-1 ring-black/[0.05] sm:block sm:w-[178px] sm:p-3.5"
+                className="absolute top-[38%] right-[1%] z-[4] hidden w-[168px] rounded-2xl bg-white p-3 shadow-[0_14px_36px_-16px_rgba(0,24,72,0.28)] ring-1 ring-black/[0.05] sm:block sm:w-[178px] sm:p-3.5"
                 animate={reduceMotion ? undefined : { y: [0, 3, 0] }}
                 transition={{
                   duration: 6,
@@ -300,9 +276,9 @@ export function HomeFundingHero({
                 </ul>
               </motion.div>
 
-              {/* Growth Partner pill */}
+              {/* Growth Partner — bottom overlap */}
               <motion.div
-                className="absolute right-[3%] bottom-[5%] z-[4] flex w-[min(92%,260px)] items-center gap-2.5 rounded-full bg-[#001848] py-2.5 pr-2.5 pl-3 text-white shadow-[0_16px_40px_-18px_rgba(0,24,72,0.45)]"
+                className="absolute right-[4%] bottom-[3%] z-[4] flex w-[min(90%,240px)] items-center gap-2.5 rounded-2xl bg-gradient-to-r from-[#001848] to-[#1e3a6e] p-3 text-white shadow-[0_16px_40px_-18px_rgba(0,24,72,0.45)]"
                 animate={reduceMotion ? undefined : { y: [0, -2.5, 0] }}
                 transition={{
                   duration: 5.8,
@@ -311,32 +287,30 @@ export function HomeFundingHero({
                   delay: 0.7,
                 }}
               >
-                <div className="relative size-7 shrink-0 overflow-hidden rounded-full bg-white/10 p-0.5">
+                <div className="relative size-8 shrink-0 overflow-hidden rounded-lg bg-white/10 p-0.5">
                   <Image
                     src="/brand/enigrow-logo.png"
                     alt=""
-                    width={28}
-                    height={28}
+                    width={32}
+                    height={32}
                     className="size-full object-contain"
                   />
                 </div>
                 <div className="min-w-0 flex-1">
-                  <p className="text-[11px] leading-tight font-bold sm:text-xs">
-                    Your Growth Partner
-                  </p>
-                  <p className="mt-0.5 text-[9px] leading-snug text-white/70 sm:text-[10px]">
+                  <p className="text-xs font-bold">Your Growth Partner</p>
+                  <p className="mt-0.5 text-[10px] leading-snug text-white/70">
                     From Registration to Funding, We&apos;ve Got You Covered!
                   </p>
                 </div>
-                <span className="grid size-7 shrink-0 place-items-center rounded-full bg-white/15">
-                  <ArrowUpRight className="size-3.5" aria-hidden />
+                <span className="grid size-6 shrink-0 place-items-center rounded-full bg-white/15">
+                  <ArrowUpRight className="size-3" aria-hidden />
                 </span>
               </motion.div>
             </div>
           </motion.div>
         </div>
 
-        {/* Metrics bar */}
+        {/* Metrics — same container width as nav + hero */}
         <motion.div
           className="relative z-[2] mt-10 rounded-2xl border border-[#e2e6ef]/90 bg-white p-4 shadow-[0_16px_40px_-24px_rgba(0,24,72,0.28)] sm:mt-12 sm:p-5"
           initial={reduceMotion ? false : { opacity: 0, y: 14 }}
