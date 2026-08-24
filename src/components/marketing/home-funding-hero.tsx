@@ -100,9 +100,9 @@ export function HomeFundingHero({
 
       {/* Same max-w + gutters as the navbar — reference “spread” */}
       <div className="relative mx-auto w-full max-w-6xl px-4 pt-12 pb-10 sm:px-6 sm:pt-14 sm:pb-12 lg:pt-16 lg:pb-14">
-        <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-8 xl:gap-10">
-          {/* Left ~50% — copy */}
-          <div className="relative z-[2] max-w-xl lg:max-w-none">
+        <div className="grid items-center gap-8 lg:grid-cols-12 lg:gap-6 xl:gap-8">
+          {/* Left — copy */}
+          <div className="relative z-[2] max-w-xl lg:col-span-5 lg:max-w-none">
             <motion.p
               className="inline-flex items-center gap-2 rounded-full border border-[#001848]/10 bg-[#eef0fa] px-3.5 py-1.5 text-xs font-semibold text-[#001848]"
               initial={reduceMotion ? false : { opacity: 0, y: 10 }}
@@ -170,14 +170,14 @@ export function HomeFundingHero({
             </motion.div>
           </div>
 
-          {/* Right ~50% — photo + floating cards (reference positions) */}
+          {/* Right — larger image, zoomed in */}
           <motion.div
-            className="relative z-[1] w-full"
+            className="relative z-[1] w-full lg:col-span-7"
             initial={reduceMotion ? false : { opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.08, ease: homeEase }}
           >
-            <div className="relative mx-auto aspect-[4/3] w-full max-w-[540px] sm:aspect-[5/4] lg:ml-auto lg:aspect-[5/4] lg:max-w-none xl:aspect-[4/3]">
+            <div className="relative mx-auto aspect-[4/3] w-full sm:aspect-[5/4] lg:aspect-auto lg:min-h-[460px] xl:min-h-[520px]">
               {/* Soft-bleed photo plane */}
               <div className="absolute inset-0 overflow-hidden">
                 <Image
@@ -185,13 +185,13 @@ export function HomeFundingHero({
                   alt={HERO_PHOTO.alt}
                   fill
                   priority
-                  sizes="(max-width: 1024px) 100vw, 50vw"
-                  className="object-cover object-[62%_30%]"
+                  sizes="(max-width: 1024px) 100vw, 60vw"
+                  className="origin-[72%_28%] scale-[1.12] object-cover object-[70%_20%]"
                 />
                 {/* Left soft merge into page — reference style */}
                 <div
                   aria-hidden
-                  className="pointer-events-none absolute inset-y-0 left-0 w-[28%] bg-gradient-to-r from-[#f8f9fc] via-[#f8f9fc]/70 to-transparent"
+                  className="pointer-events-none absolute inset-y-0 left-0 w-[20%] bg-gradient-to-r from-[#f8f9fc] via-[#f8f9fc]/60 to-transparent"
                 />
                 <div
                   aria-hidden
