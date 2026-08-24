@@ -101,8 +101,8 @@ export function HomeFundingHero({
       {/* Wider than nav gutters so the hero reads full on large screens */}
       <div className="relative mx-auto w-full max-w-[90rem] px-4 pt-10 pb-8 sm:px-6 sm:pt-12 sm:pb-10 lg:px-10 lg:pt-12 lg:pb-12 xl:px-12">
         <div className="grid items-center gap-6 lg:grid-cols-12 lg:gap-4 xl:gap-6">
-          {/* Left — copy */}
-          <div className="relative z-[2] max-w-xl lg:col-span-5 lg:max-w-none xl:col-span-4">
+          {/* Left — copy (nudged slightly toward the photo) */}
+          <div className="relative z-[2] max-w-xl lg:col-span-5 lg:max-w-none lg:translate-x-3 xl:col-span-4 xl:translate-x-5">
             <motion.p
               className="inline-flex items-center gap-2 rounded-full border border-[#001848]/10 bg-[#eef0fa] px-3.5 py-1.5 text-xs font-semibold text-[#001848]"
               initial={reduceMotion ? false : { opacity: 0, y: 10 }}
