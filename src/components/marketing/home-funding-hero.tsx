@@ -13,7 +13,6 @@ import {
   Headset,
   Percent,
   Star,
-  TrendingUp,
 } from "lucide-react";
 
 import { buttonVariants } from "@/components/ui/button-variants";
@@ -186,34 +185,73 @@ export function HomeFundingHero({
                   fill
                   priority
                   sizes="(max-width: 1024px) 100vw, 68vw"
-                  className="origin-[72%_22%] scale-[1.1] object-cover object-[70%_18%]"
+                  className="object-cover object-[58%_32%]"
                 />
-                {/* Left soft merge into page */}
+                {/* Soft merge only at upper-left — keep desk cup + plant visible */}
                 <div
                   aria-hidden
-                  className="pointer-events-none absolute inset-y-0 left-0 w-[16%] bg-gradient-to-r from-[#f8f9fc] via-[#f8f9fc]/50 to-transparent"
+                  className="pointer-events-none absolute inset-y-0 left-0 w-[22%] bg-gradient-to-r from-[#f8f9fc]/90 via-[#f8f9fc]/35 to-transparent"
+                  style={{
+                    maskImage:
+                      "linear-gradient(to bottom, black 0%, black 45%, transparent 78%)",
+                    WebkitMaskImage:
+                      "linear-gradient(to bottom, black 0%, black 45%, transparent 78%)",
+                  }}
                 />
                 <div
                   aria-hidden
-                  className="pointer-events-none absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-[#eef0fa]/65 to-transparent"
+                  className="pointer-events-none absolute inset-x-0 bottom-0 h-14 bg-gradient-to-t from-[#eef0fa]/45 to-transparent"
                 />
               </div>
 
-              {/* Mini chart — left of subject / near laptop */}
+              {/* Growth chart — left of subject (reference style) */}
               <div
                 aria-hidden
-                className="absolute top-[42%] left-[6%] z-[3] hidden rounded-xl bg-white/95 p-2 shadow-[0_12px_28px_-14px_rgba(0,24,72,0.28)] ring-1 ring-black/[0.04] sm:block"
+                className="absolute top-[34%] left-[4%] z-[3] hidden size-[72px] items-center justify-center rounded-2xl bg-white p-2.5 shadow-[0_14px_32px_-12px_rgba(0,24,72,0.32)] ring-1 ring-black/[0.05] sm:flex lg:left-[6%] lg:size-[84px]"
               >
-                <div className="flex items-end gap-1">
-                  {[11, 16, 13, 22, 18, 28].map((h, i) => (
-                    <span
-                      key={i}
-                      className="w-1.5 rounded-t-sm bg-[#3b82f6]"
-                      style={{ height: h }}
-                    />
-                  ))}
-                  <TrendingUp className="mb-0.5 ml-0.5 size-3.5 text-[#c08418]" />
-                </div>
+                <svg viewBox="0 0 64 64" className="size-full" fill="none">
+                  {/* Bars */}
+                  <rect
+                    x="10"
+                    y="36"
+                    width="10"
+                    height="18"
+                    rx="2"
+                    fill="#60a5fa"
+                  />
+                  <rect
+                    x="27"
+                    y="26"
+                    width="10"
+                    height="28"
+                    rx="2"
+                    fill="#3b82f6"
+                  />
+                  <rect
+                    x="44"
+                    y="14"
+                    width="10"
+                    height="40"
+                    rx="2"
+                    fill="#2563eb"
+                  />
+                  {/* Yellow growth arrow */}
+                  <path
+                    d="M12 40 C22 34 30 22 42 14"
+                    stroke="#f5b301"
+                    strokeWidth="3.5"
+                    strokeLinecap="round"
+                    fill="none"
+                  />
+                  <path
+                    d="M36 12 L46 10 L44 20"
+                    stroke="#f5b301"
+                    strokeWidth="3.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    fill="none"
+                  />
+                </svg>
               </div>
 
               {/* Funding Approved — top right */}
