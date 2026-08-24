@@ -204,54 +204,18 @@ export function HomeFundingHero({
                 />
               </div>
 
-              {/* Growth chart — matches reference: 3D-ish bars + yellow arrow */}
+              {/* Growth chart — reference size (~head height) + position (left of face) */}
               <div
                 aria-hidden
-                className="absolute top-[32%] left-[3%] z-[3] hidden sm:block lg:left-[5%]"
+                className="pointer-events-none absolute top-[14%] left-[10%] z-[3] hidden w-[112px] sm:block lg:top-[16%] lg:left-[12%] lg:w-[128px] xl:w-[140px]"
               >
-                <div className="relative flex size-[78px] items-end justify-center gap-[5px] rounded-[18px] bg-white px-3 pt-3.5 pb-3 shadow-[0_16px_36px_-14px_rgba(0,24,72,0.35)] ring-1 ring-black/[0.06] lg:size-[90px] lg:gap-[6px] lg:rounded-[20px] lg:px-3.5 lg:pb-3.5">
-                  {/* 5 ascending rounded bars */}
-                  <span
-                    className="w-[8px] rounded-full bg-[#93c5fd] lg:w-[9px]"
-                    style={{ height: 14 }}
-                  />
-                  <span
-                    className="w-[8px] rounded-full bg-[#60a5fa] lg:w-[9px]"
-                    style={{ height: 22 }}
-                  />
-                  <span
-                    className="w-[8px] rounded-full bg-[#3b82f6] lg:w-[9px]"
-                    style={{ height: 30 }}
-                  />
-                  <span
-                    className="w-[8px] rounded-full bg-[#2563eb] lg:w-[9px]"
-                    style={{ height: 38 }}
-                  />
-                  <span
-                    className="w-[8px] rounded-full bg-[#1d4ed8] lg:w-[9px]"
-                    style={{ height: 46 }}
-                  />
-                  {/* Yellow curved growth arrow */}
-                  <svg
-                    viewBox="0 0 72 48"
-                    className="pointer-events-none absolute inset-x-1 top-1 h-[42px] w-auto lg:h-[48px]"
-                    fill="none"
-                  >
-                    <path
-                      d="M8 36 C20 32 28 20 40 12 C48 7 56 5 64 4"
-                      stroke="#f5b301"
-                      strokeWidth="4"
-                      strokeLinecap="round"
-                    />
-                    <path
-                      d="M56 2 L66 3 L62 12"
-                      stroke="#f5b301"
-                      strokeWidth="4"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
-                </div>
+                <Image
+                  src="/images/hero-growth-chart.png"
+                  alt=""
+                  width={280}
+                  height={290}
+                  className="h-auto w-full drop-shadow-[0_14px_28px_rgba(0,24,72,0.28)]"
+                />
               </div>
 
               {/* Funding Approved — top right */}
