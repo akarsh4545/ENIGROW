@@ -9,10 +9,6 @@ export const homeContent = {
       src: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=2000&q=80",
       alt: "Business planning desk with charts and notebook",
     },
-    stories: {
-      src: "https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=1400&q=80",
-      alt: "Team collaborating in a bright office",
-    },
   },
   hero: {
     headline: "Clarity for every business decision that follows.",

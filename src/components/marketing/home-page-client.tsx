@@ -8,7 +8,6 @@ import {
   FundingFinderPopup,
   wasFundingFinderDismissed,
 } from "@/components/marketing/funding-finder-popup";
-import { HomeAtmosphereBand } from "@/components/marketing/home-atmosphere-band";
 import { HomeFundingHero } from "@/components/marketing/home-funding-hero";
 import { HomeImpact } from "@/components/marketing/home-impact";
 import { HomeProcess } from "@/components/marketing/home-process";
@@ -37,7 +36,6 @@ export function HomePageClient() {
       <HomeSchemeSupport />
       <HomeServices />
       <HomeSchemes />
-      <HomeAtmosphereBand />
       <HomeProcess />
       <HomeSuccessStories />
       <HomeImpact />
