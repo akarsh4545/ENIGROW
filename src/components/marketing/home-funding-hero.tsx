@@ -1,9 +1,20 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
-import { ArrowRight } from "lucide-react";
+import { motion, useReducedMotion } from "framer-motion";
+import {
+  ArrowRight,
+  ArrowUpRight,
+  BarChart3,
+  CalendarDays,
+  CheckCircle2,
+  Coins,
+  Headset,
+  Percent,
+  Star,
+  TrendingUp,
+} from "lucide-react";
 
 import { buttonVariants } from "@/components/ui/button-variants";
 import { homeCtaClass, homeEase } from "@/components/marketing/home-motion";
@@ -11,20 +22,20 @@ import { homeContent } from "@/data/home";
 import { ROUTES } from "@/constants/routes";
 import { cn } from "@/lib/utils";
 
-const ROTATING_LINES = [
-  "Into Funded Growth.",
-  "Into Scheme Clarity.",
-  "Into Faster Approvals.",
-] as const;
+const HERO_PHOTO = {
+  src: "/images/hero-entrepreneur.jpg",
+  alt: "Indian entrepreneur in a navy blazer working on a laptop in a modern office",
+} as const;
 
 export function HomeFundingHero({
-  onCheckEligibility,
+  onCheckEligibility: _onCheckEligibility,
 }: {
+  /** Kept for API compatibility; eligibility stays in navbar / visit popup — not in hero CTAs. */
   onCheckEligibility?: () => void;
 }) {
+  void _onCheckEligibility;
   const reduceMotion = useReducedMotion();
   const { schemeSupport } = homeContent;
-  const [lineIndex, setLineIndex] = useState(0);
 
   const fundingRange =
     schemeSupport.metrics.find((m) => /funding/i.test(m.label))?.value ??
@@ -38,252 +49,318 @@ export function HomeFundingHero({
     schemeSupport.metrics.find((m) => /pmegp/i.test(m.label))?.value ??
     "15–35%";
 
-  useEffect(() => {
-    if (reduceMotion) return;
-    const id = window.setInterval(() => {
-      setLineIndex((i) => (i + 1) % ROTATING_LINES.length);
-    }, 3200);
-    return () => window.clearInterval(id);
-  }, [reduceMotion]);
-
-  const primaryCtaClass = cn(
-    buttonVariants({ size: "lg" }),
-    homeCtaClass,
-    "h-12 bg-[#c08418] px-7 text-base text-[#1a1408] hover:bg-[#c08418]/90",
-  );
-
-  const supportMetrics = [
+  const metrics = [
+    {
+      value: fundingRange,
+      label: "Funding Support",
+      icon: Coins,
+      iconClass: "text-[#c08418] bg-[#c08418]/10",
+    },
     {
       value: `Up to ${cgtmse}`,
       label: "CGTMSE Coverage",
+      icon: BarChart3,
+      iconClass: "text-[#2563eb] bg-[#2563eb]/10",
     },
     {
       value: pmegp,
       label: "PMEGP Subsidy",
+      icon: Percent,
+      iconClass: "text-[#7c3aed] bg-[#7c3aed]/10",
     },
     {
       value: processing,
-      label: "Typical Timeline",
+      label: "Quick Turnaround",
+      icon: CalendarDays,
+      iconClass: "text-[#5b6577] bg-[#5b6577]/10",
     },
   ] as const;
 
+  const verificationItems = [
+    { label: "MSME Registration", status: "Verified" },
+    { label: "Business Documents", status: "Verified" },
+    { label: "KYC Verification", status: "Completed" },
+    { label: "Loan Eligibility", status: "Approved" },
+  ] as const;
+
   return (
-    <section className="relative isolate overflow-hidden bg-[#020817]">
-      <motion.div
+    <section className="relative isolate overflow-hidden border-b border-[#e2e6ef] bg-white">
+      <div
         aria-hidden
         className="pointer-events-none absolute inset-0"
         style={{
           background:
-            "radial-gradient(ellipse 70% 55% at 15% 20%, rgba(0,24,72,0.95), transparent 60%), radial-gradient(ellipse 55% 50% at 85% 30%, rgba(192,132,24,0.16), transparent 55%)",
+            "linear-gradient(165deg, #ffffff 0%, #f7f8fc 48%, #eef0fa 100%)",
         }}
-        animate={
-          reduceMotion
-            ? undefined
-            : {
-                background: [
-                  "radial-gradient(ellipse 70% 55% at 15% 20%, rgba(0,24,72,0.95), transparent 60%), radial-gradient(ellipse 55% 50% at 85% 30%, rgba(192,132,24,0.14), transparent 55%)",
-                  "radial-gradient(ellipse 70% 55% at 18% 24%, rgba(0,24,72,0.95), transparent 60%), radial-gradient(ellipse 55% 50% at 82% 28%, rgba(192,132,24,0.22), transparent 55%)",
-                  "radial-gradient(ellipse 70% 55% at 15% 20%, rgba(0,24,72,0.95), transparent 60%), radial-gradient(ellipse 55% 50% at 85% 30%, rgba(192,132,24,0.14), transparent 55%)",
-                ],
-              }
-        }
-        transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
       />
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 opacity-[0.06]"
-        style={{
-          backgroundImage:
-            "linear-gradient(rgba(255,255,255,0.45) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.45) 1px, transparent 1px)",
-          backgroundSize: "48px 48px",
-          maskImage:
-            "radial-gradient(ellipse at 75% 35%, black 8%, transparent 68%)",
-        }}
+        className="pointer-events-none absolute top-[-12%] right-[2%] size-[28rem] rounded-full bg-[#6366f1]/[0.08] blur-3xl"
       />
-      {!reduceMotion ? (
-        <motion.div
-          aria-hidden
-          className="pointer-events-none absolute top-[18%] right-[12%] size-3 rounded-full bg-[#c08418]/70"
-          animate={{ y: [0, -14, 0], opacity: [0.45, 0.9, 0.45] }}
-          transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut" }}
-        />
-      ) : null}
 
-      <div className="relative mx-auto grid w-full max-w-6xl items-center gap-10 px-4 py-14 sm:px-6 sm:py-20 lg:grid-cols-[1.05fr_0.95fr] lg:gap-14 lg:py-24">
-        <div className="max-w-xl">
-          <motion.p
-            className="font-heading text-3xl font-bold tracking-tight text-white sm:text-4xl"
-            initial={reduceMotion ? false : { opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.55, ease: homeEase }}
-          >
-            ENIGROW
-          </motion.p>
-          <motion.p
-            className="mt-2 text-sm font-semibold tracking-[0.2em] text-[#c08418] uppercase"
-            initial={reduceMotion ? false : { opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.04, ease: homeEase }}
-          >
-            Business funding &amp; growth
-          </motion.p>
-
-          <motion.h1
-            className="font-heading mt-4 text-[2.45rem] leading-[1.08] font-bold tracking-tight text-balance text-white sm:text-5xl md:text-[3.35rem] md:leading-[1.05]"
-            initial={reduceMotion ? false : { opacity: 0, y: 18 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.65, delay: 0.08, ease: homeEase }}
-          >
-            Turn Your Business Ambition
-            <span className="mt-1 block min-h-[1.15em] text-[#c08418]">
-              <AnimatePresence mode="wait">
-                <motion.span
-                  key={ROTATING_LINES[lineIndex]}
-                  className="inline-block"
-                  initial={reduceMotion ? false : { opacity: 0, y: 12 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={reduceMotion ? undefined : { opacity: 0, y: -10 }}
-                  transition={{ duration: 0.4, ease: homeEase }}
-                >
-                  {ROTATING_LINES[lineIndex]}
-                </motion.span>
-              </AnimatePresence>
-            </span>
-          </motion.h1>
-
-          <motion.p
-            className="mt-5 max-w-lg text-base leading-relaxed text-white/65 sm:text-lg"
-            initial={reduceMotion ? false : { opacity: 0, y: 14 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.55, delay: 0.14, ease: homeEase }}
-          >
-            Funding routes, government schemes, registrations, and compliance —
-            guided so you move from ambition to approval with less guesswork.
-          </motion.p>
-
+      <div className="relative mx-auto w-full max-w-6xl px-4 pt-10 pb-8 sm:px-6 sm:pt-12 sm:pb-10 lg:pt-14 lg:pb-12">
+        {/*
+          Exact reference composition: copy left, landscape photo right with
+          soft left fade, floating cards, metrics bar below.
+        */}
+        <div className="relative flex flex-col gap-8 lg:block lg:min-h-[440px] xl:min-h-[480px]">
+          {/* Photo plane */}
           <motion.div
-            className="mt-8 flex flex-wrap items-center gap-3"
-            initial={reduceMotion ? false : { opacity: 0, y: 14 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.55, delay: 0.2, ease: homeEase }}
+            className="relative order-2 aspect-[16/10] w-full sm:aspect-[16/9] lg:absolute lg:inset-y-0 lg:right-0 lg:left-[38%] lg:order-none lg:aspect-auto xl:left-[36%]"
+            initial={reduceMotion ? false : { opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.6, ease: homeEase }}
           >
-            {onCheckEligibility ? (
-              <button
-                type="button"
-                onClick={onCheckEligibility}
-                className={cn(primaryCtaClass, "group/button")}
-              >
-                Check Eligibility
-                <ArrowRight className="size-4 transition duration-200 group-hover/button:translate-x-1" />
-              </button>
-            ) : (
-              <Link
-                href={ROUTES.eligibility}
-                className={cn(primaryCtaClass, "group/button")}
-              >
-                Check Eligibility
-                <ArrowRight className="size-4 transition duration-200 group-hover/button:translate-x-1" />
-              </Link>
-            )}
-            <Link
-              href={ROUTES.funding}
-              className={cn(
-                buttonVariants({ size: "lg", variant: "outline" }),
-                homeCtaClass,
-                "h-12 border-white/25 bg-transparent px-6 text-base text-white hover:border-white/40 hover:bg-white/10 hover:text-white",
-              )}
+            <div className="absolute inset-0 overflow-hidden">
+              <Image
+                src={HERO_PHOTO.src}
+                alt={HERO_PHOTO.alt}
+                fill
+                priority
+                sizes="(max-width: 1024px) 100vw, 62vw"
+                className="object-cover object-[72%_28%]"
+              />
+              <div
+                aria-hidden
+                className="pointer-events-none absolute inset-y-0 left-0 w-[36%] bg-gradient-to-r from-[#f7f8fc] via-[#f7f8fc]/80 to-transparent lg:w-[42%]"
+              />
+              <div
+                aria-hidden
+                className="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-[#eef0fa]/70 to-transparent"
+              />
+            </div>
+
+            {/* Mini growth chart */}
+            <div
+              aria-hidden
+              className="absolute bottom-[30%] left-[26%] z-[3] hidden rounded-xl bg-white p-2.5 shadow-[0_12px_30px_-14px_rgba(0,24,72,0.3)] ring-1 ring-black/[0.04] sm:block lg:left-[24%]"
             >
-              Explore Business Funding
-            </Link>
-          </motion.div>
-        </div>
+              <div className="flex items-end gap-1">
+                {[14, 20, 16, 26, 22, 32].map((h, i) => (
+                  <span
+                    key={i}
+                    className="w-1.5 rounded-t-sm bg-[#3b82f6]"
+                    style={{ height: h }}
+                  />
+                ))}
+                <TrendingUp className="mb-0.5 ml-0.5 size-3.5 text-[#c08418]" />
+              </div>
+            </div>
 
-        <motion.div
-          className="relative mx-auto w-full max-w-md lg:max-w-none"
-          initial={reduceMotion ? false : { opacity: 0, y: 22 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.65, delay: 0.14, ease: homeEase }}
-        >
-          <motion.div
-            aria-hidden
-            className="pointer-events-none absolute -inset-4 opacity-30"
-            animate={
-              reduceMotion
-                ? undefined
-                : { opacity: [0.22, 0.38, 0.22], y: [0, -6, 0] }
-            }
-            transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-          >
-            <svg viewBox="0 0 420 280" className="h-full w-full">
-              <defs>
-                <linearGradient id="heroPolishFill" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stopColor="#c08418" stopOpacity="0.3" />
-                  <stop offset="100%" stopColor="#c08418" stopOpacity="0" />
-                </linearGradient>
-              </defs>
-              <path
-                d="M20 220 C90 210 120 170 180 150 C240 130 270 160 320 100 C360 55 390 70 400 50 L400 260 L20 260 Z"
-                fill="url(#heroPolishFill)"
-              />
-              <path
-                d="M20 220 C90 210 120 170 180 150 C240 130 270 160 320 100 C360 55 390 70 400 50"
-                fill="none"
-                stroke="#c08418"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeOpacity="0.7"
-              />
-            </svg>
-          </motion.div>
-
-          <div className="relative z-[1] space-y-4">
+            {/* Funding Approved */}
             <motion.div
-              className="overflow-hidden rounded-[1.5rem] border border-white/15 bg-gradient-to-br from-[#001848] to-[#0a2a6e] p-6 shadow-[0_28px_60px_-28px_rgba(0,0,0,0.65)] sm:p-7"
-              animate={
-                reduceMotion
-                  ? undefined
-                  : {
-                      boxShadow: [
-                        "0 28px 60px -28px rgba(0,0,0,0.65)",
-                        "0 28px 70px -24px rgba(192,132,24,0.28)",
-                        "0 28px 60px -28px rgba(0,0,0,0.65)",
-                      ],
-                    }
-              }
-              transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+              className="absolute top-[5%] right-[2%] z-[4] w-[158px] rounded-2xl bg-white p-3 shadow-[0_16px_40px_-16px_rgba(0,24,72,0.32)] ring-1 ring-black/[0.05] sm:w-[180px] sm:p-3.5 lg:top-[6%] lg:right-[4%]"
+              animate={reduceMotion ? undefined : { y: [0, -4, 0] }}
+              transition={{
+                duration: 5.5,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
             >
-              <p className="font-heading text-4xl font-bold tracking-tight text-white sm:text-[2.75rem]">
-                {fundingRange}
+              <div className="flex items-start justify-between gap-2">
+                <p className="flex items-center gap-1.5 text-[10px] font-semibold tracking-[0.08em] text-[#16a34a] uppercase">
+                  <CheckCircle2 className="size-3.5 shrink-0" aria-hidden />
+                  Funding Approved
+                </p>
+                <TrendingUp
+                  className="size-3.5 shrink-0 text-[#6366f1]"
+                  aria-hidden
+                />
+              </div>
+              <p className="font-heading mt-1.5 text-xl font-bold tracking-tight text-[#001848]">
+                ₹25,00,000
               </p>
-              <p className="mt-2 text-[11px] font-semibold tracking-[0.18em] text-[#c08418] uppercase">
-                Funding Range
+              <p className="mt-0.5 text-[11px] font-medium text-[#5b6577]">
+                Business Expansion Loan
               </p>
+              <svg viewBox="0 0 140 32" className="mt-2 h-7 w-full" aria-hidden>
+                <path
+                  d="M2 26 C20 24 32 14 48 12 C68 9 82 20 102 10 C116 4 128 8 138 6 L138 32 L2 32 Z"
+                  fill="#6366f1"
+                  opacity="0.12"
+                />
+                <path
+                  d="M2 26 C20 24 32 14 48 12 C68 9 82 20 102 10 C116 4 128 8 138 6"
+                  fill="none"
+                  stroke="#6366f1"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                />
+              </svg>
             </motion.div>
 
-            <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-3 sm:gap-3">
-              {supportMetrics.map((metric, index) => (
-                <motion.div
-                  key={metric.label}
-                  className="rounded-[1.15rem] border border-white/10 bg-white px-3.5 py-3 shadow-[0_14px_36px_-20px_rgba(0,0,0,0.4)] sm:rounded-[1.2rem] sm:px-4 sm:py-3.5"
-                  initial={reduceMotion ? false : { opacity: 0, y: 12 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{
-                    duration: 0.45,
-                    delay: 0.28 + index * 0.07,
-                    ease: homeEase,
-                  }}
-                  whileHover={reduceMotion ? undefined : { y: -3 }}
-                >
-                  <p className="font-heading text-lg font-bold tracking-tight text-[#001848] sm:text-xl">
-                    {metric.value}
-                  </p>
-                  <p className="mt-1 text-[10px] font-semibold tracking-[0.08em] text-[#5b6577] uppercase sm:text-[11px]">
-                    {metric.label}
-                  </p>
-                </motion.div>
-              ))}
-            </div>
+            {/* Verification Status */}
+            <motion.div
+              className="absolute top-[36%] right-[1%] z-[4] hidden w-[178px] rounded-2xl bg-white p-3 shadow-[0_14px_36px_-16px_rgba(0,24,72,0.28)] ring-1 ring-black/[0.05] sm:block sm:w-[190px] sm:p-3.5 lg:right-[2%]"
+              animate={reduceMotion ? undefined : { y: [0, 3, 0] }}
+              transition={{
+                duration: 6,
+                repeat: Infinity,
+                ease: "easeInOut",
+                delay: 0.4,
+              }}
+            >
+              <p className="text-sm font-bold text-[#001848]">
+                Verification Status
+              </p>
+              <ul className="mt-2 space-y-1.5">
+                {verificationItems.map((item) => (
+                  <li
+                    key={item.label}
+                    className="flex items-center justify-between gap-2 text-[10px] sm:text-[11px]"
+                  >
+                    <span className="font-medium text-[#0b1220]">
+                      {item.label}
+                    </span>
+                    <span className="inline-flex items-center gap-1 font-semibold text-[#16a34a]">
+                      {item.status}
+                      <CheckCircle2 className="size-3" aria-hidden />
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </motion.div>
+
+            {/* Growth Partner */}
+            <motion.div
+              className="absolute right-[3%] bottom-[5%] z-[4] flex w-[min(92%,248px)] items-center gap-2.5 rounded-2xl bg-gradient-to-r from-[#001848] to-[#1e3a6e] p-3 text-white shadow-[0_16px_40px_-18px_rgba(0,24,72,0.45)] sm:p-3.5"
+              animate={reduceMotion ? undefined : { y: [0, -2.5, 0] }}
+              transition={{
+                duration: 5.8,
+                repeat: Infinity,
+                ease: "easeInOut",
+                delay: 0.7,
+              }}
+            >
+              <div className="relative size-9 shrink-0 overflow-hidden rounded-lg bg-white/10 p-1">
+                <Image
+                  src="/brand/enigrow-logo.png"
+                  alt=""
+                  width={36}
+                  height={36}
+                  className="size-full object-contain"
+                />
+              </div>
+              <div className="min-w-0 flex-1">
+                <p className="text-xs font-bold">Your Growth Partner</p>
+                <p className="mt-0.5 text-[10px] leading-snug text-white/70 sm:text-[11px]">
+                  From Registration to Funding, We&apos;ve Got You Covered!
+                </p>
+              </div>
+              <span className="grid size-7 shrink-0 place-items-center rounded-full bg-white/15">
+                <ArrowUpRight className="size-3.5" aria-hidden />
+              </span>
+            </motion.div>
+          </motion.div>
+
+          {/* Copy */}
+          <div className="relative z-[2] order-1 max-w-xl pt-1 lg:max-w-[42%] lg:pt-8 xl:pt-12">
+            <motion.p
+              className="inline-flex items-center gap-2 rounded-full border border-[#001848]/10 bg-[#eef0fa] px-3.5 py-1.5 text-xs font-semibold text-[#001848] shadow-[0_8px_24px_-18px_rgba(0,24,72,0.3)]"
+              initial={reduceMotion ? false : { opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.45, ease: homeEase }}
+            >
+              <Star
+                className="size-3.5 fill-[#c08418] text-[#c08418]"
+                aria-hidden
+              />
+              Trusted by 5000+ Businesses Across India
+            </motion.p>
+
+            <motion.h1
+              className="font-heading mt-5 text-[2.4rem] leading-[1.08] font-bold tracking-tight text-balance text-[#001848] sm:text-5xl md:text-[3.25rem] md:leading-[1.05]"
+              initial={reduceMotion ? false : { opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.55, delay: 0.05, ease: homeEase }}
+            >
+              Turn Your Business Ambition Into{" "}
+              <span className="text-[#c08418]">Funded</span>{" "}
+              <span className="text-[#7c3aed]">Growth.</span>
+            </motion.h1>
+
+            <motion.p
+              className="mt-5 max-w-lg text-base leading-relaxed text-[#5b6577] sm:text-lg"
+              initial={reduceMotion ? false : { opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.1, ease: homeEase }}
+            >
+              ENIGROW helps Indian businesses unlock the right opportunities,
+              registrations, and funding to grow faster and stronger.
+            </motion.p>
+
+            <motion.div
+              className="mt-8 flex flex-wrap items-center gap-3"
+              initial={reduceMotion ? false : { opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.16, ease: homeEase }}
+            >
+              <Link
+                href={ROUTES.funding}
+                className={cn(
+                  buttonVariants({ size: "lg" }),
+                  homeCtaClass,
+                  "group/button h-12 rounded-full bg-[#001848] px-7 text-base text-white hover:bg-[#0a2a6e]",
+                )}
+              >
+                Explore Funding Options
+                <span className="ml-1 grid size-6 place-items-center rounded-full bg-white/15">
+                  <ArrowRight className="size-3.5 transition duration-200 group-hover/button:translate-x-0.5" />
+                </span>
+              </Link>
+              <Link
+                href={ROUTES.contact}
+                className={cn(
+                  buttonVariants({ size: "lg", variant: "outline" }),
+                  homeCtaClass,
+                  "h-12 rounded-full border-[#001848]/25 bg-white px-6 text-base text-[#001848] hover:border-[#001848]/40 hover:bg-white",
+                )}
+              >
+                <Headset className="size-4 text-[#001848]" aria-hidden />
+                Talk to an Expert
+              </Link>
+            </motion.div>
           </div>
+        </div>
+
+        {/* Metrics bar */}
+        <motion.div
+          className="relative z-[2] mt-8 rounded-2xl border border-[#e2e6ef]/90 bg-white p-4 shadow-[0_16px_40px_-24px_rgba(0,24,72,0.28)] sm:mt-10 sm:p-5"
+          initial={reduceMotion ? false : { opacity: 0, y: 14 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.28, ease: homeEase }}
+        >
+          <dl className="grid grid-cols-2 gap-4 lg:grid-cols-4 lg:gap-0">
+            {metrics.map((metric, index) => {
+              const Icon = metric.icon;
+              return (
+                <div
+                  key={metric.label}
+                  className={cn(
+                    "flex items-center gap-3 px-1 sm:px-3 lg:px-5",
+                    index > 0 && "lg:border-l lg:border-[#e2e6ef]",
+                  )}
+                >
+                  <span
+                    className={cn(
+                      "grid size-10 shrink-0 place-items-center rounded-xl",
+                      metric.iconClass,
+                    )}
+                  >
+                    <Icon className="size-4.5" aria-hidden />
+                  </span>
+                  <div className="min-w-0">
+                    <dd className="font-heading text-base font-bold tracking-tight text-[#001848] sm:text-lg">
+                      {metric.value}
+                    </dd>
+                    <dt className="mt-0.5 text-[11px] font-medium text-[#5b6577] sm:text-xs">
+                      {metric.label}
+                    </dt>
+                  </div>
+                </div>
+              );
+            })}
+          </dl>
         </motion.div>
       </div>
     </section>
