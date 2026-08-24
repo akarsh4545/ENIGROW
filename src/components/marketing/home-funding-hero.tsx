@@ -24,43 +24,8 @@ import { cn } from "@/lib/utils";
 
 const HERO_PHOTO = {
   src: "/images/hero-entrepreneur.jpg",
-  alt: "Indian entrepreneur in a navy suit working on a laptop in a modern office",
+  alt: "Indian entrepreneur in a navy blazer working on a laptop in a modern office",
 } as const;
-
-function IndiaMapWatermark({ className }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 200 240" className={className} aria-hidden fill="none">
-      <path
-        d="M98 18 C108 22 118 28 124 40 C132 56 138 62 148 68 C156 74 162 86 158 98 C154 108 160 118 166 128 C172 140 168 152 158 158 C150 162 146 172 148 184 C150 196 142 208 128 214 C116 218 108 226 98 228 C88 226 80 218 68 214 C54 208 46 196 48 184 C50 172 46 162 38 158 C28 152 24 140 30 128 C36 118 42 108 38 98 C34 86 40 74 48 68 C58 62 64 56 72 40 C78 28 88 22 98 18 Z"
-        stroke="rgba(0,24,72,0.08)"
-        strokeWidth="2"
-        fill="rgba(0,24,72,0.03)"
-      />
-    </svg>
-  );
-}
-
-function GrowthBars({ className }: { className?: string }) {
-  return (
-    <div className={cn("flex items-end gap-1.5", className)} aria-hidden>
-      {[28, 40, 34, 52, 46, 64, 58, 78].map((h, i) => (
-        <motion.span
-          key={i}
-          className="w-2 origin-bottom rounded-t-sm bg-[#3b82f6]/70 sm:w-2.5"
-          style={{ height: h }}
-          initial={{ scaleY: 0 }}
-          animate={{ scaleY: 1 }}
-          transition={{
-            duration: 0.55,
-            delay: 0.45 + i * 0.04,
-            ease: homeEase,
-          }}
-        />
-      ))}
-      <TrendingUp className="mb-1 ml-1 size-5 text-[#c08418]" />
-    </div>
-  );
-}
 
 export function HomeFundingHero({
   onCheckEligibility: _onCheckEligibility,
@@ -120,26 +85,27 @@ export function HomeFundingHero({
 
   return (
     <section className="relative isolate overflow-hidden border-b border-[#e2e6ef]">
+      {/* Page background only — never painted over the person */}
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0"
         style={{
           background:
-            "linear-gradient(160deg, #ffffff 0%, #f8f7fc 42%, #eef0fa 78%, #e8ebf8 100%)",
+            "linear-gradient(160deg, #ffffff 0%, #f8f7fc 45%, #eef0fa 100%)",
         }}
       />
       <div
         aria-hidden
-        className="pointer-events-none absolute top-[-10%] right-[5%] size-[32rem] rounded-full bg-[#6366f1]/[0.08] blur-3xl"
+        className="pointer-events-none absolute top-[-8%] right-[0%] size-[28rem] rounded-full bg-[#6366f1]/[0.09] blur-3xl"
       />
       <div
         aria-hidden
-        className="pointer-events-none absolute bottom-[5%] left-[-8%] size-[26rem] rounded-full bg-[#001848]/[0.05] blur-3xl"
+        className="pointer-events-none absolute bottom-[8%] left-[-10%] size-[22rem] rounded-full bg-[#001848]/[0.04] blur-3xl"
       />
 
       <div className="relative mx-auto w-full max-w-6xl px-4 pt-12 pb-8 sm:px-6 sm:pt-14 sm:pb-10 lg:pt-16 lg:pb-12">
-        <div className="grid items-center gap-8 lg:grid-cols-[1fr_1.05fr] lg:gap-8 xl:gap-10">
-          {/* LEFT */}
+        <div className="grid items-center gap-10 lg:grid-cols-[0.95fr_1.15fr] lg:gap-6 xl:gap-8">
+          {/* LEFT — unchanged structure */}
           <div className="relative z-[2] max-w-xl">
             <motion.p
               className="inline-flex items-center gap-2 rounded-full border border-[#001848]/8 bg-[#eef0fa]/90 px-3.5 py-1.5 text-xs font-semibold text-[#001848] shadow-[0_8px_24px_-18px_rgba(0,24,72,0.35)]"
@@ -207,119 +173,118 @@ export function HomeFundingHero({
             </motion.div>
           </div>
 
-          {/* RIGHT — photo + cards */}
+          {/* RIGHT — crisp foreground photo + cards around (not over) the face */}
           <motion.div
-            className="relative z-[1] mx-auto w-full max-w-md sm:max-w-lg lg:max-w-none"
-            initial={reduceMotion ? false : { opacity: 0, y: 18 }}
+            className="relative z-[1] w-full min-w-0"
+            initial={reduceMotion ? false : { opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.65, delay: 0.08, ease: homeEase }}
+            transition={{ duration: 0.6, delay: 0.08, ease: homeEase }}
           >
-            <div className="relative mx-auto aspect-[5/6] w-full max-w-[500px] lg:ml-auto lg:max-w-[520px]">
-              <IndiaMapWatermark className="pointer-events-none absolute top-[8%] right-[2%] h-[70%] w-auto opacity-90" />
-
+            <div className="relative mx-auto w-full max-w-[560px] lg:mr-0 lg:ml-auto lg:max-w-none">
+              {/* Soft glow behind photo only */}
               <div
                 aria-hidden
-                className="pointer-events-none absolute top-[12%] right-[8%] left-[12%] h-[70%] rounded-full bg-[#6366f1]/[0.12] blur-3xl"
+                className="pointer-events-none absolute top-[8%] right-[10%] left-[10%] h-[75%] rounded-full bg-[#6366f1]/[0.14] blur-3xl"
               />
 
-              {/* Soft growth bars behind shoulder area */}
-              <div className="pointer-events-none absolute top-[38%] right-[6%] z-[1] hidden opacity-90 sm:block">
-                <GrowthBars />
-              </div>
-
-              {/* Photo with soft edge blend — no navy box */}
-              <div className="absolute inset-0 overflow-hidden">
+              {/*
+                Foreground image: real <Image>, full contrast, NO white overlay.
+                Sized as the main visual — not a faded background fill.
+              */}
+              <div className="relative z-[2] mx-auto w-[92%] sm:w-[88%] lg:w-[86%]">
                 <Image
                   src={HERO_PHOTO.src}
                   alt={HERO_PHOTO.alt}
-                  fill
+                  width={720}
+                  height={900}
                   priority
-                  sizes="(max-width: 1024px) 90vw, 520px"
-                  className="object-cover object-[center_15%]"
-                />
-                <div
-                  aria-hidden
-                  className="pointer-events-none absolute inset-0"
-                  style={{
-                    background: `
-                      linear-gradient(90deg, #f8f7fc 0%, rgba(248,247,252,0.75) 10%, transparent 32%),
-                      linear-gradient(270deg, #eef0fa 0%, rgba(238,240,250,0.45) 8%, transparent 28%),
-                      linear-gradient(180deg, #f8f7fc 0%, transparent 16%),
-                      linear-gradient(0deg, #eef0fa 0%, rgba(238,240,250,0.9) 10%, transparent 36%)
-                    `,
-                  }}
+                  sizes="(max-width: 1024px) 90vw, 560px"
+                  className="h-auto w-full object-contain object-bottom drop-shadow-[0_28px_50px_-28px_rgba(0,24,72,0.45)]"
                 />
               </div>
 
-              {/* Funding Approved — top right */}
+              {/* Small growth chart — beside shoulder, not across face */}
+              <div
+                aria-hidden
+                className="pointer-events-none absolute top-[28%] right-[2%] z-[3] hidden rounded-xl bg-white/90 p-2 shadow-[0_10px_28px_-14px_rgba(0,24,72,0.3)] ring-1 ring-black/[0.04] sm:block"
+              >
+                <div className="flex items-end gap-1">
+                  {[14, 20, 17, 26, 22, 32].map((h, i) => (
+                    <span
+                      key={i}
+                      className="w-1.5 rounded-t-sm bg-[#3b82f6]/75"
+                      style={{ height: h }}
+                    />
+                  ))}
+                  <TrendingUp className="mb-0.5 ml-0.5 size-3.5 text-[#c08418]" />
+                </div>
+              </div>
+
+              {/* Funding Approved — top-right, clear of face */}
               <motion.div
-                className="absolute top-[4%] right-0 z-[3] w-[min(92%,210px)] rounded-2xl bg-white p-3 shadow-[0_16px_40px_-16px_rgba(0,24,72,0.28)] ring-1 ring-black/[0.04] sm:top-[6%] sm:right-[-2%] sm:w-[228px] sm:p-3.5"
-                initial={reduceMotion ? false : { opacity: 0, y: 14 }}
+                className="absolute top-2 right-0 z-[4] w-[180px] rounded-2xl bg-white/95 p-3 shadow-[0_16px_40px_-16px_rgba(0,24,72,0.3)] ring-1 ring-black/[0.05] backdrop-blur-sm sm:top-4 sm:right-0 sm:w-[200px] sm:p-3.5"
+                initial={reduceMotion ? false : { opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.32, ease: homeEase }}
+                transition={{ duration: 0.45, delay: 0.3, ease: homeEase }}
               >
                 <motion.div
-                  animate={reduceMotion ? undefined : { y: [0, -4, 0] }}
+                  animate={reduceMotion ? undefined : { y: [0, -3, 0] }}
                   transition={{
                     duration: 5.5,
                     repeat: Infinity,
                     ease: "easeInOut",
                   }}
                 >
-                  <div className="flex items-start justify-between gap-2">
-                    <div>
-                      <p className="flex items-center gap-1.5 text-[10px] font-semibold tracking-[0.12em] text-[#16a34a] uppercase">
-                        <CheckCircle2 className="size-3.5" aria-hidden />
-                        Funding Approved
-                      </p>
-                      <p className="font-heading mt-1.5 text-xl font-bold tracking-tight text-[#001848] sm:text-2xl">
-                        ₹25,00,000
-                      </p>
-                      <p className="mt-0.5 text-[11px] font-medium text-[#5b6577]">
-                        Business Expansion Loan
-                      </p>
-                    </div>
-                    <svg
-                      viewBox="0 0 56 36"
-                      className="mt-1 h-8 w-12 shrink-0"
-                      aria-hidden
-                    >
-                      <path
-                        d="M2 28 C12 26 18 18 26 16 C34 14 40 22 48 8 L54 4"
-                        fill="none"
-                        stroke="#3b82f6"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                      />
-                    </svg>
-                  </div>
+                  <p className="flex items-center gap-1.5 text-[10px] font-semibold tracking-[0.12em] text-[#16a34a] uppercase">
+                    <CheckCircle2 className="size-3.5 shrink-0" aria-hidden />
+                    Funding Approved
+                  </p>
+                  <p className="font-heading mt-1.5 text-xl font-bold tracking-tight text-[#001848]">
+                    ₹25,00,000
+                  </p>
+                  <p className="mt-0.5 text-[11px] font-medium text-[#5b6577]">
+                    Business Expansion Loan
+                  </p>
+                  <svg
+                    viewBox="0 0 120 28"
+                    className="mt-2 h-6 w-full"
+                    aria-hidden
+                  >
+                    <path
+                      d="M2 22 C18 20 28 12 42 11 C58 9 70 18 88 8 C100 2 110 6 118 4"
+                      fill="none"
+                      stroke="#3b82f6"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                    />
+                  </svg>
                 </motion.div>
               </motion.div>
 
-              {/* Verification Status — mid right */}
+              {/* Verification — lower right, torso/desk only */}
               <motion.div
-                className="absolute top-[42%] right-0 z-[3] hidden w-[220px] rounded-2xl bg-white p-3 shadow-[0_14px_36px_-16px_rgba(0,24,72,0.26)] ring-1 ring-black/[0.04] sm:right-[-4%] sm:block sm:w-[236px] sm:p-3.5 md:top-[40%]"
-                initial={reduceMotion ? false : { opacity: 0, y: 12 }}
+                className="absolute right-0 bottom-[22%] z-[4] hidden w-[200px] rounded-2xl bg-white/95 p-3 shadow-[0_14px_36px_-16px_rgba(0,24,72,0.28)] ring-1 ring-black/[0.05] backdrop-blur-sm sm:bottom-[20%] sm:block sm:w-[210px] sm:p-3.5 lg:right-[-2%]"
+                initial={reduceMotion ? false : { opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.42, ease: homeEase }}
+                transition={{ duration: 0.45, delay: 0.4, ease: homeEase }}
               >
                 <motion.div
-                  animate={reduceMotion ? undefined : { y: [0, 3, 0] }}
+                  animate={reduceMotion ? undefined : { y: [0, 2.5, 0] }}
                   transition={{
                     duration: 6,
                     repeat: Infinity,
                     ease: "easeInOut",
-                    delay: 0.4,
+                    delay: 0.35,
                   }}
                 >
                   <p className="text-sm font-bold text-[#001848]">
                     Verification Status
                   </p>
-                  <ul className="mt-2.5 space-y-2">
+                  <ul className="mt-2 space-y-1.5">
                     {verificationItems.map((item) => (
                       <li
                         key={item.label}
-                        className="flex items-center justify-between gap-2 text-[11px]"
+                        className="flex items-center justify-between gap-2 text-[10px] sm:text-[11px]"
                       >
                         <span className="font-medium text-[#0b1220]">
                           {item.label}
@@ -334,21 +299,21 @@ export function HomeFundingHero({
                 </motion.div>
               </motion.div>
 
-              {/* Growth Partner — bottom */}
+              {/* Growth Partner — bottom edge of photo */}
               <motion.div
-                className="absolute bottom-[4%] left-[4%] z-[3] flex w-[min(94%,250px)] items-start gap-2.5 rounded-2xl bg-gradient-to-br from-[#001848] to-[#1e3a6e] p-3 text-white shadow-[0_16px_40px_-18px_rgba(0,24,72,0.45)] sm:bottom-[3%] sm:left-[6%] sm:w-[260px] sm:p-3.5"
-                initial={reduceMotion ? false : { opacity: 0, y: 12 }}
+                className="absolute bottom-1 left-[4%] z-[4] flex w-[min(92%,250px)] items-start gap-2.5 rounded-2xl bg-gradient-to-br from-[#001848] to-[#1e3a6e] p-3 text-white shadow-[0_16px_40px_-18px_rgba(0,24,72,0.45)] sm:bottom-2 sm:left-[6%] sm:w-[255px] sm:p-3.5"
+                initial={reduceMotion ? false : { opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.52, ease: homeEase }}
+                transition={{ duration: 0.45, delay: 0.48, ease: homeEase }}
               >
                 <motion.div
                   className="flex w-full items-start gap-2.5"
-                  animate={reduceMotion ? undefined : { y: [0, -3, 0] }}
+                  animate={reduceMotion ? undefined : { y: [0, -2.5, 0] }}
                   transition={{
                     duration: 5.8,
                     repeat: Infinity,
                     ease: "easeInOut",
-                    delay: 0.8,
+                    delay: 0.7,
                   }}
                 >
                   <div className="relative mt-0.5 size-9 shrink-0 overflow-hidden rounded-lg bg-white/10 p-1">
@@ -378,7 +343,7 @@ export function HomeFundingHero({
           </motion.div>
         </div>
 
-        {/* Metrics — horizontal bar like reference */}
+        {/* Metrics bar */}
         <motion.div
           className="relative z-[2] mt-8 rounded-2xl border border-[#e2e6ef]/80 bg-white/95 p-4 shadow-[0_16px_40px_-24px_rgba(0,24,72,0.28)] backdrop-blur-sm sm:mt-10 sm:p-5"
           initial={reduceMotion ? false : { opacity: 0, y: 14 }}
