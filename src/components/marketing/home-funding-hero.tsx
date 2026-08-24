@@ -116,12 +116,14 @@ export function HomeFundingHero({
             </motion.p>
 
             <motion.h1
-              className="font-heading mt-5 text-[2.35rem] leading-[1.12] font-bold tracking-tight text-balance text-[#001848] sm:text-[2.75rem] lg:text-[3rem] lg:leading-[1.1] xl:text-[3.25rem]"
+              className="font-heading mt-5 text-[2.35rem] leading-[1.12] font-bold tracking-tight text-[#001848] sm:text-[2.75rem] lg:text-[3rem] lg:leading-[1.1] xl:text-[3.25rem]"
               initial={reduceMotion ? false : { opacity: 0, y: 14 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.55, delay: 0.05, ease: homeEase }}
             >
-              Turn Your Business Ambition Into{" "}
+              <span className="whitespace-nowrap">Turn Your Business</span>{" "}
+              Ambition Into
+              <br />
               <span className="text-[#c08418]">Funded</span>{" "}
               <span className="text-[#7c3aed]">Growth.</span>
             </motion.h1>
