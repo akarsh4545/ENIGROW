@@ -1,7 +1,8 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Link from "next/link";
-import { motion, useReducedMotion } from "framer-motion";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 
 import { buttonVariants } from "@/components/ui/button-variants";
@@ -10,6 +11,12 @@ import { homeContent } from "@/data/home";
 import { ROUTES } from "@/constants/routes";
 import { cn } from "@/lib/utils";
 
+const ROTATING_LINES = [
+  "Into Funded Growth.",
+  "Into Scheme Clarity.",
+  "Into Faster Approvals.",
+] as const;
+
 export function HomeFundingHero({
   onCheckEligibility,
 }: {
@@ -17,6 +24,7 @@ export function HomeFundingHero({
 }) {
   const reduceMotion = useReducedMotion();
   const { schemeSupport } = homeContent;
+  const [lineIndex, setLineIndex] = useState(0);
 
   const fundingRange =
     schemeSupport.metrics.find((m) => /funding/i.test(m.label))?.value ??
@@ -29,6 +37,14 @@ export function HomeFundingHero({
   const pmegp =
     schemeSupport.metrics.find((m) => /pmegp/i.test(m.label))?.value ??
     "15–35%";
+
+  useEffect(() => {
+    if (reduceMotion) return;
+    const id = window.setInterval(() => {
+      setLineIndex((i) => (i + 1) % ROTATING_LINES.length);
+    }, 3200);
+    return () => window.clearInterval(id);
+  }, [reduceMotion]);
 
   const primaryCtaClass = cn(
     buttonVariants({ size: "lg" }),
@@ -53,13 +69,25 @@ export function HomeFundingHero({
 
   return (
     <section className="relative isolate overflow-hidden bg-[#020817]">
-      <div
+      <motion.div
         aria-hidden
         className="pointer-events-none absolute inset-0"
         style={{
           background:
             "radial-gradient(ellipse 70% 55% at 15% 20%, rgba(0,24,72,0.95), transparent 60%), radial-gradient(ellipse 55% 50% at 85% 30%, rgba(192,132,24,0.16), transparent 55%)",
         }}
+        animate={
+          reduceMotion
+            ? undefined
+            : {
+                background: [
+                  "radial-gradient(ellipse 70% 55% at 15% 20%, rgba(0,24,72,0.95), transparent 60%), radial-gradient(ellipse 55% 50% at 85% 30%, rgba(192,132,24,0.14), transparent 55%)",
+                  "radial-gradient(ellipse 70% 55% at 18% 24%, rgba(0,24,72,0.95), transparent 60%), radial-gradient(ellipse 55% 50% at 82% 28%, rgba(192,132,24,0.22), transparent 55%)",
+                  "radial-gradient(ellipse 70% 55% at 15% 20%, rgba(0,24,72,0.95), transparent 60%), radial-gradient(ellipse 55% 50% at 85% 30%, rgba(192,132,24,0.14), transparent 55%)",
+                ],
+              }
+        }
+        transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
       />
       <div
         aria-hidden
@@ -72,44 +100,72 @@ export function HomeFundingHero({
             "radial-gradient(ellipse at 75% 35%, black 8%, transparent 68%)",
         }}
       />
+      {!reduceMotion ? (
+        <motion.div
+          aria-hidden
+          className="pointer-events-none absolute top-[18%] right-[12%] size-3 rounded-full bg-[#c08418]/70"
+          animate={{ y: [0, -14, 0], opacity: [0.45, 0.9, 0.45] }}
+          transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut" }}
+        />
+      ) : null}
 
       <div className="relative mx-auto grid w-full max-w-6xl items-center gap-10 px-4 py-14 sm:px-6 sm:py-20 lg:grid-cols-[1.05fr_0.95fr] lg:gap-14 lg:py-24">
         <div className="max-w-xl">
           <motion.p
-            className="text-sm font-semibold tracking-[0.2em] text-[#c08418] uppercase"
+            className="font-heading text-3xl font-bold tracking-tight text-white sm:text-4xl"
             initial={reduceMotion ? false : { opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.55, ease: homeEase }}
+          >
+            ENIGROW
+          </motion.p>
+          <motion.p
+            className="mt-2 text-sm font-semibold tracking-[0.2em] text-[#c08418] uppercase"
+            initial={reduceMotion ? false : { opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.04, ease: homeEase }}
           >
             Business funding &amp; growth
           </motion.p>
 
           <motion.h1
-            className="font-heading mt-4 text-[2.6rem] leading-[1.06] font-bold tracking-tight text-balance text-white sm:text-5xl md:text-[3.5rem] md:leading-[1.05]"
+            className="font-heading mt-4 text-[2.45rem] leading-[1.08] font-bold tracking-tight text-balance text-white sm:text-5xl md:text-[3.35rem] md:leading-[1.05]"
             initial={reduceMotion ? false : { opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.65, delay: 0.06, ease: homeEase }}
+            transition={{ duration: 0.65, delay: 0.08, ease: homeEase }}
           >
             Turn Your Business Ambition
-            <br className="hidden sm:block" /> Into Funded Growth.
+            <span className="mt-1 block min-h-[1.15em] text-[#c08418]">
+              <AnimatePresence mode="wait">
+                <motion.span
+                  key={ROTATING_LINES[lineIndex]}
+                  className="inline-block"
+                  initial={reduceMotion ? false : { opacity: 0, y: 12 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={reduceMotion ? undefined : { opacity: 0, y: -10 }}
+                  transition={{ duration: 0.4, ease: homeEase }}
+                >
+                  {ROTATING_LINES[lineIndex]}
+                </motion.span>
+              </AnimatePresence>
+            </span>
           </motion.h1>
 
           <motion.p
             className="mt-5 max-w-lg text-base leading-relaxed text-white/65 sm:text-lg"
             initial={reduceMotion ? false : { opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.55, delay: 0.12, ease: homeEase }}
+            transition={{ duration: 0.55, delay: 0.14, ease: homeEase }}
           >
-            ENIGROW helps Indian businesses navigate funding, government
-            schemes, registrations, and compliance with practical advisory
-            support.
+            Funding routes, government schemes, registrations, and compliance —
+            guided so you move from ambition to approval with less guesswork.
           </motion.p>
 
           <motion.div
             className="mt-8 flex flex-wrap items-center gap-3"
             initial={reduceMotion ? false : { opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.55, delay: 0.18, ease: homeEase }}
+            transition={{ duration: 0.55, delay: 0.2, ease: homeEase }}
           >
             {onCheckEligibility ? (
               <button
@@ -142,16 +198,21 @@ export function HomeFundingHero({
           </motion.div>
         </div>
 
-        {/* Metric stack — each figure is a separate labeled card */}
         <motion.div
           className="relative mx-auto w-full max-w-md lg:max-w-none"
           initial={reduceMotion ? false : { opacity: 0, y: 22 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.65, delay: 0.14, ease: homeEase }}
         >
-          <div
+          <motion.div
             aria-hidden
             className="pointer-events-none absolute -inset-4 opacity-30"
+            animate={
+              reduceMotion
+                ? undefined
+                : { opacity: [0.22, 0.38, 0.22], y: [0, -6, 0] }
+            }
+            transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
           >
             <svg viewBox="0 0 420 280" className="h-full w-full">
               <defs>
@@ -173,25 +234,37 @@ export function HomeFundingHero({
                 strokeOpacity="0.7"
               />
             </svg>
-          </div>
+          </motion.div>
 
           <div className="relative z-[1] space-y-4">
-            {/* Primary metric — funding range only */}
-            <div className="overflow-hidden rounded-[1.5rem] border border-white/15 bg-gradient-to-br from-[#001848] to-[#0a2a6e] p-6 shadow-[0_28px_60px_-28px_rgba(0,0,0,0.65)] transition duration-200 sm:p-7">
+            <motion.div
+              className="overflow-hidden rounded-[1.5rem] border border-white/15 bg-gradient-to-br from-[#001848] to-[#0a2a6e] p-6 shadow-[0_28px_60px_-28px_rgba(0,0,0,0.65)] sm:p-7"
+              animate={
+                reduceMotion
+                  ? undefined
+                  : {
+                      boxShadow: [
+                        "0 28px 60px -28px rgba(0,0,0,0.65)",
+                        "0 28px 70px -24px rgba(192,132,24,0.28)",
+                        "0 28px 60px -28px rgba(0,0,0,0.65)",
+                      ],
+                    }
+              }
+              transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+            >
               <p className="font-heading text-4xl font-bold tracking-tight text-white sm:text-[2.75rem]">
                 {fundingRange}
               </p>
               <p className="mt-2 text-[11px] font-semibold tracking-[0.18em] text-[#c08418] uppercase">
                 Funding Range
               </p>
-            </div>
+            </motion.div>
 
-            {/* Supporting metrics — clearly separate cards */}
             <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-3 sm:gap-3">
               {supportMetrics.map((metric, index) => (
                 <motion.div
                   key={metric.label}
-                  className="rounded-[1.15rem] border border-white/10 bg-white px-3.5 py-3 shadow-[0_14px_36px_-20px_rgba(0,0,0,0.4)] transition duration-200 sm:rounded-[1.2rem] sm:px-4 sm:py-3.5"
+                  className="rounded-[1.15rem] border border-white/10 bg-white px-3.5 py-3 shadow-[0_14px_36px_-20px_rgba(0,0,0,0.4)] sm:rounded-[1.2rem] sm:px-4 sm:py-3.5"
                   initial={reduceMotion ? false : { opacity: 0, y: 12 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{
@@ -199,6 +272,7 @@ export function HomeFundingHero({
                     delay: 0.28 + index * 0.07,
                     ease: homeEase,
                   }}
+                  whileHover={reduceMotion ? undefined : { y: -3 }}
                 >
                   <p className="font-heading text-lg font-bold tracking-tight text-[#001848] sm:text-xl">
                     {metric.value}
