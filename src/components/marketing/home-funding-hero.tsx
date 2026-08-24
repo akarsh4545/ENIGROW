@@ -204,54 +204,54 @@ export function HomeFundingHero({
                 />
               </div>
 
-              {/* Growth chart — left of subject (reference style) */}
+              {/* Growth chart — matches reference: 3D-ish bars + yellow arrow */}
               <div
                 aria-hidden
-                className="absolute top-[34%] left-[4%] z-[3] hidden size-[72px] items-center justify-center rounded-2xl bg-white p-2.5 shadow-[0_14px_32px_-12px_rgba(0,24,72,0.32)] ring-1 ring-black/[0.05] sm:flex lg:left-[6%] lg:size-[84px]"
+                className="absolute top-[32%] left-[3%] z-[3] hidden sm:block lg:left-[5%]"
               >
-                <svg viewBox="0 0 64 64" className="size-full" fill="none">
-                  {/* Bars */}
-                  <rect
-                    x="10"
-                    y="36"
-                    width="10"
-                    height="18"
-                    rx="2"
-                    fill="#60a5fa"
+                <div className="relative flex size-[78px] items-end justify-center gap-[5px] rounded-[18px] bg-white px-3 pt-3.5 pb-3 shadow-[0_16px_36px_-14px_rgba(0,24,72,0.35)] ring-1 ring-black/[0.06] lg:size-[90px] lg:gap-[6px] lg:rounded-[20px] lg:px-3.5 lg:pb-3.5">
+                  {/* 5 ascending rounded bars */}
+                  <span
+                    className="w-[8px] rounded-full bg-[#93c5fd] lg:w-[9px]"
+                    style={{ height: 14 }}
                   />
-                  <rect
-                    x="27"
-                    y="26"
-                    width="10"
-                    height="28"
-                    rx="2"
-                    fill="#3b82f6"
+                  <span
+                    className="w-[8px] rounded-full bg-[#60a5fa] lg:w-[9px]"
+                    style={{ height: 22 }}
                   />
-                  <rect
-                    x="44"
-                    y="14"
-                    width="10"
-                    height="40"
-                    rx="2"
-                    fill="#2563eb"
+                  <span
+                    className="w-[8px] rounded-full bg-[#3b82f6] lg:w-[9px]"
+                    style={{ height: 30 }}
                   />
-                  {/* Yellow growth arrow */}
-                  <path
-                    d="M12 40 C22 34 30 22 42 14"
-                    stroke="#f5b301"
-                    strokeWidth="3.5"
-                    strokeLinecap="round"
+                  <span
+                    className="w-[8px] rounded-full bg-[#2563eb] lg:w-[9px]"
+                    style={{ height: 38 }}
+                  />
+                  <span
+                    className="w-[8px] rounded-full bg-[#1d4ed8] lg:w-[9px]"
+                    style={{ height: 46 }}
+                  />
+                  {/* Yellow curved growth arrow */}
+                  <svg
+                    viewBox="0 0 72 48"
+                    className="pointer-events-none absolute inset-x-1 top-1 h-[42px] w-auto lg:h-[48px]"
                     fill="none"
-                  />
-                  <path
-                    d="M36 12 L46 10 L44 20"
-                    stroke="#f5b301"
-                    strokeWidth="3.5"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    fill="none"
-                  />
-                </svg>
+                  >
+                    <path
+                      d="M8 36 C20 32 28 20 40 12 C48 7 56 5 64 4"
+                      stroke="#f5b301"
+                      strokeWidth="4"
+                      strokeLinecap="round"
+                    />
+                    <path
+                      d="M56 2 L66 3 L62 12"
+                      stroke="#f5b301"
+                      strokeWidth="4"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                </div>
               </div>
 
               {/* Funding Approved — top right */}
