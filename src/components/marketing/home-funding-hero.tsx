@@ -90,24 +90,21 @@ export function HomeFundingHero({
         className="pointer-events-none absolute inset-0"
         style={{
           background:
-            "linear-gradient(165deg, #ffffff 0%, #f7f8fc 48%, #eef0fa 100%)",
+            "linear-gradient(165deg, #ffffff 0%, #f8f9fc 50%, #eef0fa 100%)",
         }}
       />
       <div
         aria-hidden
-        className="pointer-events-none absolute top-[-12%] right-[2%] size-[28rem] rounded-full bg-[#6366f1]/[0.08] blur-3xl"
+        className="pointer-events-none absolute top-[-10%] right-[0%] size-[26rem] rounded-full bg-[#6366f1]/[0.07] blur-3xl"
       />
 
-      <div className="relative mx-auto w-full max-w-6xl px-4 pt-10 pb-8 sm:px-6 sm:pt-12 sm:pb-10 lg:pt-12 lg:pb-11">
-        {/*
-          Reference balance: ~45% copy / 55% visual. Soft left fade on photo.
-          Cards are smaller and spaced so the photo does not feel congested.
-        */}
-        <div className="grid items-center gap-6 lg:grid-cols-12 lg:gap-4 xl:gap-6">
-          {/* Copy — sits on the left like the reference */}
-          <div className="relative z-[2] lg:col-span-5 lg:pr-2">
+      {/* Same max-w + gutters as the navbar — reference “spread” */}
+      <div className="relative mx-auto w-full max-w-6xl px-4 pt-12 pb-10 sm:px-6 sm:pt-14 sm:pb-12 lg:pt-16 lg:pb-14">
+        <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-8 xl:gap-10">
+          {/* Left ~50% — copy */}
+          <div className="relative z-[2] max-w-xl lg:max-w-none">
             <motion.p
-              className="inline-flex items-center gap-2 rounded-full border border-[#001848]/10 bg-[#eef0fa] px-3.5 py-1.5 text-xs font-semibold text-[#001848] shadow-[0_8px_24px_-18px_rgba(0,24,72,0.3)]"
+              className="inline-flex items-center gap-2 rounded-full border border-[#001848]/10 bg-[#eef0fa] px-3.5 py-1.5 text-xs font-semibold text-[#001848]"
               initial={reduceMotion ? false : { opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.45, ease: homeEase }}
@@ -120,8 +117,8 @@ export function HomeFundingHero({
             </motion.p>
 
             <motion.h1
-              className="font-heading mt-5 text-[2.25rem] leading-[1.1] font-bold tracking-tight text-balance text-[#001848] sm:text-4xl lg:text-[2.75rem] lg:leading-[1.08] xl:text-[3.1rem]"
-              initial={reduceMotion ? false : { opacity: 0, y: 16 }}
+              className="font-heading mt-5 text-[2.35rem] leading-[1.12] font-bold tracking-tight text-balance text-[#001848] sm:text-[2.75rem] lg:text-[3rem] lg:leading-[1.1] xl:text-[3.25rem]"
+              initial={reduceMotion ? false : { opacity: 0, y: 14 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.55, delay: 0.05, ease: homeEase }}
             >
@@ -131,7 +128,7 @@ export function HomeFundingHero({
             </motion.h1>
 
             <motion.p
-              className="mt-4 max-w-md text-[0.95rem] leading-relaxed text-[#5b6577] sm:text-base lg:text-lg"
+              className="mt-5 max-w-md text-base leading-relaxed text-[#5b6577] sm:text-lg"
               initial={reduceMotion ? false : { opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.1, ease: homeEase }}
@@ -141,7 +138,7 @@ export function HomeFundingHero({
             </motion.p>
 
             <motion.div
-              className="mt-7 flex flex-wrap items-center gap-3"
+              className="mt-8 flex flex-wrap items-center gap-3"
               initial={reduceMotion ? false : { opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.16, ease: homeEase }}
@@ -151,7 +148,7 @@ export function HomeFundingHero({
                 className={cn(
                   buttonVariants({ size: "lg" }),
                   homeCtaClass,
-                  "group/button h-11 rounded-full bg-[#001848] px-6 text-[0.95rem] text-white hover:bg-[#0a2a6e] sm:h-12 sm:px-7 sm:text-base",
+                  "group/button h-12 rounded-full bg-[#001848] px-7 text-base text-white hover:bg-[#0a2a6e]",
                 )}
               >
                 Explore Funding Options
@@ -164,7 +161,7 @@ export function HomeFundingHero({
                 className={cn(
                   buttonVariants({ size: "lg", variant: "outline" }),
                   homeCtaClass,
-                  "h-11 rounded-full border-[#001848]/25 bg-white px-5 text-[0.95rem] text-[#001848] hover:border-[#001848]/40 hover:bg-white sm:h-12 sm:px-6 sm:text-base",
+                  "h-12 rounded-full border-[#001848]/25 bg-white px-6 text-base text-[#001848] hover:border-[#001848]/40 hover:bg-white",
                 )}
               >
                 <Headset className="size-4 text-[#001848]" aria-hidden />
@@ -173,82 +170,84 @@ export function HomeFundingHero({
             </motion.div>
           </div>
 
-          {/* Visual — fills column; matched to photo ratio so it is not face-cropped */}
+          {/* Right ~50% — photo + floating cards (reference positions) */}
           <motion.div
-            className="relative z-[1] w-full self-stretch lg:col-span-7"
+            className="relative z-[1] w-full"
             initial={reduceMotion ? false : { opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.08, ease: homeEase }}
           >
-            <div className="relative aspect-[16/9] w-full overflow-visible sm:aspect-[16/10] lg:aspect-[16/9] lg:min-h-[360px] xl:min-h-[400px]">
+            <div className="relative mx-auto aspect-[4/3] w-full max-w-[540px] sm:aspect-[5/4] lg:ml-auto lg:aspect-[5/4] lg:max-w-none xl:aspect-[4/3]">
+              {/* Soft-bleed photo plane */}
               <div className="absolute inset-0 overflow-hidden">
                 <Image
                   src={HERO_PHOTO.src}
                   alt={HERO_PHOTO.alt}
                   fill
                   priority
-                  sizes="(max-width: 1024px) 100vw, 58vw"
-                  className="object-cover object-[38%_48%]"
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                  className="object-cover object-[62%_30%]"
+                />
+                {/* Left soft merge into page — reference style */}
+                <div
+                  aria-hidden
+                  className="pointer-events-none absolute inset-y-0 left-0 w-[28%] bg-gradient-to-r from-[#f8f9fc] via-[#f8f9fc]/70 to-transparent"
                 />
                 <div
                   aria-hidden
-                  className="pointer-events-none absolute inset-y-0 left-0 w-[16%] bg-gradient-to-r from-[#f7f8fc] via-[#f7f8fc]/40 to-transparent"
-                />
-                <div
-                  aria-hidden
-                  className="pointer-events-none absolute inset-x-0 bottom-0 h-12 bg-gradient-to-t from-[#eef0fa]/50 to-transparent"
+                  className="pointer-events-none absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-[#eef0fa]/65 to-transparent"
                 />
               </div>
 
-              {/* Mini chart — left of subject, away from other cards */}
+              {/* Mini chart — left of subject / near laptop */}
               <div
                 aria-hidden
-                className="absolute bottom-[28%] left-[12%] z-[3] hidden rounded-lg bg-white p-2 shadow-[0_10px_24px_-12px_rgba(0,24,72,0.28)] ring-1 ring-black/[0.04] sm:block"
+                className="absolute top-[42%] left-[6%] z-[3] hidden rounded-xl bg-white/95 p-2 shadow-[0_12px_28px_-14px_rgba(0,24,72,0.28)] ring-1 ring-black/[0.04] sm:block"
               >
-                <div className="flex items-end gap-0.5">
-                  {[10, 15, 12, 20, 17, 24].map((h, i) => (
+                <div className="flex items-end gap-1">
+                  {[11, 16, 13, 22, 18, 28].map((h, i) => (
                     <span
                       key={i}
-                      className="w-1 rounded-t-sm bg-[#3b82f6]"
+                      className="w-1.5 rounded-t-sm bg-[#3b82f6]"
                       style={{ height: h }}
                     />
                   ))}
-                  <TrendingUp className="mb-0.5 ml-0.5 size-3 text-[#c08418]" />
+                  <TrendingUp className="mb-0.5 ml-0.5 size-3.5 text-[#c08418]" />
                 </div>
               </div>
 
-              {/* Funding Approved — compact, top-right with breathing room */}
+              {/* Funding Approved — top right */}
               <motion.div
-                className="absolute top-[4%] right-[3%] z-[4] w-[140px] rounded-xl bg-white p-2.5 shadow-[0_14px_32px_-16px_rgba(0,24,72,0.3)] ring-1 ring-black/[0.05] sm:w-[158px] sm:p-3"
-                animate={reduceMotion ? undefined : { y: [0, -3, 0] }}
+                className="absolute top-[3%] right-[2%] z-[4] w-[148px] rounded-2xl bg-white p-3 shadow-[0_16px_40px_-18px_rgba(0,24,72,0.32)] ring-1 ring-black/[0.05] sm:w-[168px] sm:p-3.5"
+                animate={reduceMotion ? undefined : { y: [0, -4, 0] }}
                 transition={{
                   duration: 5.5,
                   repeat: Infinity,
                   ease: "easeInOut",
                 }}
               >
-                <p className="flex items-center gap-1 text-[9px] font-semibold tracking-[0.08em] text-[#16a34a] uppercase">
-                  <CheckCircle2 className="size-3 shrink-0" aria-hidden />
+                <p className="flex items-center gap-1.5 text-[10px] font-semibold tracking-[0.08em] text-[#16a34a] uppercase">
+                  <CheckCircle2 className="size-3.5 shrink-0" aria-hidden />
                   Funding Approved
                 </p>
-                <p className="font-heading mt-1 text-lg font-bold tracking-tight text-[#001848] sm:text-xl">
+                <p className="font-heading mt-1.5 text-xl font-bold tracking-tight text-[#001848]">
                   ₹25,00,000
                 </p>
-                <p className="mt-0.5 text-[10px] font-medium text-[#5b6577]">
+                <p className="mt-0.5 text-[11px] font-medium text-[#5b6577]">
                   Business Expansion Loan
                 </p>
                 <svg
-                  viewBox="0 0 120 24"
-                  className="mt-1.5 h-5 w-full"
+                  viewBox="0 0 140 28"
+                  className="mt-2 h-6 w-full"
                   aria-hidden
                 >
                   <path
-                    d="M2 20 C18 18 28 10 42 9 C58 7 70 16 86 8 C96 4 108 6 118 4 L118 24 L2 24 Z"
+                    d="M2 22 C20 20 32 12 48 10 C66 8 80 18 98 9 C110 4 124 6 138 4 L138 28 L2 28 Z"
                     fill="#6366f1"
                     opacity="0.12"
                   />
                   <path
-                    d="M2 20 C18 18 28 10 42 9 C58 7 70 16 86 8 C96 4 108 6 118 4"
+                    d="M2 22 C20 20 32 12 48 10 C66 8 80 18 98 9 C110 4 124 6 138 4"
                     fill="none"
                     stroke="#6366f1"
                     strokeWidth="2"
@@ -257,42 +256,42 @@ export function HomeFundingHero({
                 </svg>
               </motion.div>
 
-              {/* Verification — mid-right, smaller, spaced below funding card */}
+              {/* Verification Status — mid right */}
               <motion.div
-                className="absolute top-[42%] right-[2%] z-[4] hidden w-[150px] rounded-xl bg-white p-2.5 shadow-[0_12px_28px_-14px_rgba(0,24,72,0.26)] ring-1 ring-black/[0.05] sm:block sm:w-[162px] sm:p-3"
-                animate={reduceMotion ? undefined : { y: [0, 2.5, 0] }}
+                className="absolute top-[38%] right-[1%] z-[4] hidden w-[168px] rounded-2xl bg-white p-3 shadow-[0_14px_36px_-16px_rgba(0,24,72,0.28)] ring-1 ring-black/[0.05] sm:block sm:w-[178px] sm:p-3.5"
+                animate={reduceMotion ? undefined : { y: [0, 3, 0] }}
                 transition={{
                   duration: 6,
                   repeat: Infinity,
                   ease: "easeInOut",
-                  delay: 0.4,
+                  delay: 0.35,
                 }}
               >
-                <p className="text-xs font-bold text-[#001848]">
+                <p className="text-sm font-bold text-[#001848]">
                   Verification Status
                 </p>
-                <ul className="mt-1.5 space-y-1">
+                <ul className="mt-2 space-y-1.5">
                   {verificationItems.map((item) => (
                     <li
                       key={item.label}
-                      className="flex items-center justify-between gap-1.5 text-[9px] sm:text-[10px]"
+                      className="flex items-center justify-between gap-2 text-[10px] sm:text-[11px]"
                     >
-                      <span className="truncate font-medium text-[#0b1220]">
+                      <span className="font-medium text-[#0b1220]">
                         {item.label}
                       </span>
-                      <span className="inline-flex shrink-0 items-center gap-0.5 font-semibold text-[#16a34a]">
+                      <span className="inline-flex items-center gap-1 font-semibold text-[#16a34a]">
                         {item.status}
-                        <CheckCircle2 className="size-2.5" aria-hidden />
+                        <CheckCircle2 className="size-3" aria-hidden />
                       </span>
                     </li>
                   ))}
                 </ul>
               </motion.div>
 
-              {/* Growth Partner — bottom, compact pill */}
+              {/* Growth Partner — bottom overlap */}
               <motion.div
-                className="absolute bottom-[4%] left-[6%] z-[4] flex w-[min(88%,220px)] items-center gap-2 rounded-xl bg-gradient-to-r from-[#001848] to-[#1e3a6e] p-2.5 text-white shadow-[0_14px_32px_-16px_rgba(0,24,72,0.42)] sm:right-[4%] sm:left-auto sm:w-[230px] sm:p-3"
-                animate={reduceMotion ? undefined : { y: [0, -2, 0] }}
+                className="absolute right-[4%] bottom-[3%] z-[4] flex w-[min(90%,240px)] items-center gap-2.5 rounded-2xl bg-gradient-to-r from-[#001848] to-[#1e3a6e] p-3 text-white shadow-[0_16px_40px_-18px_rgba(0,24,72,0.45)]"
+                animate={reduceMotion ? undefined : { y: [0, -2.5, 0] }}
                 transition={{
                   duration: 5.8,
                   repeat: Infinity,
@@ -300,7 +299,7 @@ export function HomeFundingHero({
                   delay: 0.7,
                 }}
               >
-                <div className="relative size-8 shrink-0 overflow-hidden rounded-md bg-white/10 p-0.5">
+                <div className="relative size-8 shrink-0 overflow-hidden rounded-lg bg-white/10 p-0.5">
                   <Image
                     src="/brand/enigrow-logo.png"
                     alt=""
@@ -310,8 +309,8 @@ export function HomeFundingHero({
                   />
                 </div>
                 <div className="min-w-0 flex-1">
-                  <p className="text-[11px] font-bold">Your Growth Partner</p>
-                  <p className="mt-0.5 text-[9px] leading-snug text-white/70 sm:text-[10px]">
+                  <p className="text-xs font-bold">Your Growth Partner</p>
+                  <p className="mt-0.5 text-[10px] leading-snug text-white/70">
                     From Registration to Funding, We&apos;ve Got You Covered!
                   </p>
                 </div>
@@ -323,9 +322,9 @@ export function HomeFundingHero({
           </motion.div>
         </div>
 
-        {/* Metrics bar */}
+        {/* Metrics — same container width as nav + hero */}
         <motion.div
-          className="relative z-[2] mt-8 rounded-2xl border border-[#e2e6ef]/90 bg-white p-4 shadow-[0_16px_40px_-24px_rgba(0,24,72,0.28)] sm:mt-9 sm:p-5"
+          className="relative z-[2] mt-10 rounded-2xl border border-[#e2e6ef]/90 bg-white p-4 shadow-[0_16px_40px_-24px_rgba(0,24,72,0.28)] sm:mt-12 sm:p-5"
           initial={reduceMotion ? false : { opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.28, ease: homeEase }}
