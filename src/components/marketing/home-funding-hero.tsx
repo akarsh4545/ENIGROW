@@ -198,15 +198,15 @@ export function HomeFundingHero({
           </div>
 
           <motion.div
-            className="relative z-[1] w-full lg:col-span-7 xl:col-span-8"
+            className="relative z-[1] w-full lg:col-span-7 lg:-ml-6 xl:col-span-8 xl:-ml-10"
             initial={reduceMotion ? false : { opacity: 0, y: 16, scale: 0.985 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             transition={{ duration: 0.7, delay: 0.1, ease: homeEase }}
           >
-            <div className="relative mx-auto aspect-[4/3] w-full sm:aspect-[5/4] lg:aspect-auto lg:min-h-[500px] xl:min-h-[560px]">
+            <div className="relative mx-auto aspect-[4/3] w-full sm:aspect-[5/4] lg:aspect-auto lg:min-h-[520px] xl:min-h-[580px]">
               <motion.div
                 className="absolute inset-0 overflow-hidden"
-                animate={reduceMotion ? undefined : { scale: [1, 1.02, 1] }}
+                animate={reduceMotion ? undefined : { scale: [1, 1.025, 1] }}
                 transition={{
                   duration: 18,
                   repeat: Infinity,
@@ -218,22 +218,22 @@ export function HomeFundingHero({
                   alt={HERO_PHOTO.alt}
                   fill
                   priority
-                  sizes="(max-width: 1024px) 100vw, 68vw"
-                  className="object-cover object-[58%_32%]"
+                  sizes="(max-width: 1024px) 100vw, 70vw"
+                  className="scale-[1.12] object-cover object-[68%_28%]"
                 />
                 <div
                   aria-hidden
-                  className="pointer-events-none absolute inset-y-0 left-0 w-[22%] bg-gradient-to-r from-[#f8f9fc]/90 via-[#f8f9fc]/35 to-transparent"
+                  className="pointer-events-none absolute inset-y-0 left-0 w-[16%] bg-gradient-to-r from-[#f8f9fc]/85 via-[#f8f9fc]/25 to-transparent"
                   style={{
                     maskImage:
-                      "linear-gradient(to bottom, black 0%, black 45%, transparent 78%)",
+                      "linear-gradient(to bottom, black 0%, black 42%, transparent 75%)",
                     WebkitMaskImage:
-                      "linear-gradient(to bottom, black 0%, black 45%, transparent 78%)",
+                      "linear-gradient(to bottom, black 0%, black 42%, transparent 75%)",
                   }}
                 />
                 <div
                   aria-hidden
-                  className="pointer-events-none absolute inset-x-0 bottom-0 h-14 bg-gradient-to-t from-[#eef0fa]/45 to-transparent"
+                  className="pointer-events-none absolute inset-x-0 bottom-0 h-12 bg-gradient-to-t from-[#eef0fa]/40 to-transparent"
                 />
               </motion.div>
 
