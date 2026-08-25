@@ -229,6 +229,16 @@ export function HomeServices() {
 
   return (
     <section className="relative overflow-hidden border-b border-[#e2e6ef] bg-[#f7f8fb]">
+      <motion.div
+        aria-hidden
+        className="pointer-events-none absolute -top-24 right-0 size-72 rounded-full bg-[#6366f1]/[0.07] blur-3xl"
+        animate={
+          reduceMotion
+            ? undefined
+            : { y: [0, 20, 0], opacity: [0.5, 0.85, 0.5] }
+        }
+        transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+      />
       <div className="relative mx-auto w-full max-w-6xl px-4 py-20 sm:px-6 sm:py-24">
         <motion.div
           initial={reduceMotion ? false : "hidden"}

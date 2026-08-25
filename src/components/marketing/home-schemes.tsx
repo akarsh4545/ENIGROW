@@ -40,6 +40,16 @@ export function HomeSchemes() {
 
   return (
     <section className="relative overflow-hidden border-b border-[#e2e6ef] bg-[#eef1f7]/80">
+      <motion.div
+        aria-hidden
+        className="pointer-events-none absolute bottom-[-20%] left-[-5%] size-80 rounded-full bg-[#c08418]/[0.08] blur-3xl"
+        animate={
+          reduceMotion
+            ? undefined
+            : { x: [0, 16, 0], opacity: [0.45, 0.8, 0.45] }
+        }
+        transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
+      />
       <div className="relative mx-auto w-full max-w-6xl px-4 py-20 sm:px-6 sm:py-24">
         <motion.div
           initial={reduceMotion ? false : "hidden"}
