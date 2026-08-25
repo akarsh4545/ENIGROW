@@ -49,7 +49,7 @@ export function HomeSchemeSupport() {
         className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top,_rgba(99,102,241,0.06),_transparent_55%)]"
       />
 
-      <div className="relative mx-auto w-full max-w-6xl px-4 py-14 sm:px-6 sm:py-16">
+      <div className="relative mx-auto w-full max-w-6xl px-4 py-8 sm:px-6 sm:py-10">
         <motion.dl
           className="grid gap-0 sm:grid-cols-2 lg:grid-cols-4"
           initial={reduceMotion ? false : "hidden"}

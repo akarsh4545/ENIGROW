@@ -219,11 +219,11 @@ export function HomeFundingHero({
                   fill
                   priority
                   sizes="(max-width: 1024px) 100vw, 68vw"
-                  className="object-cover object-[58%_32%]"
+                  className="scale-[1.1] object-cover object-[64%_30%]"
                 />
                 <div
                   aria-hidden
-                  className="pointer-events-none absolute inset-y-0 left-0 w-[22%] bg-gradient-to-r from-[#f8f9fc]/90 via-[#f8f9fc]/35 to-transparent"
+                  className="pointer-events-none absolute inset-y-0 left-0 w-[18%] bg-gradient-to-r from-[#f8f9fc]/85 via-[#f8f9fc]/30 to-transparent"
                   style={{
                     maskImage:
                       "linear-gradient(to bottom, black 0%, black 45%, transparent 78%)",

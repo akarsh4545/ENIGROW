@@ -239,7 +239,7 @@ export function HomeServices() {
         }
         transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
       />
-      <div className="relative mx-auto w-full max-w-6xl px-4 py-20 sm:px-6 sm:py-24">
+      <div className="relative mx-auto w-full max-w-6xl px-4 pt-12 pb-20 sm:px-6 sm:pt-14 sm:pb-24">
         <motion.div
           initial={reduceMotion ? false : "hidden"}
           whileInView={reduceMotion ? undefined : "show"}
