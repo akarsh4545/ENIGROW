@@ -1,5 +1,6 @@
 export { HomeHero } from "./home-hero";
 export { HomeFundingHero } from "./home-funding-hero";
+export { HomeHelpWith } from "./home-help-with";
 export { HomeServices } from "./home-services";
 export { HomeSchemeSupport } from "./home-scheme-support";
 export { HomeSchemes } from "./home-schemes";

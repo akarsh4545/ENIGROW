@@ -9,6 +9,7 @@ import {
   wasFundingFinderDismissed,
 } from "@/components/marketing/funding-finder-popup";
 import { HomeFundingHero } from "@/components/marketing/home-funding-hero";
+import { HomeHelpWith } from "@/components/marketing/home-help-with";
 import { HomeImpact } from "@/components/marketing/home-impact";
 import { HomeProcess } from "@/components/marketing/home-process";
 import { HomeSchemeSupport } from "@/components/marketing/home-scheme-support";
@@ -33,6 +34,7 @@ export function HomePageClient() {
   return (
     <>
       <HomeFundingHero onCheckEligibility={openFinder} />
+      <HomeHelpWith />
       <HomeSchemeSupport />
       <HomeServices />
       <HomeSchemes />
