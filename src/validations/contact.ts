@@ -1,5 +1,7 @@
 import { z } from "zod";
 
+import { LEAD_SOURCES } from "@/constants/leads";
+
 export const contactFormSchema = z.object({
   name: z.string().trim().min(2, "Please enter your name.").max(100),
   email: z.string().trim().email("Enter a valid email address."),
@@ -11,6 +13,7 @@ export const contactFormSchema = z.object({
     .min(10, "Please share a bit more detail.")
     .max(2000),
   serviceInterest: z.string().trim().max(120).optional().or(z.literal("")),
+  source: z.enum(LEAD_SOURCES).optional(),
 });
 
 export type ContactFormValues = z.infer<typeof contactFormSchema>;

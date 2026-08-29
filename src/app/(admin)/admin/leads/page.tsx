@@ -33,6 +33,7 @@ export default async function AdminLeadsPage() {
       subject: lead.subject ?? null,
       message: lead.message,
       serviceInterest: lead.serviceInterest ?? null,
+      source: lead.source ?? null,
       status: lead.status as LeadStatus,
       createdAt: new Date(lead.createdAt).toISOString(),
     }));
@@ -44,8 +45,8 @@ export default async function AdminLeadsPage() {
             CRM / Leads
           </h1>
           <p className="text-muted-foreground mt-2">
-            Callback and contact form enquiries with status tracking for your
-            team.
+            Contact forms, guided consultations, and funding assessments — with
+            status tracking for your team.
           </p>
         </div>
         <LeadsTable leads={rows} />

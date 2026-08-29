@@ -6,7 +6,11 @@ import { toast } from "sonner";
 
 import { Badge } from "@/components/ui/badge";
 import { apiFetch } from "@/lib/api";
-import { LEAD_STATUSES, type LeadStatus } from "@/constants/leads";
+import {
+  LEAD_STATUSES,
+  type LeadSource,
+  type LeadStatus,
+} from "@/constants/leads";
 
 type LeadRow = {
   _id: string;
@@ -16,8 +20,19 @@ type LeadRow = {
   subject?: string | null;
   message: string;
   serviceInterest?: string | null;
+  source?: LeadSource | null;
   status: LeadStatus;
   createdAt: string;
+};
+
+const SOURCE_LABELS: Record<LeadSource, string> = {
+  contact: "Contact form",
+  callback: "Guided consultation",
+  funding_assessment: "Funding assessment",
+  service: "Service page",
+  scheme: "Scheme page",
+  calculator: "Calculator",
+  other: "Other",
 };
 
 export function LeadsTable({ leads }: { leads: LeadRow[] }) {
@@ -45,7 +60,8 @@ export function LeadsTable({ leads }: { leads: LeadRow[] }) {
   if (leads.length === 0) {
     return (
       <div className="border-border/80 bg-card text-muted-foreground rounded-2xl border border-dashed p-8 text-sm">
-        No leads yet. Submissions from the contact form will appear here.
+        No leads yet. Contact forms, guided consultations, and funding
+        assessments will appear here.
       </div>
     );
   }
@@ -57,6 +73,7 @@ export function LeadsTable({ leads }: { leads: LeadRow[] }) {
           <thead className="border-border/70 bg-muted/40 text-muted-foreground border-b text-xs tracking-wide uppercase">
             <tr>
               <th className="px-4 py-3 font-medium">Lead</th>
+              <th className="px-4 py-3 font-medium">Source</th>
               <th className="px-4 py-3 font-medium">Interest</th>
               <th className="px-4 py-3 font-medium">Message</th>
               <th className="px-4 py-3 font-medium">Status</th>
@@ -77,6 +94,11 @@ export function LeadsTable({ leads }: { leads: LeadRow[] }) {
                       {lead.phone}
                     </p>
                   ) : null}
+                </td>
+                <td className="px-4 py-4">
+                  <Badge variant="outline">
+                    {SOURCE_LABELS[lead.source ?? "contact"]}
+                  </Badge>
                 </td>
                 <td className="px-4 py-4">
                   <p>{lead.subject || "—"}</p>

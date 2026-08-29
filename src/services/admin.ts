@@ -3,9 +3,16 @@ import { Lead, type LeadStatus } from "@/models/lead";
 import { Application } from "@/models/application";
 import { Appointment } from "@/models/appointment";
 import { User } from "@/models/user";
+import { syncFundingAssessmentsIntoLeads } from "@/services/funding-assessment";
 
 export async function listLeads(limit = 100) {
   await connectToDatabase();
+  // Ensure older funding assessments also appear under CRM / Leads.
+  try {
+    await syncFundingAssessmentsIntoLeads();
+  } catch (error) {
+    console.error("Funding assessment → lead sync failed:", error);
+  }
   return Lead.find().sort({ createdAt: -1 }).limit(limit).lean().exec();
 }
 

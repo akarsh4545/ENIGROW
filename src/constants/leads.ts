@@ -1,5 +1,7 @@
 export const LEAD_SOURCES = [
   "contact",
+  "callback",
+  "funding_assessment",
   "service",
   "scheme",
   "calculator",

@@ -13,7 +13,7 @@ export async function createContactLead(input: ContactFormValues) {
     subject: input.subject || undefined,
     message: input.message,
     serviceInterest: input.serviceInterest || undefined,
-    source: "contact",
+    source: input.source || "contact",
     status: "new",
   });
 
@@ -32,6 +32,7 @@ export async function createContactLead(input: ContactFormValues) {
             <p><strong>Phone:</strong> ${input.phone || "—"}</p>
             <p><strong>Subject:</strong> ${input.subject || "—"}</p>
             <p><strong>Service interest:</strong> ${input.serviceInterest || "—"}</p>
+            <p><strong>Source:</strong> ${input.source || "contact"}</p>
             <p><strong>Message:</strong></p>
             <p>${input.message.replace(/\n/g, "<br />")}</p>
           </div>
