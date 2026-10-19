@@ -13,7 +13,7 @@ export const privacyContent: LegalPage = {
     {
       heading: "Who we are",
       paragraphs: [
-        "This policy applies to Enigrow Startup Advisory Pvt Ltd (“Enigrow”, “we”, “us”), CIN: U82990UW2026PTC255445, registered office at B-128, 1st Floor, Sector-2, Noida, Gautam Buddha Nagar, U.P. - 201301, and the websites, forms, and tools we operate.",
+        "This policy applies to Enigrow Startup Advisory Pvt Ltd (“Enigrow”, “we”, “us”), CIN: U82990UW2026PTC255445, registered office at A-143, A Block, Sector 63, Noida, Uttar Pradesh 201309, and the websites, forms, and tools we operate.",
         "It explains what we collect, why we use it, and the choices available to you.",
       ],
     },
@@ -78,7 +78,7 @@ export const termsContent: LegalPage = {
     {
       heading: "About these terms",
       paragraphs: [
-        "These terms apply when you use the Enigrow website or engage Enigrow Startup Advisory Pvt Ltd (CIN: U82990UW2026PTC255445; Reg. Office: B-128, 1st Floor, Sector-2, Noida, Gautam Buddha Nagar, U.P. - 201301) for advisory and facilitation services.",
+        "These terms apply when you use the Enigrow website or engage Enigrow Startup Advisory Pvt Ltd (CIN: U82990UW2026PTC255445; Reg. Office: A-143, A Block, Sector 63, Noida, Uttar Pradesh 201309) for advisory and facilitation services.",
         "By using the site or starting an engagement, you agree to these terms and any engagement-specific proposal or agreement issued by Enigrow.",
       ],
     },

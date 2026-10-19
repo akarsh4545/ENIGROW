@@ -29,10 +29,10 @@ export function organizationJsonLd() {
     taxID: siteConfig.cin,
     address: {
       "@type": "PostalAddress",
-      streetAddress: "B-128, 1st Floor, Sector-2",
+      streetAddress: "A-143, A Block, Sector 63",
       addressLocality: "Noida",
       addressRegion: "Uttar Pradesh",
-      postalCode: "201301",
+      postalCode: "201309",
       addressCountry: "IN",
     },
     areaServed: {
@@ -80,15 +80,15 @@ export function localBusinessJsonLd() {
     telephone: siteConfig.supportPhone,
     address: {
       "@type": "PostalAddress",
-      streetAddress: "B-128, 1st Floor, Sector-2",
+      streetAddress: "A-143, A Block, Sector 63",
       addressLocality: "Noida",
       addressRegion: "Uttar Pradesh",
-      postalCode: "201301",
+      postalCode: "201309",
       addressCountry: "IN",
     },
     geo: {
       "@type": "GeoCoordinates",
-      // Approximate Noida Sector-2 — omit if not verified coordinates
+      // Approximate Noida Sector 63 — omit if not verified coordinates
     },
     openingHoursSpecification: [
       {

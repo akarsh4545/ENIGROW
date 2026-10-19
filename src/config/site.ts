@@ -4,8 +4,7 @@ export const siteConfig = {
   /** Verified registered legal entity — do not invent alternatives. */
   legalName: "Enigrow Startup Advisory Pvt Ltd",
   cin: "U82990UW2026PTC255445",
-  registeredOffice:
-    "B-128, 1st Floor, Sector-2, Noida, Gautam Buddha Nagar, U.P. - 201301",
+  registeredOffice: "A-143, A Block, Sector 63, Noida, Uttar Pradesh 201309",
   description:
     "ENIGROW helps Indian businesses with business funding, government schemes, registrations, compliance, and funding readiness — with practical advisory support.",
   url:
