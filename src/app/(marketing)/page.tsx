@@ -9,7 +9,7 @@ export const metadata: Metadata = buildPageMetadata({
   title: "ENIGROW | Business Funding, Government Schemes & Business Advisory",
   absoluteTitle: true,
   description:
-    "ENIGROW helps Indian businesses with business funding, government schemes, registrations, compliance, and funding readiness. Explore suitable pathways and get expert advisory support.",
+    "ENIGROW helps Indian businesses with business funding, government schemes, registrations, compliance, and funding readiness. Registered office: A-143, A Block, Sector 63, Noida, Uttar Pradesh 201309.",
   path: "/",
   ogTitle: "ENIGROW | Business Funding, Government Schemes & Business Advisory",
 });

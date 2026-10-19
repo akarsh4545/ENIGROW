@@ -7,7 +7,7 @@ import { buildPageMetadata } from "@/lib/seo";
 export const metadata: Metadata = buildPageMetadata({
   title: `Contact ${siteConfig.name} | Talk to a Business Advisor`,
   absoluteTitle: true,
-  description: `Contact ${siteConfig.name} (${siteConfig.legalName}) for business funding, government schemes, registrations, and compliance support. Registered office in Noida.`,
+  description: `Contact ${siteConfig.name} (${siteConfig.legalName}) for business funding, government schemes, registrations, and compliance support. Registered office: ${siteConfig.registeredOffice}. Phone ${siteConfig.supportPhone}.`,
   path: "/contact",
 });
 

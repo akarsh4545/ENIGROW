@@ -6,7 +6,7 @@ export const siteConfig = {
   cin: "U82990UW2026PTC255445",
   registeredOffice: "A-143, A Block, Sector 63, Noida, Uttar Pradesh 201309",
   description:
-    "ENIGROW helps Indian businesses with business funding, government schemes, registrations, compliance, and funding readiness — with practical advisory support.",
+    "ENIGROW helps Indian businesses with business funding, government schemes, registrations, compliance, and funding readiness. Registered office: A-143, A Block, Sector 63, Noida, Uttar Pradesh 201309.",
   url:
     process.env.NEXT_PUBLIC_APP_URL ??
     (process.env.NODE_ENV === "production"
