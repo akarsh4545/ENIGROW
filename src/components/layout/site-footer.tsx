@@ -23,7 +23,7 @@ export function SiteFooter() {
     ? formatPhoneDisplay(siteConfig.supportPhone)
     : null;
 
-  // Hide placeholder email (support@example.com) until NEXT_PUBLIC_SUPPORT_EMAIL is set.
+  // Hide placeholder/example emails until NEXT_PUBLIC_SUPPORT_EMAIL is a real address.
   const supportEmail =
     siteConfig.supportEmail && !/example\.com$/i.test(siteConfig.supportEmail)
       ? siteConfig.supportEmail

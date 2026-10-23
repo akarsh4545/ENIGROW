@@ -209,7 +209,7 @@ def build_docx() -> Path:
     C(doc, "BY AND BETWEEN")
     B(
         doc,
-        '<b>ENIGROW STARTUP ADVISORY PRIVATE LIMITED</b>, a company incorporated under the Companies Act, 2013, having its registered office at A-143, A Block, Sector 63, Noida, Uttar Pradesh 201309, CIN: U82990UW2026PTC255445, Email: support@enigrow.co.in, Website: www.enigrow.co.in (hereinafter the "<b>Service Provider</b>" or "<b>Enigrow</b>");',
+        '<b>ENIGROW STARTUP ADVISORY PRIVATE LIMITED</b>, a company incorporated under the Companies Act, 2013, having its registered office at A-143, A Block, Sector 63, Noida, Uttar Pradesh 201309, CIN: U82990UW2026PTC255445, Email: info@enigrow.co.in, Website: www.enigrow.co.in (hereinafter the "<b>Service Provider</b>" or "<b>Enigrow</b>");',
     )
     C(doc, "AND")
     B(
@@ -627,7 +627,7 @@ def build_story():
     story.append(
         P(
             s,
-            '<b>ENIGROW STARTUP ADVISORY PRIVATE LIMITED</b>, a company incorporated under the Companies Act, 2013, having its registered office at A-143, A Block, Sector 63, Noida, Uttar Pradesh 201309, CIN: U82990UW2026PTC255445, Email: support@enigrow.co.in, Website: www.enigrow.co.in (hereinafter the "<b>Service Provider</b>" or "<b>Enigrow</b>");',
+            '<b>ENIGROW STARTUP ADVISORY PRIVATE LIMITED</b>, a company incorporated under the Companies Act, 2013, having its registered office at A-143, A Block, Sector 63, Noida, Uttar Pradesh 201309, CIN: U82990UW2026PTC255445, Email: info@enigrow.co.in, Website: www.enigrow.co.in (hereinafter the "<b>Service Provider</b>" or "<b>Enigrow</b>");',
         )
     )
     story.append(P(s, "AND", "center"))

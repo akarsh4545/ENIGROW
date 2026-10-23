@@ -12,7 +12,7 @@ export const siteConfig = {
     (process.env.NODE_ENV === "production"
       ? "https://www.enigrow.co.in"
       : "http://localhost:3000"),
-  supportEmail: process.env.NEXT_PUBLIC_SUPPORT_EMAIL ?? "support@example.com",
+  supportEmail: process.env.NEXT_PUBLIC_SUPPORT_EMAIL ?? "info@enigrow.co.in",
   supportPhone: process.env.NEXT_PUBLIC_SUPPORT_PHONE ?? "+918796894519",
   whatsappNumber: process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? "918796894519",
   locale: "en-IN",
